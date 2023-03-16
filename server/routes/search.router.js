@@ -23,7 +23,19 @@ require("dotenv").config();
 
 // * POST searched plant's api_id, user_id to db
 router.post('/', (req, res) => {
-
-});
+    const queryText = `INSERT INTO "plants" ("api_id", "user_id")
+    VALUES ($1, '1')`;
+    console.log("sending post: req.body is:", req.body);
+    const queryParams = [req.body.payload];
+    pool
+      .query(queryText, queryParams)
+      .then(() => {
+        res.sendStatus(201);
+      })
+      .catch((error) => {
+        console.log("Could not execute SQL query", queryText, " : ", error);
+        res.sendStatus(500);
+      });
+  });
 
 module.exports = router;
