@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import Search from '../Search/Search';
 
 import './App.css';
 
@@ -109,7 +110,13 @@ function App() {
               <LandingPage />
             }
           </Route>
-
+          <ProtectedRoute
+            // logged in shows Add Plant else shows LoginPage
+            exact
+            path="/add-plant"
+          >
+            <Search />
+          </ProtectedRoute>
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>

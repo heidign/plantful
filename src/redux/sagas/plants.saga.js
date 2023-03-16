@@ -5,8 +5,8 @@ import axios from 'axios';
 // Get all saga: fires on `FETCH_PLANTS`
 function* fetchPlants() {
     try {
-        // ask for plant data
-        const plantsResponse = yield axios.get('/api/plants')
+        // ask for plant data from db
+        let plantsResponse = yield axios.get(`/api/plants`)
         // once received, send to plantsReducer
         yield put({ type: 'SET_PLANTS', payload: plantsResponse.data })
     } catch (err) {
@@ -14,8 +14,23 @@ function* fetchPlants() {
     }
 }
 
+
+
+// POST SAGA
+function* postPlant(action) {
+    try {
+      yield axios.post(`api/plants`, { payload: action.payload });
+      yield put({
+        type: "FETCH_PLANTS",
+      });
+    } catch (error) {
+      console.log("Error in POST Saga:", error);
+    }
+  }
+
 function* plantsSaga() {
     yield takeEvery('FETCH_PLANTS', fetchPlants);
+    // yield takeEvery('ADD_PLANT', postPlant);
 }
 
 export default plantsSaga;
