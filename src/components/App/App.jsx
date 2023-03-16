@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Search from '../Search/Search';
 import SearchList from '../SearchList/SearchList';
 import SearchDetails from '../SearchDetails/SearchDetails';
+import PlantForm from '../PlantForm/PlantForm';
 import './App.css';
 
 function App() {
@@ -129,6 +130,12 @@ function App() {
             path="/search-details"
           >
             <SearchDetails />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path="/plant-form"
+          >
+            <PlantForm />
           </ProtectedRoute>
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

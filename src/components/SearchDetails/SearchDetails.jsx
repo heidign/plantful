@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import SearchList from "../SearchList/SearchList";
 
-  // * displays more details 
+// * displays more details 
 function SearchDetails({item}) {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -14,12 +14,11 @@ function SearchDetails({item}) {
     useEffect(() => {
         dispatch({
           type: "GET_NEW_SEARCH",
-          // payload: {q: }
         });
     }, []);
     
     const goBack = () => {
-        history.goBack("/search-list");
+        history.push("/search-list");
       };
 
     return (
@@ -30,7 +29,7 @@ function SearchDetails({item}) {
           <li><strong>Watering:</strong> {item.watering}</li>
           <li><strong>Sunlight:</strong> {item.sunlight}</li>
         </ul>
-        <button onClick={goBack}>View all</button>
+        <button onClick={goBack}>View search results</button>
         <button>Add Plant</button>
       </div>
     );
