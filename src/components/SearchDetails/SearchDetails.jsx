@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import SearchList from "../SearchList/SearchList";
 
 // * displays more details 
-function SearchDetails({item}) {
-    const history = useHistory();
-    const dispatch = useDispatch();
-    const searchDetails = useSelector((store) => store.search.searchReducer);
-  console.log('search details', searchDetails);
-  console.log('ITEM', item);
+function SearchDetails({ item }) {
 
-    useEffect(() => {
-        dispatch({
-          type: "GET_NEW_SEARCH",
-        });
-    }, []);
-    
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const searchDetails = useSelector((store) => store.search.searchReducer);
+  
+  const addToCollection = () => {
+    dispatch({
+      type: 'ADD_PLANT',
+      payload: { api_id: item.id }
+    });
+    history.push("/plant-form");
+  };
+
     const goBack = () => {
         history.push("/search-list");
       };
@@ -29,8 +29,8 @@ function SearchDetails({item}) {
           <li><strong>Watering:</strong> {item.watering}</li>
           <li><strong>Sunlight:</strong> {item.sunlight}</li>
         </ul>
-        <button onClick={goBack}>View search results</button>
-        <button>Add Plant</button>
+        <button onClick={goBack}>Back</button>
+        <button onClick={addToCollection}>Add Plant</button>
       </div>
     );
 };

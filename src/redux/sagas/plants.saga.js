@@ -14,12 +14,10 @@ function* fetchPlants() {
     }
 }
 
-
-
 // POST SAGA
 function* postPlant(action) {
     try {
-      yield axios.post(`api/plants`, { payload: action.payload });
+      yield axios.post(`api/plants`, currentPlant);
       yield put({
         type: "FETCH_PLANTS",
       });
@@ -30,7 +28,7 @@ function* postPlant(action) {
 
 function* plantsSaga() {
     yield takeEvery('FETCH_PLANTS', fetchPlants);
-    // yield takeEvery('ADD_PLANT', postPlant);
+    yield takeEvery('SUBMIT_PLANT', postPlant);
 }
 
 export default plantsSaga;
