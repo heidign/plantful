@@ -10,7 +10,7 @@ function* fetchPlants() {
         // once received, send to plantsReducer
         yield put({ type: 'SET_PLANTS', payload: plantsResponse.data })
     } catch (err) {
-        console.error('Error in fetchPlants saga', err);
+        console.error('Error in fetchPlants plant saga', err);
     }
 }
 
@@ -27,8 +27,8 @@ function* postPlant(action) {
   }
 
 function* plantsSaga() {
-    yield takeEvery('FETCH_PLANTS', fetchPlants);
-    yield takeEvery('SUBMIT_PLANT', postPlant);
+  yield takeEvery('FETCH_PLANTS', fetchPlants);
+  yield takeEvery('FETCH_PLANTS', postPlant);
 }
 
 export default plantsSaga;

@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Button, Stack, Paper, Box } from "@mui/material";
 
 // * displays more details 
 function SearchDetails({ item }) {
@@ -11,8 +12,8 @@ function SearchDetails({ item }) {
   
   const addToCollection = () => {
     dispatch({
-      type: 'ADD_PLANT',
-      payload: { api_id: item.id }
+      type: 'SET_SEARCH_PLANT',
+      payload: { api_id: item.id, image_url: item?.default_image?.regular_url }
     });
     history.push("/plant-form");
   };
@@ -23,15 +24,16 @@ function SearchDetails({ item }) {
 
     return (
 
-      <div>
+      <Box>
         <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
-        <li><strong>Other names:</strong> {item.common_name}</li>
-          <li><strong>Watering:</strong> {item.watering}</li>
-          <li><strong>Sunlight:</strong> {item.sunlight}</li>
+        <li><strong>Common name:</strong> {item?.common_name}</li>
+          <li><strong>Other names:</strong> {item?.other_name}</li>
+          <li><strong>Watering:</strong> {item?.watering}</li>
+          <li><strong>Sunlight:</strong> {item?.sunlight}</li>
         </ul>
-        <button onClick={goBack}>Back</button>
-        <button onClick={addToCollection}>Add Plant</button>
-      </div>
+        <Button onClick={goBack} variant="outlined" size="small">Back</Button>
+        <Button onClick={addToCollection} variant="contained" size="small">Add Plant</Button>
+      </Box>
     );
 };
 

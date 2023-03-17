@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-
 import { Button, Typography, Box, TextField, InputLabel, Input } from "@mui/material";
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+
 function PlantForm() {
 
     const dispatch = useDispatch();
@@ -20,10 +22,10 @@ function PlantForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({
-      type: "SUBMIT_PLANT",
+      type: "ADD_PLANT",
       payload: input,
     });
-    // history.push("/");
+    history.push("/");
     clearInput();
   };
     const clearInput = () => {
@@ -38,14 +40,23 @@ function PlantForm() {
     };
 
     const cancelSubmit = () => {
-        history.push("/");
+        history.push("/add-plant");
     };
+    const handleChange = (e, key) => {
+        setInput({ ...input, [key]: e.target.value });
+      };
     
     return (
-    <>
+        <>
+    <Paper align="center"
+      component="form"
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+    >
             <form onSubmit={handleSubmit}>
                 <Typography type="h3">Add plant details</Typography>
-                <div><Input type="text" placeholder="Nickname" /></div>
+                <div><TextField variant="outlined" size="small"  label="Nickname" type="text" 
+                    onChange={(e) => handleChange(e, "nickname")}
+                    value={input.nickname} /></div>
                 <div>
                  <Box
                 hiddenLabel
@@ -57,21 +68,29 @@ function PlantForm() {
                 <InputLabel shrink>Any specific notes about your plant?</InputLabel>
                 <TextField placeholder=""
                 onChange={(e) => handleChange(e, "notes")}
-                value={input.notes}
-                rows="5"
-                cols="55"/>
+                        value={input.notes}
+                        label="Notes"
+                        id="outlined-size-small"
+                        defaultValue="Small"
+                        size="small"
+                        rows="5"
+                    cols="55"/>
                 </div>
                 <div><InputLabel htmlFor="dateWatered">Enter the date this plant was last watered</InputLabel>
-                    <Input name="dateWatered" type="date" placeholder="Date last watered" /></div>
-                <div><InputLabel htmlFor="dateFertilized">When was this plant last fertilized</InputLabel>
-                    <Input name="dateFertilized" type="date" placeholder="Date last fertilized" /></div>
-                
+                    <Input onChange={(e) => handleChange(e, "dateWatered")} value={input.dateWatered}
+                        variant="filled" size="small"  label="date" name="dateWatered" type="date" placeholder="Date last watered" /></div>
+                <div><InputLabel htmlFor="dateFertilized">When was this plant last fertilized?</InputLabel>
+                    <Input onChange={(e) => handleChange(e, "dateFertilized")} value={input.dateFertilized}
+                        name="dateFertilized" type="date" placeholder="Date last fertilized" /></div>
                 <div><InputLabel htmlFor="dateRepotted">When was this plant last repotted?</InputLabel>
-                    <Input name="dateRepotted" type="date" placeholder="Date of last re-pot" /></div>
-                <div><Input type="text" placeholder="Image URL" onChange={(e) => handleChange(e, "image_url")} value={input.image_url} /></div> 
+                    <Input onChange={(e) => handleChange(e, "dateRepotted")} value={input.dateRepotted}
+                        name="dateRepotted" type="date" placeholder="Date of last re-pot" /></div>
+                <div><Input onChange={(e) => handleChange(e, "image_url")} value={input.image_url}
+                    type="text" placeholder="Image URL" /></div> 
             <Button variant="outlined" size="small" type="button" value="Cancel" onClick={cancelSubmit}>Cancel</Button>
             <Button variant="contained" size="small" type="submit" value="Save" onClick={handleSubmit}>Save</Button>
-        </form>
+                </form>
+                </Paper>
     </>
     );
 };
