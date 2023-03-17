@@ -19,7 +19,10 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import Search from '../Search/Search';
+import SearchList from '../SearchList/SearchList';
+import SearchDetails from '../SearchDetails/SearchDetails';
+import PlantForm from '../PlantForm/PlantForm';
 import './App.css';
 
 function App() {
@@ -109,7 +112,31 @@ function App() {
               <LandingPage />
             }
           </Route>
-
+          <ProtectedRoute
+            // logged in shows Add Plant
+            exact
+            path="/add-plant"
+          >
+            <Search />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path="/search-list"
+          >
+            <SearchList />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path="/search-details"
+          >
+            <SearchDetails />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path="/plant-form"
+          >
+            <PlantForm />
+          </ProtectedRoute>
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
