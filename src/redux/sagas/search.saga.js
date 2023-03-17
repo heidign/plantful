@@ -1,6 +1,9 @@
 import { put, takeEvery, select } from 'redux-saga/effects';
 import axios from 'axios';
-    
+ 
+// * select currentPlant reducer
+const currentPlantSelector = (state) => state.currentPlant;
+
 // get all from search saga: fires on `GET_NEW_SEARCH`
 function* searchPlants(action) {
     try {
@@ -18,10 +21,15 @@ function* searchPlants(action) {
 
 function* postPlant(action) {
     try {
-      yield axios.post(`api/search`, action.payload );
-      yield put({
-        type: "FETCH_ADDED_PLANT",
-      });
+        yield put({
+            type: 'SET_SEARCH_PLANT',
+            payload: action.payload
+        });
+        const currentPlant = yield select(currentPlantSelector);
+      yield axios.post(`api/search`, currentPlant );
+    //   yield put({
+    //     type: "FETCH_ADDED_PLANT",
+    //   });
     } catch (error) {
       console.log("Error in POST Search Saga:", error);
     }

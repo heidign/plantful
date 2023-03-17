@@ -1,7 +1,5 @@
 import { combineReducers } from 'redux';
 
-
-
 // reducer for searching a plant
 const searchReducer = (state = [], action) => {
     switch (action.type) {

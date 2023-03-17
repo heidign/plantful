@@ -23,10 +23,20 @@ require("dotenv").config();
 
 // * POST searched plant's api_id, user_id to db
 router.post('/', (req, res) => {
-    const queryText = `INSERT INTO "plants" ("api_id", "user_id")
-    VALUES ($1, $2)`;
+  const queryText = `INSERT INTO "plants" ("api_id", "nickname", "notes",
+    "dateWatered", "dateFertilized", "dateRepotted", "image_url", "user_id")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
     console.log("sending search router post: req.body is:", req.body, );
-    const queryParams = [req.body.api_id, req.user.id];
+  const queryParams = [
+    req.body.api_id,
+    req.body.nickname,
+    req.body.notes,
+    req.body.dateWatered,
+    req.body.dateFertilized,
+    req.body.dateRepotted,
+    req.body.image_url,
+    req.user.id
+  ];
     pool
       .query(queryText, queryParams)
       .then(() => {
