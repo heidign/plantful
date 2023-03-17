@@ -5,8 +5,10 @@ const plantsReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_PLANTS':
             return action.payload;
-        default:
-            return state;
+        case "CLEAR_PLANTS":
+            return [];
+            default:
+                return state;
     }
 }
 

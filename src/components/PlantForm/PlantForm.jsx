@@ -7,6 +7,7 @@ import InputBase from '@mui/material/InputBase';
 
 function PlantForm() {
 
+    const selectedPlant = useSelector(store => store.currentPlant.image_url);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -16,7 +17,7 @@ function PlantForm() {
         dateWatered: '',
         dateFertilized: '',
         dateRepotted: '',
-        image_url: '',
+        image_url: selectedPlant,
     });
 
   const handleSubmit = (e) => {
@@ -50,7 +51,7 @@ function PlantForm() {
         <>
     <Paper align="center"
       component="form"
-      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+      sx={{ p: '2px 4px', m: '2px, 4px', display: 'flex', alignItems: 'center', width: 400 }}
     >
             <form onSubmit={handleSubmit}>
                 <Typography type="h3">Add plant details</Typography>
@@ -59,11 +60,11 @@ function PlantForm() {
                     value={input.nickname} /></div>
                 <div>
                  <Box
-                hiddenLabel
-                id="filled-hidden-label-small"
-                defaultValue="Small"
-                variant="filled"
-                size="small"
+                    hiddenLabel
+                    id="filled-hidden-label-small"
+                    defaultValue="Small"
+                    variant="filled"
+                    size="small"
                     />
                 <InputLabel shrink>Any specific notes about your plant?</InputLabel>
                 <TextField placeholder=""
@@ -76,22 +77,24 @@ function PlantForm() {
                         rows="5"
                     cols="55"/>
                 </div>
-                <div><InputLabel htmlFor="dateWatered">Enter the date this plant was last watered</InputLabel>
+                    <div><InputLabel htmlFor="dateWatered">When was {input.nickname} last watered?</InputLabel>
                     <Input onChange={(e) => handleChange(e, "dateWatered")} value={input.dateWatered}
                         variant="filled" size="small"  label="date" name="dateWatered" type="date" placeholder="Date last watered" /></div>
-                <div><InputLabel htmlFor="dateFertilized">When was this plant last fertilized?</InputLabel>
+                <div><InputLabel htmlFor="dateFertilized">When was {input.nickname} last fertilized?</InputLabel>
                     <Input onChange={(e) => handleChange(e, "dateFertilized")} value={input.dateFertilized}
                         name="dateFertilized" type="date" placeholder="Date last fertilized" /></div>
-                <div><InputLabel htmlFor="dateRepotted">When was this plant last repotted?</InputLabel>
+                <div><InputLabel htmlFor="dateRepotted">When was {input.nickname} last repotted?</InputLabel>
                     <Input onChange={(e) => handleChange(e, "dateRepotted")} value={input.dateRepotted}
-                        name="dateRepotted" type="date" placeholder="Date of last re-pot" /></div>
-                <div><Input onChange={(e) => handleChange(e, "image_url")} value={input.image_url}
-                    type="text" placeholder="Image URL" /></div> 
-            <Button variant="outlined" size="small" type="button" value="Cancel" onClick={cancelSubmit}>Cancel</Button>
-            <Button variant="contained" size="small" type="submit" value="Save" onClick={handleSubmit}>Save</Button>
+                            name="dateRepotted" type="date" placeholder="Date of last re-pot" /></div>
+                    
+                        <InputLabel htmlFor="imageInput">Replace default image:
+                        <Input onChange={(e) => handleChange(e, "image_url")} value={input.image_url}
+                        name="imageInput" type="text" placeholder="Image URL" /> </InputLabel>
+            <div><Button variant="outlined" size="small" type="button" value="Cancel" onClick={cancelSubmit}>Cancel</Button>
+            <Button variant="contained" size="small" type="submit" value="Save" onClick={handleSubmit}>Save</Button></div> 
                 </form>
-                </Paper>
-    </>
+            </Paper>
+        </>
     );
 };
 
