@@ -12,7 +12,7 @@ function PlantItem({ item }) {
   };
 
   const goToDetailsPage = () => {
-    // history.push(`/details/${plant.id}`);
+    history.push(`/details/${item.id}`);
   };
 
   return (

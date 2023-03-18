@@ -6,9 +6,11 @@ function EditDetails() {
 
 
 
-    useEffect(() => {
-        setValue(plantDetails)
-      })
+    // useEffect(() => {
+    //     setValue(plantDetails)
+    // })
+    
+
     return (
         <h3>Edit details</h3>
     );
