@@ -23,6 +23,7 @@ import Search from '../Search/Search';
 import SearchList from '../SearchList/SearchList';
 import SearchDetails from '../SearchDetails/SearchDetails';
 import PlantForm from '../PlantForm/PlantForm';
+import PlantDetails from '../PlantDetails/PlantDetails';
 import './App.css';
 
 function App() {
@@ -112,6 +113,7 @@ function App() {
               <LandingPage />
             }
           </Route>
+
           <ProtectedRoute
             // logged in shows Add Plant
             exact
@@ -119,24 +121,41 @@ function App() {
           >
             <Search />
           </ProtectedRoute>
+
           <ProtectedRoute
             exact
             path="/search-list"
           >
             <SearchList />
           </ProtectedRoute>
+
           <ProtectedRoute
             exact
             path="/search-details"
           >
             <SearchDetails />
           </ProtectedRoute>
+
           <ProtectedRoute
             exact
             path="/plant-form"
           >
             <PlantForm />
           </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/details/:id"
+          >
+            <PlantDetails />
+          </ProtectedRoute>
+          
+          {/* <ProtectedRoute
+            exact
+            path="/edit"
+          >
+            <EditForm />
+          </ProtectedRoute> */}
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>

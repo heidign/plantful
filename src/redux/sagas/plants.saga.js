@@ -15,7 +15,7 @@ function* fetchPlants() {
 }
 
 // POST SAGA
-function* postPlant(action) {
+function* postPlant(currentPlant) {
     try {
       yield axios.post(`api/plants`, currentPlant);
       yield put({
@@ -24,10 +24,13 @@ function* postPlant(action) {
     } catch (error) {
       console.log("Error in POST Saga:", error);
     }
-  }
+}
+  
 
 function* plantsSaga() {
+  // fetches plants
   yield takeEvery('FETCH_PLANTS', fetchPlants);
+  // posts plant to db
   yield takeEvery('FETCH_PLANTS', postPlant);
 }
 

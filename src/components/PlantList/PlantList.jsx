@@ -13,7 +13,7 @@ function PlantList({ item }) {
     useEffect(() => {
         dispatch({
           type: 'FETCH_PLANTS',
-          payload: item?.default_image?.regular_url?.image_url
+          // payload: item?.default_image?.regular_url?.image_url
         });
     }, []);
   

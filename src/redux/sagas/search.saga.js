@@ -27,9 +27,9 @@ function* postPlant(action) {
         });
         const currentPlant = yield select(currentPlantSelector);
       yield axios.post(`api/search`, currentPlant );
-    //   yield put({
-    //     type: "FETCH_ADDED_PLANT",
-    //   });
+      // yield put({
+      //   type: "FETCH_ADDED_PLANTS",
+      // });
     } catch (error) {
       console.log("Error in POST Search Saga:", error);
     }
