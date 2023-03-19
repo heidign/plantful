@@ -6,7 +6,7 @@ function SearchItem({ item }) {
   return (
       <>
           <h3>Search Item </h3>
-      {/* <div
+      <div
         style={{
           marginBottom: "1rem",
           border: "1px solid black",
@@ -28,13 +28,12 @@ function SearchItem({ item }) {
                 borderRadius: "15px",
                 display: "block",
                 width: 100,
-                //   height: "50%",
               }}
               alt={item.common_name}
             />
           </li>
         </ul>
-      </div> */}
+      </div>
     </>
   );
 }

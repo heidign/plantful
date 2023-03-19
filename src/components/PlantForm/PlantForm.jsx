@@ -10,6 +10,7 @@ function PlantForm() {
     const selectedPlant = useSelector(store => store.currentPlant.image_url);
     const dispatch = useDispatch();
     const history = useHistory();
+    const [nicknameLabel, setNicknameLabel] = useState('this plant')
 
     const [input, setInput] = useState({
         nickname: '',
@@ -29,6 +30,7 @@ function PlantForm() {
     history.push("/");
     clearInput();
   };
+    
     const clearInput = () => {
         setInput({
             nickname: '',
@@ -45,7 +47,8 @@ function PlantForm() {
     };
     const handleChange = (e, key) => {
         setInput({ ...input, [key]: e.target.value });
-      };
+    };
+
     
     return (
         <>
@@ -56,7 +59,8 @@ function PlantForm() {
             <form onSubmit={handleSubmit}>
                 <Typography type="h3">Add plant details</Typography>
                 <div><TextField variant="outlined" size="small"  label="Nickname" type="text" 
-                    onChange={(e) => handleChange(e, "nickname")}
+                        onChange={(e) => handleChange(e, "nickname")}
+                        onBlur={() => setNicknameLabel(input.nickname || 'this plant')}
                     value={input.nickname} /></div>
                 <div>
                  <Box
@@ -77,13 +81,13 @@ function PlantForm() {
                         rows="5"
                     cols="55"/>
                 </div>
-                    <div><InputLabel htmlFor="dateWatered">When was {input.nickname} last watered?</InputLabel>
+                    <div><InputLabel htmlFor="dateWatered">When was {nicknameLabel} last watered?</InputLabel>
                     <Input onChange={(e) => handleChange(e, "dateWatered")} value={input.dateWatered}
                         variant="filled" size="small"  label="date" name="dateWatered" type="date" placeholder="Date last watered" /></div>
-                <div><InputLabel htmlFor="dateFertilized">When was {input.nickname} last fertilized?</InputLabel>
+                <div><InputLabel htmlFor="dateFertilized">When was {nicknameLabel} last fertilized?</InputLabel>
                     <Input onChange={(e) => handleChange(e, "dateFertilized")} value={input.dateFertilized}
                         name="dateFertilized" type="date" placeholder="Date last fertilized" /></div>
-                <div><InputLabel htmlFor="dateRepotted">When was {input.nickname} last repotted?</InputLabel>
+                <div><InputLabel htmlFor="dateRepotted">When was {nicknameLabel} last repotted?</InputLabel>
                     <Input onChange={(e) => handleChange(e, "dateRepotted")} value={input.dateRepotted}
                             name="dateRepotted" type="date" placeholder="Date of last re-pot" /></div>
                     

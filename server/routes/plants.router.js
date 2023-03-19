@@ -29,7 +29,8 @@ router.get("/", (req, res) => {
 
 // * router getting details from API details endpoint and db
 router.get(`/details/:id`, async (req, res) => {
-  req.query.key = process.env.API_KEY;
+  // req.query.key = process.env.API_KEY;
+  req.query.key = process.env.API_KEY2;
   let id = req.params.id;
 
   const query = `

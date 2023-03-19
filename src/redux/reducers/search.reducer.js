@@ -5,8 +5,8 @@ const searchReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_SEARCH_PLANTS':
             return action.payload;
-        case "CLEAR_SEARCH":
-            return [];
+        // case "CLEAR_SEARCH":
+        //     return [];
         default:
             return state;
     }

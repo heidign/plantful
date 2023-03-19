@@ -46,7 +46,7 @@ function PlantDetails() {
         <h4 type="h4">Sunlight:</h4>
         <ul>
           {plantDetails.sunlight.map((sunlight) => (
-          <li>{sunlight}</li>
+          <li key={id}>{sunlight}</li>
         ))}
       </ul>
       <h4 type="h4">Growth rate:</h4>
@@ -62,9 +62,9 @@ function PlantDetails() {
         <p>{plantDetails.maintenance}</p>
       </ul>
 
-      <h4>Date last watered: </h4>git commit -m ""
+      <h4>Date last watered:</h4>
       <p>{moment(dataFromUser.dateWatered).format('LL') }</p>
-      <h4>Data last fertilized: </h4>
+      <h4>Data last fertilized:</h4>
       <p>{moment(dataFromUser.dateFertilized).format('LL')}</p>
       <h4>Date of last re-pot:</h4>
       <p>{moment(dataFromUser.dateRepotted).format('LL') }</p>
