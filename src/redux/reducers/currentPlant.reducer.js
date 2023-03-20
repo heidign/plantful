@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-// reducer for searching a plant
+// reducer for storing a single selected plant
 const currentPlantReducer = (state = {}, action) => {
     switch (action.type) {
         case 'SET_SEARCH_PLANT':

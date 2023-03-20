@@ -19,7 +19,7 @@ function* postPlant(currentPlant) {
     try {
       yield axios.post(`api/plants`, currentPlant);
       yield put({
-        type: "FETCH_PLANTS",
+        type: "FETCH_ADDED_PLANT",
       });
     } catch (error) {
       console.log("Error in POST Saga:", error);
@@ -30,8 +30,8 @@ function* postPlant(currentPlant) {
 function* plantsSaga() {
   // fetches plants
   yield takeEvery('FETCH_PLANTS', fetchPlants);
-  // posts plant to db
-  yield takeEvery('FETCH_PLANTS', postPlant);
+  // posts added plant to db
+yield takeEvery('FETCH_ADDED_PLANT', postPlant);
 }
 
 export default plantsSaga;

@@ -18,7 +18,8 @@ function* searchPlants(action) {
         console.error('Error in get searchPlants saga', err);
     }
 }
-
+// * Saga for setting a single searched plant, fires on `SET_SEARCH_PLANT` 
+//  from currentPlant reducer
 function* postPlant(action) {
     try {
         yield put({
@@ -27,9 +28,6 @@ function* postPlant(action) {
         });
         const currentPlant = yield select(currentPlantSelector);
       yield axios.post(`api/search`, currentPlant );
-      // yield put({
-      //   type: "FETCH_ADDED_PLANTS",
-      // });
     } catch (error) {
       console.log("Error in POST Search Saga:", error);
     }

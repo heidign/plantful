@@ -111,7 +111,7 @@ function SearchList() {
               )}
             </div>
           ))}
-                </List>
+          </List>
         </section>
 
     </>

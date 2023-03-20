@@ -13,6 +13,7 @@ function SearchDetails({ item }) {
   const addToCollection = () => {
     dispatch({
       type: 'SET_SEARCH_PLANT',
+      // payload: { trefleId: item.id, image_url: item?.image_url }
       payload: { api_id: item.id, image_url: item?.default_image?.regular_url }
     });
     history.push("/plant-form");
