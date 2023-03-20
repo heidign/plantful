@@ -20,9 +20,10 @@ function SearchItem({ item }) {
           </li>
           <li>
             <img
-              // src={plant.default_image.original_url} // * perenual api
+              // src={item.default_image.original_url} // * perenual api
               src={item.default_image.regular_url}
-              // src={plant.images.flower.image_url} // * trefle.io
+              // src={item.image_url} // ! trefle.io
+              // src={item.image_url}
               loading="lazy"
               style={{
                 borderRadius: "15px",

@@ -10,9 +10,11 @@ require("dotenv").config();
 // * SEARCH: get plants from API 
   router.get('/', (req, res) => {
     req.query.key = process.env.API_KEY;
+    // req.query.token = process.env.API_TOKEN; 
     axios
-      .get( // * Perenual API Search endpoint
+      .get( 
         `https://www.perenual.com/api/species-list?key=${process.env.API_KEY}&q=${req.query.q}`
+        // `https://trefle.io/api/v1/species/search?token=${process.env.API_TOKEN}&q=${req.query.q}&limit=15`
       )
       .then((response) => {
         res.send(response.data);

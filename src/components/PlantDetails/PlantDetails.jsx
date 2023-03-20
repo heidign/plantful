@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import moment from "moment";
-// import { ClipLoader } from "react-spinners";
-import { Button, Typography } from "@mui/material";
-import EditDetails from "./EditDetails";
+import PlantItem from "../PlantItem/PlantItem";
+import EditDetailsForm from "./EditDetailsForm";
+import { Button, Typography, Collapse, CardContent,  } from "@mui/material";
 
 function PlantDetails() {
   const history = useHistory();
 
-  // * getting id key from path params
+  // getting id key from path params
   let { id } = useParams();
   const dispatch = useDispatch();
 
@@ -29,22 +30,50 @@ function PlantDetails() {
     history.goBack("/");
     // clearDetails();
   };
+  const goToEdit = () => {
+    history.push(`/edit/:${id}`)
+  }
 
   if (isLoading) {
-    return <p>loading</p>;
+    return <ClipLoader/>
   }
+
+// * sorting out notifications based on user's dates
+  const getDaysSinceLastWater = (lastWaterTimestamp) => {
+    const lastWaterMoment = moment.unix(lastWaterTimestamp);
+    const today = moment();
+  
+    return today.diff(lastWaterMoment, "days");
+  };
+  
+  const getNextWaterDate = (daysSinceLastWater) => {
+    const WATER_DAYS_INTERVAL = 7;
+    const daysTilNextWater = WATER_DAYS_INTERVAL - daysSinceLastWater;
+  
+    return moment().add(daysTilNextWater, "day").format("LL");
+  };
+  
+  const getIsWaterDayInThePast = (nextWaterDate) => {
+    return moment(nextWaterDate).isBefore();
+  };
+ 
+  const daysSinceLastWater = getDaysSinceLastWater(plantDetails.lastWateredTimestamp);
+  const nextWaterDate = getNextWaterDate(daysSinceLastWater);
+  const isWaterDayInThePast = getIsWaterDayInThePast(nextWaterDate);
 
   return (
     <>
-       <h3>{plantDetails.nickname}</h3>
-        {/* <EditDetails /> */}
-        {/* <pre>{JSON.stringify(plantDetails, null, 2)}</pre> */}
-        <h4 type="h4">Watering:</h4>
+       {/* <h3>{plantDetails.nickname}</h3> */}
+        {/* <EditDetailsForm /> */}
+      {/* <pre>{JSON.stringify(plantDetails, null, 2)}</pre> */}
+      {/* <PlantItem /> */}
+      <h4 type="h4">Watering:</h4>
       <ul>
         <p>{plantDetails.watering}</p>
       </ul>
         <h4 type="h4">Sunlight:</h4>
-        <ul>
+      <ul> 
+        {/* mapping over sunlight array to display item at each index */}
           {plantDetails.sunlight.map((sunlight) => (
           <li key={id}>{sunlight}</li>
         ))}
@@ -63,13 +92,16 @@ function PlantDetails() {
       </ul>
 
       <h4>Date last watered:</h4>
-      <p>{moment(dataFromUser.dateWatered).format('LL') }</p>
+      <p>{moment(dataFromUser.dateWatered).format('LL')}</p>
+      <li><strong>Next Water Date:</strong>{''}
+          {isWaterDayInThePast ? ` Water ASAP`: nextWaterDate}
+      </li>
       <h4>Data last fertilized:</h4>
       <p>{moment(dataFromUser.dateFertilized).format('LL')}</p>
       <h4>Date of last re-pot:</h4>
       <p>{moment(dataFromUser.dateRepotted).format('LL') }</p>
       <Button onClick={goBack}>Back</Button>
-      {/* <button onClick={goBack}>Delete</button> */}
+      <Button variant="contained" onClick={goToEdit}>Edit</Button>
     </>
   );
 }
