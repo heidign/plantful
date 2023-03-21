@@ -10,6 +10,7 @@ require("dotenv").config();
 // * SEARCH: get plants from API 
   router.get('/', (req, res) => {
     req.query.key = process.env.API_KEY;
+    // req.query.key = process.env.API_KEY2;
     // req.query.token = process.env.API_TOKEN; 
     axios
       .get( 
@@ -30,7 +31,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   const queryText = `INSERT INTO "plants" ("api_id", "nickname", "notes",
     "dateWatered", "dateFertilized", "dateRepotted", "image_url", "user_id")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
-    console.log("sending search router post: req.body is:", req.body, 'req.user is:', req.user.id );
+  console.log('sending search router post: req.body is:', req.body, 'req.user is:', req.user.id );
   const queryParams = [
     req.body.api_id,
     req.body.nickname,
