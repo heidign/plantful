@@ -31,7 +31,7 @@ function* plantsSaga() {
   // fetches plants
   yield takeEvery('FETCH_PLANTS', fetchPlants);
   // posts added plant to db
-yield takeEvery('FETCH_ADDED_PLANT', postPlant);
+  yield takeEvery('FETCH_ADDED_PLANT', postPlant);
 }
 
 export default plantsSaga;

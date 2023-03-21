@@ -53,6 +53,7 @@ function PlantForm() {
   const cancelSubmit = () => {
     history.push("/add-plant");
   };
+
   const handleChange = (e, key) => {
     setInput({ ...input, [key]: e.target.value });
   };

@@ -11,10 +11,9 @@ import PlantDetails from "../PlantDetails/PlantDetails";
 // * plant item from db
 function PlantItem({ item }) {
   const history = useHistory();
+  const dispatch = useDispatch();
   const detailFromAPI = useSelector((store) => store.plantDetails.data.details);
   // const detailsFromDb = useSelector(store => store.plants.plantsReducer);
-
-  dispatch({ type: 'FETCH_ADDED_PLANT' });
 
   const handleClick = () => {
     goToDetailsPage();
