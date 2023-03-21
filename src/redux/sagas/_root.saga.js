@@ -5,7 +5,7 @@ import userSaga from './user.saga';
 import plantsSaga from './plants.saga';
 import searchSaga from './search.saga';
 import detailsSaga from './details.saga';
-
+import editAndDeleteSaga from './editPlant.saga';
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -21,5 +21,6 @@ export default function* rootSaga() {
     plantsSaga(),
     searchSaga(),
     detailsSaga(),
+    editAndDeleteSaga(),
   ]);
 }

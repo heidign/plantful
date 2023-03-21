@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import moment from "moment";
-import PlantItem from "../PlantItem/PlantItem";
-import EditDetailsForm from "./EditDetailsForm";
-import { Button, Typography, Collapse, CardContent,  } from "@mui/material";
+import { Button } from "@mui/material";
 
 function PlantDetails() {
   const history = useHistory();
-
+  const dispatch = useDispatch();
   // getting id key from path params
   let { id } = useParams();
-  const dispatch = useDispatch();
 
   const plantDetails = useSelector((store) => store.plantDetails.data.details);
   const dataFromUser = useSelector((store) => store.plantDetails.data.dataFromUser);
   const isLoading = useSelector((store) => store.plantDetails.loading);
-  // const [edit, setEdit] = useState(false);
+
 
   useEffect(() => {
     dispatch({
@@ -31,14 +28,14 @@ function PlantDetails() {
     // clearDetails();
   };
   const goToEdit = () => {
-    history.push(`/edit/:${id}`)
+    history.push(`/edit/${id}`)
   }
 
   if (isLoading) {
-    return <ClipLoader/>
+    return <ClipLoader />
   }
 
-// * sorting out notifications based on user's dates
+  // * sorting out alerts based on user's dates
   const getDaysSinceLastWater = (lastWaterTimestamp) => {
     const lastWaterMoment = moment.unix(lastWaterTimestamp);
     const today = moment();
@@ -64,9 +61,7 @@ function PlantDetails() {
   return (
     <>
        {/* <h3>{plantDetails.nickname}</h3> */}
-        {/* <EditDetailsForm /> */}
       {/* <pre>{JSON.stringify(plantDetails, null, 2)}</pre> */}
-      {/* <PlantItem /> */}
       <h4 type="h4">Watering:</h4>
       <ul>
         <p>{plantDetails.watering}</p>

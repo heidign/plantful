@@ -1,16 +1,17 @@
 
-const editPlant = (state = { loading: true, data: {} }, action) => {
+const editPlant = (state = {
+    nickname: '', notes: '', dateWatered: '',
+    dateFertilized: '', dateRepotted: '' }, action) => {
     switch (action.type) {
-        case 'SET_EDIT_PLANT':
+        case 'SET_PLANT_EDIT':
             // action.payload is the object from the db, data from reducers
-            return { ...state, data: action.payload, loading: false };
+            return action.payload ;
         case 'EDIT_ONCHANGE':
             return {
-                ...state, [action.payload.property]: action.payload.value,
-                loading: false
+                ...state, [action.payload.property]: action.payload.value
             }
         case 'CLEAR_EDIT':
-            return { ...state, loading: true }
+            return {};
         default:
             return state;
     }
