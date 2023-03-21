@@ -8,7 +8,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 require("dotenv").config();
 
 // * SEARCH: get plants from API 
-  router.get('/', rejectUnauthenticated, (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
+    console.log('getting searched plants')
     req.query.key = process.env.API_KEY;
     // req.query.key = process.env.API_KEY2;
     // req.query.token = process.env.API_TOKEN; 

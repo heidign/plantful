@@ -11,6 +11,7 @@ require("dotenv").config();
  * GET route, getting all from db
  **/
 router.get("/", rejectUnauthenticated, (req, res) => {
+  console.log('getting all plants')
   const query = `SELECT * FROM plants
   WHERE user_id = $1
   ORDER BY id DESC
@@ -28,6 +29,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 // router getting details from API details endpoint and db
 router.get(`/details/:id`, rejectUnauthenticated, async (req, res) => {
+  console.log('getting plant details')
   req.query.key = process.env.API_KEY;
   // req.query.key = process.env.API_KEY2;
   // * req.query.token = process.env.API_TOKEN;
