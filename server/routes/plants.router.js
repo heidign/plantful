@@ -10,7 +10,7 @@ require("dotenv").config();
 /**
  * GET route, getting all from db
  **/
-router.get("/", (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
   const query = `SELECT * FROM plants
   WHERE user_id = $1
   ORDER BY id DESC
