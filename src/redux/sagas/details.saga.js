@@ -6,10 +6,10 @@ function* fetchDetails(action) {
     // get details from API by ID
     try {
       const plantDetails = yield axios.get(`/api/plants/details/${action.payload.id}`);
-      // yield wait(500);
+      // yield wait(200);
       yield put({
         type: "SET_PLANT_DETAILS", payload: {
-        //   loading: false,
+          // loading: false,
           ...plantDetails.data,
         }
       });

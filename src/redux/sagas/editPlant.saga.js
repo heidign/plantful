@@ -5,7 +5,7 @@ function* editPlantById(action) {
     //  edit plant by id
     try {
         yield axios.put(`/api/plants/edit/${action.payload.id}`, { data: action.payload.newData });
-        // console.log('In editPlant PUT saga:', action);
+        console.log('🌈In editPlant PUT saga:', action);
         yield put({ type: 'SET_PLANT_EDIT', payload: action.payload.id });
     } catch (err) {
         console.error("Error in editPlant saga", err);

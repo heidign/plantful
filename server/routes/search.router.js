@@ -30,8 +30,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // * POST searched plant's api_id, user_id, and rest of details to db
 router.post('/', rejectUnauthenticated, (req, res) => {
   const queryText = `INSERT INTO "plants" ("api_id", "nickname", "notes",
-    "dateWatered", "dateFertilized", "dateRepotted", "image_url", "user_id")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
+    "dateWatered", "dateFertilized", "dateRepotted", "isOffered", image_url", "user_id")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
   console.log('sending search router post: req.body is:', req.body, 'req.user is:', req.user.id );
   const queryParams = [
     req.body.api_id,
@@ -40,8 +40,9 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     req.body.dateWatered,
     req.body.dateFertilized,
     req.body.dateRepotted,
+    req.body.isOffered,
     req.body.image_url,
-    req.user.id
+    req.user.id,
   ];
     pool
       .query(queryText, queryParams)

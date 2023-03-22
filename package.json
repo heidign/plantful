@@ -13,6 +13,7 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.13",
     "@mui/styled-engine-sc": "^5.11.11",
+    "@mui/x-date-pickers": "^6.0.2",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cookie-session": "^2.0.0",

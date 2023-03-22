@@ -69,7 +69,7 @@ router.get(`/details/:id`, rejectUnauthenticated, async (req, res) => {
 router.put('/edit/:id', rejectUnauthenticated, (req, res) => {
   console.log(`req.params:' ${req.params.id}', 'req.body:'`, req.body.data)
   const queryText = `UPDATE "plants" 
-  SET "nickname" = $2, "notes" = $3, "dateWatered" = $4, "dateFertilized" = $5, "dateRepotted" = $6, "image_url" = $7
+  SET "nickname" = $2, "notes" = $3, "dateWatered" = $4, "dateFertilized" = $5, "dateRepotted" = $6, "isOffered" = $7, "image_url" = $8
   WHERE id = $1;`;
   // log to check errors
   console.log(`PUT: in plants put router: editing id is: ${req.params.id}, req.user is: ${req.user.id}`);
@@ -80,7 +80,8 @@ router.put('/edit/:id', rejectUnauthenticated, (req, res) => {
     req.body.data.dateWatered,
     req.body.data.dateFertilized,
     req.body.data.dateRepotted,
-    req.body.data.image_url
+    req.body.data.isOffered,
+    req.body.data.image_url,
   ];
   console.log("REQ BODY:", queryParams);
     pool
@@ -89,7 +90,7 @@ router.put('/edit/:id', rejectUnauthenticated, (req, res) => {
         res.sendStatus(201);
       })
       .catch((err) => {
-        console.log(`PUT router editing details error", ${queryText}, ":", ${err}`);
+        console.log(`PUT router editing details error", ${queryText}, ":" , ${err}`);
         res.sendStatus(500);
       });
   });
