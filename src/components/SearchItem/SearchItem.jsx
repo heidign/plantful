@@ -23,7 +23,6 @@ function SearchItem({ item }) {
               // src={item.default_image.original_url} // * perenual api
               src={item.default_image.regular_url}
               // src={item.image_url} // ! trefle.io
-              // src={item.image_url}
               loading="lazy"
               style={{
                 borderRadius: "15px",

@@ -1,18 +1,28 @@
+
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, TextField, InputLabel, Input, } from "@mui/material";
+import { Button, TextField, InputLabel, Input, FormControlLabel } from "@mui/material";
+import Checkbox from '@mui/material/Checkbox';
 
 function EditDetailsForm() {
   let { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const editPlant = useSelector((store) => store.editPlant);
+  const offeredStatus = useSelector((store) => store.editPlant.isOffered);
 
-  function handleChange(e, name) {
+
+  function handleChange(e, key) {
     dispatch({
       type: "EDIT_ONCHANGE",
-      payload: { property: name, value: e.target.value },
+      payload: { property: key, value: e.target.value },
     });
+    if (key == 'isOffered') {
+      dispatch({
+        type: "EDIT_ONCHANGE",
+        payload: { property: key, value: e.target.checked },
+      });
+    }
   }
 
   // called when the submit button is clicked
@@ -67,9 +77,8 @@ function EditDetailsForm() {
           <Input
             onChange={(e) => handleChange(e, "dateWatered")}
             value={editPlant.dateWatered}
-            variant="filled"
             size="small"
-            label="date"
+            label="date watered*"
             name="dateWatered"
             type="date"
             placeholder="Date last watered"
@@ -99,7 +108,7 @@ function EditDetailsForm() {
             placeholder="Date of last re-pot"
           />
         </div>
-
+   
         <InputLabel htmlFor="imageInput">
           Replace image:
           <Input
@@ -111,6 +120,21 @@ function EditDetailsForm() {
           />
         </InputLabel>
 
+        {/* check box for plant offer */}
+      <FormControlLabel
+          control={
+            <Checkbox
+              checked={editPlant.isOffered}
+              onChange={(e) => handleChange(e, "isOffered")}
+              value={Boolean(editPlant.isOffered)}
+              label="Offered"
+              name="isOffered"
+            />}
+          label="Offer Plant"
+          labelPlacement="start"
+        />
+
+        <br></br>
         <Button onClick={goBackToDetails}>Cancel</Button>
         <Button variant="contained" onClick={handleSubmit}>
           Update Plant
