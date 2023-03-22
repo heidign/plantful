@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import moment from "moment";
-import { Button } from "@mui/material";
+import { FormControlLabel, Button, Checkbox } from "@mui/material";
+import Checkbox from '@mui/material/Checkbox';
+// or
+import { Checkbox } from '@mui/material';
 import { Box } from "@mui/system";
 
 function PlantDetails() {
@@ -13,11 +16,13 @@ function PlantDetails() {
   let { id } = useParams();
 
   const plantDetails = useSelector((store) => store.plantDetails.data.details);
-  const dataFromUser = useSelector((store) => store.plantDetails.data.dataFromUser);
-  
+  const dataFromUser = useSelector(
+    (store) => store.plantDetails.data.dataFromUser
+  );
+
   const isLoading = useSelector((store) => store.plantDetails.loading);
   const [isOffered, setIsOffered] = useState(false);
-  
+
   // fetching all details on page load
   useEffect(() => {
     dispatch({
@@ -32,8 +37,9 @@ function PlantDetails() {
   };
   const goToEdit = () => {
     dispatch({
-      type: 'SET_PLANT_EDIT', payload: dataFromUser
-    }) 
+      type: "SET_PLANT_EDIT",
+      payload: dataFromUser,
+    });
     history.push(`/edit/${id}`);
   };
 
@@ -65,23 +71,28 @@ function PlantDetails() {
   const nextWaterDate = getNextWaterDate(daysSinceLastWater);
   const isWaterDayInThePast = getIsWaterDayInThePast(nextWaterDate);
 
+  const handleChangeDisplay = (e) => {
+    const checkedValue = e.target.checked
+    setIsOffered(!isOffered);
+  };
+
   return (
     <>
       <h3>{plantDetails.nickname}</h3>
       {/* <pre>{JSON.stringify(plantDetails, null, 2)}</pre> */}
       <Box
-              loading="lazy"
-              style={{
-                borderRadius: "10px",
-                display: "block",
-                width: 100,
-                height: 100,
-                margin: '1rem',
-              }}
-            component="img"
-          src={dataFromUser?.image_url}
-          // alt={details?.image_url}
-          />
+        loading="lazy"
+        style={{
+          borderRadius: "10px",
+          display: "block",
+          width: 100,
+          height: 100,
+          margin: "1rem",
+        }}
+        component="img"
+        src={dataFromUser?.image_url}
+        alt="plant image from user"
+      />
       <h4 type="h4">Watering:</h4>
       <ul>
         <p>{plantDetails.watering}</p>
@@ -117,23 +128,24 @@ function PlantDetails() {
       <p>{moment(dataFromUser.dateFertilized).format("LL")}</p>
       <h4>Date of last re-pot:</h4>
       <p>{moment(dataFromUser.dateRepotted).format("LL")}</p>
-      
+
       {/* check box for plant offer */}
-      {/* <FormControlLabel
+      <FormControlLabel
         value="start"
-        disabled
         control={
           <Checkbox
-            onChange={(e) => handleChange(e, true)}
-            value={editPlant.isOffered}
-            label="Offered"
+            checked={setIsOffered}
+            onChange={(e) => handleChangeDisplay(e.target.checked)}
+            value={dataFromUser.isOffered}
             name="isOffered"
             disabled
-          />
-        }
+          /> }
         label="Offered"
         labelPlacement="start"
-      /> */}
+        inputProps={{
+          'aria-label': 'Offer Checkbox',
+        }}
+      />
       <br></br>
       <Button onClick={goBack}>Back</Button>
       <Button variant="contained" onClick={goToEdit}>
