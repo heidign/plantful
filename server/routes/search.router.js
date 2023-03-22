@@ -10,12 +10,12 @@ require("dotenv").config();
 // * SEARCH: get plants from API 
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('getting searched plants')
-    req.query.key = process.env.API_KEY;
-    // req.query.key = process.env.API_KEY2;
+    // req.query.key = process.env.API_KEY;
+    req.query.key = process.env.API_KEY2;
     // req.query.token = process.env.API_TOKEN; 
     axios
       .get( 
-        `https://www.perenual.com/api/species-list?key=${process.env.API_KEY}&q=${req.query.q}`
+        `https://www.perenual.com/api/species-list?key=${process.env.API_KEY2}&q=${req.query.q}`
         // `https://trefle.io/api/v1/species/search?token=${process.env.API_TOKEN}&q=${req.query.q}&limit=15`
       )
       .then((response) => {

@@ -30,8 +30,8 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 // router getting details from API details endpoint and db
 router.get(`/details/:id`, rejectUnauthenticated, async (req, res) => {
   console.log('getting plant details')
-  req.query.key = process.env.API_KEY;
-  // req.query.key = process.env.API_KEY2;
+  // req.query.key = process.env.API_KEY;
+  req.query.key = process.env.API_KEY2;
   // * req.query.token = process.env.API_TOKEN;
   let id = req.params.id;
   console.log('REQ.PARAMS.ID:', req.params.id);

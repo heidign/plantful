@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-  Button,
-  Typography,
-  Box,
-  TextField,
-  InputLabel,
-  Input,
-} from "@mui/material";
+import { Button, Typography, Box, TextField, InputLabel, Input, CheckBox } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import "./PlantForm.css"
 
 function PlantForm() {
   const selectedPlant = useSelector((store) => store.currentPlant.image_url);
-    // const selectedPlant = useSelector((store) => store.currentPlant);
   const dispatch = useDispatch();
   const history = useHistory();
   const [nicknameLabel, setNicknameLabel] = useState("this plant");
-
+  
   const [input, setInput] = useState({
     nickname: "",
     notes: "",
@@ -74,7 +66,6 @@ function PlantForm() {
         <form onSubmit={handleSubmit} className="plant-form">
           <Typography type="h3">Add details about your plant...</Typography>
           <div>
-            {/* <InputLabel htmlFor="nickname">Nickname</InputLabel> */}
             <TextField
               name="nickname"
               id="nickname"
@@ -141,7 +132,7 @@ function PlantForm() {
             name="dateRepotted"
             type="date"
             placeholder="Date of last re-pot"
-          />
+            />
         </div>
           <InputLabel htmlFor="imageInput">
             Replace default image:
@@ -153,7 +144,7 @@ function PlantForm() {
               placeholder=" Image URL"
             />
           </InputLabel>
-
+      
           <div>
             <Button
               variant="outlined"
