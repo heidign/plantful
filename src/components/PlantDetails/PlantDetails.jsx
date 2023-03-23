@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import moment from "moment";
-import { FormControlLabel, Button, Checkbox } from "@mui/material";
+import { FormControlLabel, Button } from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 // or
-import { Checkbox } from '@mui/material';
+// import { Checkbox } from '@mui/material';
 import { Box } from "@mui/system";
 
 function PlantDetails() {
@@ -78,7 +78,7 @@ function PlantDetails() {
 
   return (
     <>
-      <h3>{plantDetails.nickname}</h3>
+      <h3>{dataFromUser.nickname}</h3>
       {/* <pre>{JSON.stringify(plantDetails, null, 2)}</pre> */}
       <Box
         loading="lazy"
@@ -100,7 +100,7 @@ function PlantDetails() {
       <h4 type="h4">Sunlight:</h4>
       <ul>
         {/* mapping over sunlight array to display item at each index */}
-        {plantDetails.sunlight.map((sunlight) => (
+        {plantDetails.sunlight.map((sunlight, id) => (
           <li key={id}>{sunlight}</li>
         ))}
       </ul>
@@ -134,17 +134,17 @@ function PlantDetails() {
         value="start"
         control={
           <Checkbox
-            checked={setIsOffered}
+            disabled
+            checked={dataFromUser.isOffered}
             onChange={(e) => handleChangeDisplay(e.target.checked)}
             value={dataFromUser.isOffered}
             name="isOffered"
-            disabled
+            inputProps={{
+              'aria-label': 'Offer Checkbox'
+            }}
           /> }
         label="Offered"
         labelPlacement="start"
-        inputProps={{
-          'aria-label': 'Offer Checkbox',
-        }}
       />
       <br></br>
       <Button onClick={goBack}>Back</Button>
