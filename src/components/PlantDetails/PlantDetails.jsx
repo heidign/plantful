@@ -38,7 +38,12 @@ function PlantDetails() {
   const goToEdit = () => {
     dispatch({
       type: "SET_PLANT_EDIT",
-      payload: dataFromUser,
+      payload: {
+        ...dataFromUser,
+        dateWatered: moment(dataFromUser.dateWatered).format('YYYY-MM-DD'),
+        dateFertilized: moment(dataFromUser.dateFertilized).format('YYYY-MM-DD'),
+        dateRepotted: moment(dataFromUser.dateRepotted).format('YYYY-MM-DD')
+      },
     });
     history.push(`/edit/${id}`);
   };
@@ -49,15 +54,15 @@ function PlantDetails() {
 
   // * sorting out alerts based on user's dates
   const getDaysSinceLastWater = (lastWaterTimestamp) => {
-    const lastWaterMoment = moment.unix(lastWaterTimestamp);
+    const lastWaterMoment = moment(lastWaterTimestamp);
     const today = moment();
 
     return today.diff(lastWaterMoment, "days");
   };
 
   const getNextWaterDate = (daysSinceLastWater) => {
-    const WATER_DAYS_INTERVAL = 7;
-    const daysTilNextWater = WATER_DAYS_INTERVAL - daysSinceLastWater;
+    const waterDaysInterval = 7;
+    const daysTilNextWater = waterDaysInterval - daysSinceLastWater;
     return moment().add(daysTilNextWater, "day").format("LL");
   };
 
@@ -66,7 +71,7 @@ function PlantDetails() {
   };
 
   const daysSinceLastWater = getDaysSinceLastWater(
-    plantDetails.lastWateredTimestamp
+    dataFromUser.dateWatered
   );
   const nextWaterDate = getNextWaterDate(daysSinceLastWater);
   const isWaterDayInThePast = getIsWaterDayInThePast(nextWaterDate);
@@ -120,9 +125,9 @@ function PlantDetails() {
       <h4>Date last watered:</h4>
       <p>{moment(dataFromUser.dateWatered).format("LL")}</p>
       <li>
-        <strong>Next Water Date:</strong>
+        <strong>Next Water Date: </strong>
         {""}
-        {isWaterDayInThePast ? ` Water ASAP` : nextWaterDate}
+        {isWaterDayInThePast ? `asap` : nextWaterDate}
       </li>
       <h4>Date last fertilized:</h4>
       <p>{moment(dataFromUser.dateFertilized).format("LL")}</p>

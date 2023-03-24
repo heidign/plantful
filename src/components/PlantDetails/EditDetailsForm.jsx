@@ -127,7 +127,6 @@ function EditDetailsForm() {
               checked={editPlant.isOffered}
               onChange={(e) => handleChange(e, "isOffered")}
               value={Boolean(editPlant.isOffered)}
-              label="Offered"
               name="isOffered"
             />}
           label="Offer Plant"

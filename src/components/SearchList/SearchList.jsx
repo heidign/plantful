@@ -76,7 +76,7 @@ function SearchList() {
                         display: "block",
                         width: 100,
                         height: 100,
-                        margin: '1rem',
+                        margin: '0 1rem',
                       }}
                       alt={item.common_name}
                     />
@@ -98,7 +98,7 @@ function SearchList() {
                     }
                   />
                 </ListItem>
-                <Divider variant="inset" component="li" sx={{ height: 10, m: 0.5 }} orientation="horizontal"/>
+                {/* <Divider variant="inset" component="li" sx={{ height: 10, m: 0.5 }} orientation="horizontal"/> */}
               </>
               <></>
               {item.id === viewingPlantId ? (

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Box, Typography, Card, CardMedia, CardContent, IconButton } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import axios from 'axios';
 
 function OfferGallery() {
     const dispatch = useDispatch();
@@ -45,7 +46,8 @@ function OfferGallery() {
 
               <IconButton aria-label="add to favorites">
                 <FavoriteBorderIcon />
-             </IconButton>
+                    </IconButton>
+                    <button onClick={() => axios.put(`/api/plants/${offer.id}/claim`)}>Claim</button>
                 </Card>
                 ))}
             </Box>

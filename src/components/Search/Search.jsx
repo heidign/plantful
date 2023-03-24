@@ -14,7 +14,7 @@ function Search() {
   const [newSearch, setNewSearch] = useState('');
   const search = useSelector((store) => store.search.searchReducer);
 
-  function handleClick() {
+  function handleSearch() {
     console.log("new search:", newSearch);
     dispatch({
       type: "GET_NEW_SEARCH",
@@ -29,9 +29,12 @@ function Search() {
 
   return (
     <Box align="center" sx={{ mb: "50px", mt: "20px" }} >
-    <Paper component="form" className="search-form"
+      <h3>First, find your plant:</h3>
+
+        <form onSubmit={(e) => {e.preventDefault(); handleSearch()}}>
+        <Paper className="search-form"
     sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 300 }}
-  >
+      >
         <InputBase
         value={newSearch}
         onChange={handleSearchChange}
@@ -39,11 +42,13 @@ function Search() {
         placeholder="Search plants"
         inputProps={{ 'aria-label': 'search for a plant' }}
       />
-      <IconButton onClick={handleClick} type="button" sx={{ p: '10px' }} aria-label="search">
+        <IconButton onClick={handleSearch} type="button" sx={{ p: '10px' }} aria-label="search">
         <SearchIcon />
       </IconButton>
-      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      </Paper>
+          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+          </Paper>
+          </form>
+      
       <SearchList />
     </Box>
 

@@ -14,6 +14,13 @@ function* fetchOffers() {
     }
 }
 
+function* claimOffer() {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
 
 function* offersSaga() {
     yield takeEvery('FETCH_OFFERS', fetchOffers);
