@@ -102,9 +102,10 @@ function PlantItem({ item }) {
                 <Typography size="h4" style={{ fontWeight: "bold" }}>
                   {/* {detailsFromAPI.scientific_name} */}
                   {/* <p>{moment(detailsFromDb.dateWatered).format("LL")}</p> */}
-                  <strong>Next Water Date: </strong>
-
-                  <p>{isWaterDayInThePast ? `asap` : nextWaterDate}</p>
+                 Water your plant:
+                </Typography>
+                <Typography variant="subtitle2" gutterBottom>
+                  {isWaterDayInThePast ? `Today` : nextWaterDate} 
                 </Typography>
               </CardContent>
 

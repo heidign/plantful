@@ -68,7 +68,7 @@ function SearchList() {
                   <ListItemAvatar>
                     <Avatar
                       // src={item?.default_image?.original_url} // * perenual api
-                      src={item?.default_image?.regular_url}
+                      src={item?.default_image?.medium_url}
                       // src={item.images.flower.image_url} // * trefle.io
                       // loading="lazy"
                       style={{
