@@ -70,6 +70,7 @@ function PlantForm() {
               name="nickname"
               id="nickname"
               variant="outlined"
+              color="secondary" 
               size="small"
               sx={{ mx: "30px" }}
               label="Nickname"
@@ -101,7 +102,7 @@ function PlantForm() {
             <Input
               onChange={(e) => handleChange(e, "dateWatered")}
               value={input.dateWatered}
-              variant="filled"
+              color="secondary" 
               size="small"
               label="date"
               name="dateWatered"
@@ -117,6 +118,7 @@ function PlantForm() {
             <Input
               onChange={(e) => handleChange(e, "dateFertilized")}
               value={input.dateFertilized}
+              color="secondary" 
               name="dateFertilized"
               type="date"
               placeholder="Date last fertilized"
@@ -129,6 +131,7 @@ function PlantForm() {
           <Input
             onChange={(e) => handleChange(e, "dateRepotted")}
             value={input.dateRepotted}
+            color="secondary" 
             name="dateRepotted"
             type="date"
             placeholder="Date of last re-pot"
@@ -139,6 +142,7 @@ function PlantForm() {
             <Input
               onChange={(e) => handleChange(e, "image_url")}
               value={input.image_url}
+              color="secondary" 
               name="imageInput"
               type="text"
               placeholder=" Image URL"
@@ -148,6 +152,7 @@ function PlantForm() {
           <div>
             <Button
               variant="outlined"
+              color="secondary" 
               size="small"
               type="button"
               value="Cancel"
@@ -157,6 +162,7 @@ function PlantForm() {
             </Button>
             <Button
               variant="contained"
+              color="secondary" 
               size="small"
               type="submit"
               value="Save"

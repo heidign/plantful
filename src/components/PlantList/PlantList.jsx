@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PlantItem from '../PlantItem/PlantItem';
+import { Grid } from '@mui/material';
 
 // * Plant List/Collection component 
 function PlantList({ item }) {
@@ -20,9 +21,17 @@ function PlantList({ item }) {
     return (
       <>
         <section className='plants'>
-          {plantGallery.map((item) => (
-            <PlantItem key={item?.id} item={item} />
-            ))}
+        <Grid
+        container
+        spacing="2"
+      >
+            {plantGallery.map((item) => (
+            <Grid item xs={12} md={4} sm={6}>
+              
+                <PlantItem key={item?.id} item={item} />
+                </Grid>
+          ))}
+            </Grid>
           </section>
         </>
     );

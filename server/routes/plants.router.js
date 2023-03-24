@@ -93,6 +93,51 @@ router.put('/edit/:id', rejectUnauthenticated, (req, res) => {
         console.log(`PUT router editing details error", ${queryText}, ":" , ${err}`);
         res.sendStatus(500);
       });
+});
+  
+router.put('/:id/offer', rejectUnauthenticated, (req, res) => {
+  console.log(`req.params:' ${req.params.id}', 'req.body:'`, req.body.data)
+  const queryText = `UPDATE "plants" 
+  SET "isOffered" = true
+  WHERE id = $1;`;
+  // log to check errors
+  console.log(`PUT: in plants put router: editing id is: ${req.params.id}, req.user is: ${req.user.id}`);
+  const queryParams = [
+    req.params.id,
+  ];
+  console.log("REQ BODY:", queryParams);
+    pool
+      .query(queryText, queryParams)
+      .then(() => {
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        console.log(`PUT router editing details error", ${queryText}, ":" , ${err}`);
+        res.sendStatus(500);
+      });
+});
+  
+router.put('/:id/claim', rejectUnauthenticated, (req, res) => {
+  console.log(`req.params:' ${req.params.id}', 'req.body:'`, req.body.data)
+  const queryText = `UPDATE "plants" 
+  SET "isOffered" = false, "user_id" = $1
+  WHERE id = $2;`;
+  // log to check errors
+  console.log(`PUT: in plants put router: editing id is: ${req.params.id}, req.user is: ${req.user.id}`);
+  const queryParams = [
+    req.user.id,
+    req.params.id,
+  ];
+  console.log("REQ BODY:", queryParams);
+    pool
+      .query(queryText, queryParams)
+      .then(() => {
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        console.log(`PUT router editing details error", ${queryText}, ":" , ${err}`);
+        res.sendStatus(500);
+      });
   });
 
 

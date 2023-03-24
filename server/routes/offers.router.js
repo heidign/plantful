@@ -9,12 +9,13 @@ const { rejectUnauthenticated } = require("../modules/authentication-middleware"
  **/
 router.get("/", rejectUnauthenticated, (req, res) => {
     console.log('getting all plants')
-    const query = `SELECT * FROM plants
+    const query = `SELECT * FROM "plants"
     WHERE "isOffered" = true
+    AND "user_id" != $1
     ORDER BY id ASC
     ;`;
     pool
-      .query(query)
+      .query(query, [req.user.id])
       .then((dbRes) => {
         res.send(dbRes.rows);
       })
@@ -23,5 +24,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
         console.error("GET all offers failed", err);
       });
 });
-  
+ 
+
+
 module.exports = router;

@@ -26,6 +26,8 @@ import PlantForm from '../PlantForm/PlantForm';
 import PlantDetails from '../PlantDetails/PlantDetails';
 import EditDetailsForm from '../PlantDetails/EditDetailsForm';
 import OfferGallery from '../OfferGallery/OfferGallery';
+import BottomNav from '../Nav/BottomNav';
+
 import './App.css';
 
 function App() {
@@ -40,6 +42,7 @@ function App() {
   return (
     <Router>
       <div>
+      {/* <div style={{ height: 'calc(100% - 300px)' }}> */}
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -161,7 +164,7 @@ function App() {
 
           <Route
             exact
-            path="/offers"
+            path="/browse"
           >
             <OfferGallery/>
           </Route>
@@ -172,6 +175,7 @@ function App() {
           </Route>
         </Switch>
         <Footer />
+        <BottomNav/>
       </div>
     </Router>
   );
