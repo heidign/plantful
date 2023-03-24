@@ -6,6 +6,7 @@ import search from './search.reducer';
 import currentPlant from './currentPlant.reducer';
 import plantDetails from './details.reducer';
 import editPlant from './edit.reducer';
+import offers from './offers.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   currentPlant,
   plantDetails,
   editPlant,
+  offers,
 });
 
 export default rootReducer;

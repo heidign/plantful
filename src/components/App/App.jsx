@@ -25,6 +25,7 @@ import SearchDetails from '../SearchDetails/SearchDetails';
 import PlantForm from '../PlantForm/PlantForm';
 import PlantDetails from '../PlantDetails/PlantDetails';
 import EditDetailsForm from '../PlantDetails/EditDetailsForm';
+import OfferGallery from '../OfferGallery/OfferGallery';
 import './App.css';
 
 function App() {
@@ -157,6 +158,14 @@ function App() {
           >
             <EditDetailsForm />
           </ProtectedRoute>
+
+          <Route
+            exact
+            path="/offers"
+          >
+            <OfferGallery/>
+          </Route>
+
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
