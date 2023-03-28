@@ -1,121 +1,98 @@
+![MIT LICENSE](https://img.shields.io/github/license/scottbromander/the_marketplace.svg)
+![REPO SIZE](https://img.shields.io/github/repo-size/scottbromander/the_marketplace.svg)
+![TOP_LANGUAGE](https://img.shields.io/github/languages/top/scottbromander/the_marketplace.svg)
+![FORKS](https://img.shields.io/github/forks/scottbromander/the_marketplace.svg?style=social)
+[![LinkedIn][linkedin-shield]][linkedin-url]
+--- 
 
-# Prime Solo Project Starting Repo
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
-
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
-
-## Use the Template for This Repository (Don't Clone)
-
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account. Make the project `PUBLIC`!
+# Plantful
 
 
-## Prerequisites
 
-Before you get started, make sure you have the following software installed on your computer:
+## Description
 
-- [Node.js](https://nodejs.org/en/)
-- [PostrgeSQL](https://www.postgresql.org/)
-- [Nodemon](https://nodemon.io/)
+_Duration: 2 Week Sprint_
 
-## Create database and table
 
-Create a new database called `solo_project_app` and create a `user` table:
+Plantful is a full stack application for all things plants -- primarily for care-tracking and learning about species-specific care, while also facilitating the exchange of plants among users. 
 
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
+To see the fully functional app, please visit: [DEPLOYED VERSION OF APP](https://fathomless-waters-19516.herokuapp.com/)
 
-If you would like to name your database something else, you will need to change `solo_project_app` to the name of your new database name in `server/modules/pool.js`
+---
+## Screen Shots
 
-## Development Setup Instructions
+---
+## **Table of Contents:**
+1. [Installation & Setup](#installation--setup)
+1. [Usage](#usage)
+1. [Languages, Technologies, and Tools](#languages)
+1. [License](#license)
+1. [Acknowledgement](#acknowledgement)
 
-- Run `npm install`
-- Create a `.env` file at the root of the project and paste this line into the file:
-  ```
-  SERVER_SESSION_SECRET=superDuperSecret
-  ```
-  While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm run server`
-- Run `npm run client`
-- Navigate to `localhost:3000`
+---
+ 
+## Installation & Setup
+1. $ git clone git@github.com:heidign/plantful.git
+1. `npm install`
+1. Start postgres using brew services start postgresql (database name: `plantful`)
+1. `npm run server` in your terminal
+1. `npm run client` in a second terminal. 
+1. Navigate to localhost:3000
 
-## Debugging
+---
 
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
+## Usage
 
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
+1. Create an account and login.
+1. Click the add icon or the `add plant` tab to search a plant and add it to your collection.
+1. View your profile to see care task reminders. 
+1. Click on the plant to view more details specific to plant type.
+1. Click `add care or offer` to update the care scheduling needs, delete the plant, or mark it `offered`. 
+1. Visit the offers page to view offers and claim plant.
 
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
+---
 
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
+## Technologies
 
-## Testing Routes with Postman
+* [React](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
+* [Redux-Saga](https://redux-saga.js.org/)
+* [Node.js](https://nodejs.org/en/about/)
+* [Express.js](https://expressjs.com/)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Perenual API](https://perenual.com/api/)
+* [MaterialUI](https://mui.com/)
 
-To use Postman with this repo, you will need to set up requests in Postman to register a user and login a user at a minimum.
+---
+## License
+[MIT](LICENSE.md)
 
-Keep in mind that once you using the login route, Postman will manage your session cookie for you just like a browser, ensuring it is sent with each subsequent request. If you delete the `localhost` cookie in Postman, it will effectively log you out.
+---
+## Acknowledgement
+Special thanks to [Prime Digital Academy](www.primeacademy.io) and my instructor Dane, with the co-instruction of Edan, Key, Kris, Matt, and the additional support of Vada and Mary, along with my friends and family for their continued support, the Amethyst cohort, my mentors, and lastly to the Vonnegut & Shawl cohorts — y'all rule! 
 
-1. Start the server - `npm run server`
-2. Import the sample routes JSON file [v2](./PostmanPrimeSoloRoutesv2.json) by clicking `Import` in Postman. Select the file.
-3. Click `Collections` and `Send` the following three calls in order:
-   1. `POST /api/user/register` registers a new user, see body to change username/password
-   2. `POST /api/user/login` will login a user, see body to change username/password
-   3. `GET /api/user` will get user information, by default it's not very much
+---
 
-After running the login route above, you can try any other route you've created that requires a logged in user!
+## Connect with me
 
-## Production Build
+[LinkedIn](https://linkedin.com/in/heidign#gh-dark-mode-only)
 
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
 
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm start`
-- Navigate to `localhost:5000`
 
-## Lay of the Land
+<img align="left" alt="JavaScript" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" style="padding-right:10px;" />
 
-There are a few videos linked below that show a walkthrough the client and sever setup to help acclimatize to the boilerplate. Please take some time to watch the videos in order to get a better understanding of what the boilerplate is like.
+<img align="left" alt="React" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" style="padding-right:10px;" />
 
-- [Initial Set](https://vimeo.com/453297271)
-- [Server Walkthrough](https://vimeo.com/453297212)
-- [Client Walkthrough](https://vimeo.com/453297124)
+<img align="left" alt="Visual Studio Code" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" style="padding-right:10px;" />
 
-Directory Structure:
+<img align="left" alt="HTML5" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" style="padding-right:10px;" />
 
-- `src/` contains the React application
-- `public/` contains static assets for the client-side
-- `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-- `server/` contains the Express App
+<img align="left" alt="CSS3" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" style="padding-right:10px;" />
 
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
 
-- src/components
-  - App/App
-  - Footer/Footer
-  - Nav/Nav
-  - AboutPage/AboutPage
-  - InfoPage/InfoPage
-  - UserPage/UserPage
-  - LoginPage/LoginPage
-  - RegisterPage/RegisterPage
-  - LogOutButton/LogOutButton
-  - ProtectedRoute/ProtectedRoute
+<img align="left" alt="Git" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" style="padding-right:10px;" />
 
-## Deployment
+<img align="left" alt="GitHub" width="26px" src="https://user-images.githubusercontent.com/3369400/139447912-e0f43f33-6d9f-45f8-be46-2df5bbc91289.png" style="padding-right:10px;" />
 
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
-
-## Update Documentation
-
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/heidign
