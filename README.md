@@ -14,7 +14,11 @@ To see the fully functional app, please visit: [DEPLOYED VERSION OF APP](https:/
 
 ---
 ## Screen Shots
-
+![Mobile View Profile](https://user-images.githubusercontent.com/98715838/229013006-b54568e5-700f-483c-96c0-c5baa3359f24.png)
+![Mobile Search View](https://user-images.githubusercontent.com/98715838/229014964-4b487f8d-3e5f-41b0-966f-ab7e251cf415.png)
+![details-view](https://user-images.githubusercontent.com/98715838/229015944-67a4c34e-789e-4f71-97c5-6fca4e46b1fa.png)
+![api-details](https://user-images.githubusercontent.com/98715838/229018886-10c0ed71-c274-4ab6-8936-4e1e05e40a3a.png)
+![delete-view](https://user-images.githubusercontent.com/98715838/229020507-c7048998-3f07-44c5-8c22-edccbde4d439.png)
 ---
 ## **Table of Contents:**
 1. [Prerequisites](#prerequisites)
