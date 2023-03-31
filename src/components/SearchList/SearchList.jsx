@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import SearchAppBar from "../Nav/SearchAppBar";
 import SearchItem from "../SearchItem/SearchItem";
 import SearchDetails from "../SearchDetails/SearchDetails";
 // material ui
@@ -42,19 +43,12 @@ function SearchList() {
 
   return (
     <>
-      <section className="search-result-cards" background-color="#F9F9F9">
-      <List sx={{ width: "100%", maxWidth: 360 }}>
+      <section className="search-result-cards" background-color="#F9F9F9" alignItems="center">
+        <List sx={{ width: "100%", maxWidth: 360 }}>
           {searchItems.map((item) => (
             <div
               key={item.id}
               onClick={() => handleViewingDetails(item.id)}
-              //     style={{
-              //   margin: '1rem',
-              //  marginBottom: "1rem",
-              //   border: "1px solid black",
-              //   padding: "1rem",
-              // }}
-              // align="auto"
             >
               <>
                 <ListItem
@@ -72,10 +66,10 @@ function SearchList() {
                       // src={item.images.flower.image_url} // * trefle.io
                       // loading="lazy"
                       style={{
-                        borderRadius: "10px",
+                        borderRadius: "2px",
                         display: "block",
-                        width: 100,
-                        height: 100,
+                        width: 70,
+                        height: 70,
                         margin: '0 1rem',
                       }}
                       alt={item.common_name}
@@ -98,7 +92,7 @@ function SearchList() {
                     }
                   />
                 </ListItem>
-                {/* <Divider variant="inset" component="li" sx={{ height: 10, m: 0.5 }} orientation="horizontal"/> */}
+                <Divider variant="inset" component="li" sx={{ height: 10, m: 0.3 }} orientation="horizontal"/>
               </>
               <></>
               {item.id === viewingPlantId ? (

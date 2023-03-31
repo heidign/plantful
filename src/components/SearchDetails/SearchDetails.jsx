@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Stack, Paper, Box } from "@mui/material";
+import { Button, Divider, Paper, Box } from "@mui/material";
 
 // * displays more details 
 function SearchDetails({ item }) {
@@ -25,15 +25,17 @@ function SearchDetails({ item }) {
 
     return (
 
-      <Box>
+      <Box alignItems="center">
         <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
         <li><strong>Common name:</strong> {item?.common_name}</li>
           <li><strong>Other names:</strong> {item?.other_name}</li>
           <li><strong>Watering:</strong> {item?.watering}</li>
           <li><strong>Sunlight:</strong> {item?.sunlight}</li>
         </ul>
-        <Button onClick={goBack} variant="outlined" size="small">Back</Button>
-        <Button onClick={addToCollection} variant="contained" size="small">Add Plant</Button>
+        <Button onClick={goBack} color="success" variant="outlined" size="small">Back</Button>
+        <Button onClick={addToCollection} color="success" variant="contained" size="small">Add Plant</Button>
+        <Divider component="div" alignSelf="center" sx={{ m: 0.5, p: 0.5}} orientation="horizontal" />
+
       </Box>
     );
 };

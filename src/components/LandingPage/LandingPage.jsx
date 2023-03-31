@@ -57,9 +57,9 @@ function LandingPage() {
 
           <center>
             <h4>Already a Member?</h4>
-            <Button size="small" color="secondary" className="btn btn_sizeSm" onClick={onLogin}>
+            <button size="small" color="#23422a" className="btn btn_sizeSm" onClick={onLogin}>
               Login
-            </Button>
+            </button>
           </center>
         </div>
       </div>

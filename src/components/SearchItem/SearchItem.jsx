@@ -22,10 +22,8 @@ function SearchItem({ item }) {
             <img
               // src={item.default_image.original_url} // * perenual api
               src={item.default_image.medium_url}
-              // src={item.image_url} // ! trefle.io
-              loading="lazy"
               style={{
-                borderRadius: "15px",
+                // borderRadius: "15px",
                 display: "block",
                 width: 100,
               }}
