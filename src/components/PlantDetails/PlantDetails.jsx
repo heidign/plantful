@@ -17,14 +17,21 @@ import {
   CardActions,
   Collapse,
   IconButton,
-  Stack, ListItem,
+  Stack,
+  List,
+  ListItem,
+  Divider,
 } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
-// import { Box } from "@mui/system";
+
+import Icon from "@mdi/react";
+import { mdiWateringCanOutline } from "@mdi/js";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 function PlantDetails() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const today = moment();
   // getting id key from path params
   let { id } = useParams();
 
@@ -67,10 +74,9 @@ function PlantDetails() {
     return <ClipLoader />;
   }
 
-  // * sorting out alerts based on user's dates
+  // * notifications based on user's dates
   const getDaysSinceLastWater = (lastWaterTimestamp) => {
     const lastWaterMoment = moment(lastWaterTimestamp);
-    const today = moment();
 
     return today.diff(lastWaterMoment, "days");
   };
@@ -78,7 +84,7 @@ function PlantDetails() {
   const getNextWaterDate = (daysSinceLastWater) => {
     const waterDaysInterval = 7;
     const daysTilNextWater = waterDaysInterval - daysSinceLastWater;
-    return moment().add(daysTilNextWater, "day").format("LL");
+    return moment().add(daysTilNextWater, "day").format("ll");
   };
 
   const getIsWaterDayInThePast = (nextWaterDate) => {
@@ -88,210 +94,292 @@ function PlantDetails() {
   const daysSinceLastWater = getDaysSinceLastWater(dataFromUser.dateWatered);
   const nextWaterDate = getNextWaterDate(daysSinceLastWater);
   const isWaterDayInThePast = getIsWaterDayInThePast(nextWaterDate);
+  const daysOverdue = today.diff(nextWaterDate, "days");
 
   const handleChangeDisplay = (e) => {
     const checkedValue = e.target.checked;
     setIsOffered(!isOffered);
   };
 
-  function Item(props) {
-    const { sx, ...other } = props;
-    return (
-      <Box
-        sx={{
-          p: 1,
-          m: 1,
-          bgcolor: (theme) =>
-            theme.palette.mode === "dark" ? "#101010" : "grey.100",
-          color: (theme) =>
-            theme.palette.mode === "dark" ? "grey.300" : "grey.800",
-          border: "1px solid",
-          borderColor: (theme) =>
-            theme.palette.mode === "dark" ? "grey.800" : "grey.300",
-          borderRadius: 2,
-          fontSize: "0.875rem",
-          fontWeight: "700",
-          ...sx,
-        }}
-        {...other}
-      />
-    );
-  }
+  // const [autoFillNotes, setAutoFillNotes] = useState('');
+  // const handleAutoFillNotes = () => {
+  //   setAutoFillNotes('dkfhsdlcl');
+  // };
+
   return (
     <>
       <Card
         sx={{
-          border: "2px solid black",
           display: "flex",
-          flexDirection: "row",
+          // flexDirection: "row",
+          justifyItems: "center",
         }}
       >
         <Box
           sx={{
-            border: "1px solid black",
+            // border: "1px solid black",
             display: "flex",
             alignItems: "left",
             flexDirection: "column",
           }}
         >
-          {/* <pre>{JSON.stringify(plantDetails, null, 2)}</pre> */}
-          <CardHeader
-            title={dataFromUser.nickname}
-            component="div"
-            variant="h5"
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          />
-          <CardMedia
-            sx={{ display: "flex", alignItems: "center", flexDirection: "row" }}
-            loading="lazy"
-            style={{
-              borderRadius: "10px",
-              display: "block",
-              width: 100,
-              height: 100,
-              margin: "1rem",
-            }}
-            component="img"
-            src={dataFromUser?.image_url}
-            alt="plant image from user"
-          />
-
-          {/* User details */}
+          {/***** User details ****/}
           <Box
             direction="row"
             sx={{
-              border: "1px solid black",
-              marginInlineStart: "1rem",
-              display: "inline-flex",
+              // border: "1px solid black",
+              display: "flex",
               alignItems: "left",
               flexDirection: "row",
               flexWrap: "wrap",
             }}
           >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyItems: "center",
+              }}
+            >
+              <CardContent sx={{ flex: "1 0 auto" }}>
+                <Typography component="div" variant="h5">
+                  {dataFromUser.nickname}
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  fontStyle="italic"
+                  position="static"
+                  color="text.secondary"
+                  component="div"
+                  // sx={{ flexWrap: "nowrap"}}
+                >
+                  {plantDetails?.scientific_name}
+                </Typography>
+
+                {/* pet toxicity */}
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  component="div"
+                >
+                  {plantDetails?.poisonous_to_pets == 0
+                    ? "Non-toxic to Pets"
+                    : "Toxic to Pets"}
+                </Typography>
+
+                {/***** Offer status for plant offer *****/}
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  component="div"
+                >
+                  {
+                    dataFromUser?.isOffered ? "Offered" : "Not Offered"
+                    // TODO: margins
+                    // <FormControlLabel
+                    //   value="start"
+                    //   control={
+                    //     <Checkbox
+                    //       disabled
+                    //       checked={dataFromUser?.isOffered}
+                    //       onChange={(e) => handleChangeDisplay(e.target.checked)}
+                    //       value={dataFromUser.isOffered}
+                    //       name="isOffered"
+                    //       inputProps={{
+                    //         "aria-label": "Offer Checkbox",
+                    //       }}
+                    //     />
+                    //   }
+                    //   label="Not Offered"
+                    //   labelPlacement="start"
+                    //   />
+                  }{" "}
+                </Typography>
+              </CardContent>
+            </Box>
+            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+
+            {/* plant image */}
+            <CardMedia
+              sx={{
+                display: "flex",
+                align: "right",
+                flexDirection: "row",
+              }}
+              // loading="lazy"
+              style={{
+                borderRadius: "5px",
+                display: "block",
+                width: 150,
+                height: 150,
+                margin: "1rem",
+              }}
+              component="img"
+              src={dataFromUser?.image_url}
+              alt="plant image from user"
+            />
+
+            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+
+            {/* notes */}
+            <Box>
+              <CardContent>
+                <Typography size="h4" style={{ padding: 0 }}>
+                  <strong> Notes:</strong> {dataFromUser?.notes}
+                </Typography>
+                {/* <ListItem>{dataFromUser?.notes}</ListItem> */}
+              </CardContent>
+            </Box>
+
+            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+
+            {/* watering */}
             <CardContent>
               <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Date of last watering:{" "}
+                Date of last watering:
               </Typography>
-              <p>{moment(dataFromUser.dateWatered).format("LL")}</p>
-              <strong>Watering day: </strong>
-              {""}
-              {isWaterDayInThePast ? `today` : nextWaterDate}
+
+              <ListItem>
+                {moment(dataFromUser?.dateWatered).format("ll")}
+              </ListItem>
+              <Typography
+                size="h4"
+                style={{ fontWeight: "bold", color: "#dc445c" }}
+              >
+                <ListItem>
+                  <Icon
+                    path={mdiWateringCanOutline}
+                    size={1}
+                    rotate={30}
+                    color="#23422a"
+                  />
+                  {isWaterDayInThePast
+                    ? ` Overdue by ${daysOverdue} days `
+                    : nextWaterDate}
+                </ListItem>
+              </Typography>
             </CardContent>
 
+            {/* fertilized */}
             <CardContent>
               <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Date last fertilized:{" "}
+                Date last fertilized:
               </Typography>
-              <p>{moment(dataFromUser.dateFertilized).format("LL")}</p>
+              <ListItem>
+                {moment(dataFromUser?.dateFertilized).format("ll")}
+              </ListItem>
             </CardContent>
 
+            {/* re-pot */}
             <CardContent>
               <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Date of last re-pot:{" "}
+                Date of last re-pot:
               </Typography>
-              <p>{moment(dataFromUser.dateRepotted).format("LL")}</p>
+              <ListItem>
+                {moment(dataFromUser?.dateRepotted).format("ll")}
+              </ListItem>
             </CardContent>
           </Box>
           {/* </Stack> */}
-
-          {/* check box for plant offer */}
+          <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+          {/***** Additional details ******/}
           <Box
             sx={{
-              border: "1px solid black",
-              marginInlineStart: "1rem",
-              display: "inline-flex",
+              display: "flex",
+              // alignItems: "left",
               flexDirection: "column",
-            }}
-          >
-            <FormControlLabel
-              value="start"
-              control={
-                <Checkbox
-                  disabled
-                  checked={dataFromUser.isOffered}
-                  onChange={(e) => handleChangeDisplay(e.target.checked)}
-                  value={dataFromUser.isOffered}
-                  name="isOffered"
-                  inputProps={{
-                    "aria-label": "Offer Checkbox",
-                  }}
-                />
-              }
-              label="Offered"
-              labelPlacement="start"
-            />
-          </Box>
-
-          {/* Additional details */}
-          <Box
-            sx={{
-              marginInlineStart: "1rem",
-              // paddingBlock: "3rem",
-              display: "inline-flex",
-              alignItems: "left",
-              flexDirection: "column",
+              justifyContent: "left",
             }}
           >
             <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold" }}>
+              <Typography size="h4" style={{ fontWeight: "bold", padding: 0 }}>
+                Care{" "}
+              </Typography>
+              <ListItem>{plantDetails?.care_level}</ListItem>
+            </CardContent>
+
+            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+
+            <CardContent>
+              <Typography size="h4" style={{ fontWeight: "bold", padding: 0 }}>
                 Watering:{" "}
               </Typography>
+              <ListItem>{plantDetails?.watering}</ListItem>
+            </CardContent>
+
+            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+
+            <CardContent>
+              <Typography size="h4" style={{ fontWeight: "bold", padding: 0 }}>
+                Sunlight:
+              </Typography>
               <ul>
-                <p>{plantDetails.watering}</p>
+                {/* mapping over sunlight array to display item at each index */}
+                {plantDetails?.sunlight.map((sunlight, id) => (
+                  <li>{sunlight}</li>
+                ))}
               </ul>
             </CardContent>
-            <h4 type="h4">Sunlight:</h4>
-            <ul>
-              {/* mapping over sunlight array to display item at each index */}
-              {plantDetails.sunlight.map((sunlight, id) => (
-                <li key={id}>{sunlight}</li>
-              ))}
-            </ul>
-            <CardContent>
+
+            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+
+            <CardContent sx={{ p: 0, m: 1 }}>
               <Typography size="h4" style={{ fontWeight: "bold" }}>
                 Growth rate:{" "}
               </Typography>
-              <ul>
-                <p>{plantDetails.growth_rate}</p>
-              </ul>
+              <ListItem>{plantDetails?.growth_rate}</ListItem>
             </CardContent>
+
+            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
 
             <CardContent>
               <Typography size="h4" style={{ fontWeight: "bold" }}>
                 Soil type:{" "}
               </Typography>
-              <ul>
-                <p>{plantDetails.soil}</p>
-              </ul>
+              <ListItem>{plantDetails?.soil}</ListItem>
             </CardContent>
+
+            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
 
             <CardContent>
               <Typography size="h4" style={{ fontWeight: "bold" }}>
                 Maintenance level:{" "}
               </Typography>
-              <ListItem>{plantDetails.maintenance}</ListItem>
+              <ListItem>{plantDetails?.maintenance}</ListItem>
             </CardContent>
           </Box>
+          {/* <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" /> */}
 
           {/*  Back and Edit buttons */}
-          <Box sx={{
-            marginInlineStart: "1rem",
-            display: "inline-flex",
-            flexDirection: "row"
-          }}>
-              <Button  variant="outlined" color="secondary" onClick={goBack}>
-                Back
-              </Button>
+          <Box
+            sx={{
+              // display: "flex",
+              // flexDirection: "row",
+              alignSelf: "center",
+              marginBottom: 2,
+            }}
+          >
+            <IconButton
+              variant="outlined"
+              size="small"
+              color="success"
+              onClick={goBack}
+              sx={{ marginLeft: -1 }}
+            >
+              <ArrowBackIosNewIcon />
+            </IconButton>
 
-              <Button variant="contained" color="secondary" onClick={goToEdit}>
-                Edit
-              </Button>
+            <Button
+              variant="contained"
+              color="success"
+              onClick={goToEdit}
+              sx={{
+                borderRadius: 16,
+              }}
+            >
+              Add Care or Offer
+            </Button>
           </Box>
-          
         </Box>
       </Card>
     </>

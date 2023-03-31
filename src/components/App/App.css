@@ -7,6 +7,7 @@ body,
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
+  background-color: #fcf8f6;
 }
 
 img {
@@ -29,10 +30,10 @@ Button
 .btn {
   display: inline-block;
   padding: 10px 20px;
-  border-color: #014041;
+  border-color: #23422a;
   border-width: 1px 1px 3px;
   border-radius: 4px;
-  background-color: #00acb0;
+  background-color: #327c36;
   color: #f8f8f8;
   font-size: 1.1rem;
   outline: 0;
@@ -55,7 +56,7 @@ Button
 }
 
 .btn:hover {
-  background-color: #008183;
+  background-color: #327c36;
   text-decoration: none;
 }
 
@@ -72,8 +73,8 @@ Button
 
 .btn_asLink:hover {
   background-color: transparent;
-  border-color: #008183;
-  color: #008183;
+  border-color: #327c36;
+  color: #327c36;
 }
 
 /* --------------------------------------------------------------------------------
@@ -109,4 +110,29 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+@font-face {
+  font-family: 'Dangwa';
+  src: url(../../fonts/Dangwa_Free.otf);
+}
+
+@font-face {
+  font-family: 'OleoScriptSwashCaps-Bold';
+  src: url(../../fonts/OleoScriptSwashCaps-Bold.ttf);
+}
+
+@font-face {
+  font-family: 'Oleo-Script';
+  src: url(../../fonts/OleoScriptSwashCaps-Regular.ttf);
+} 
+
+@font-face {
+  font-family: 'Geshina';
+  src: url(../../fonts/Geshina-VG95e.otf);
+}
+
+@font-face {
+  font-family: 'Geshina-Shadow';
+  src: url(../../fonts/GeshinaShadow-51G6v.ttf);
 }

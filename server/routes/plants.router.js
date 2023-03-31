@@ -12,9 +12,9 @@ require("dotenv").config();
  **/
 router.get("/", rejectUnauthenticated, (req, res) => {
   console.log('getting all plants')
-  const query = `SELECT * FROM plants
-  WHERE user_id = $1
-  ORDER BY id DESC
+  const query = `SELECT * FROM "plants"
+  WHERE "user_id" = $1
+  ORDER BY "dateWatered" ASC
   ;`;
   pool
     .query(query, [req.user.id])
@@ -95,7 +95,7 @@ router.put('/edit/:id', rejectUnauthenticated, (req, res) => {
       });
 });
   
-router.put('/:id/offer', rejectUnauthenticated, (req, res) => {
+router.put('/offer/:id', rejectUnauthenticated, (req, res) => {
   console.log(`req.params:' ${req.params.id}', 'req.body:'`, req.body.data)
   const queryText = `UPDATE "plants" 
   SET "isOffered" = true
@@ -117,7 +117,7 @@ router.put('/:id/offer', rejectUnauthenticated, (req, res) => {
       });
 });
   
-router.put('/:id/claim', rejectUnauthenticated, (req, res) => {
+router.put('/claim/:id', rejectUnauthenticated, (req, res) => {
   console.log(`req.params:' ${req.params.id}', 'req.body:'`, req.body.data)
   const queryText = `UPDATE "plants" 
   SET "isOffered" = false, "user_id" = $1
@@ -143,7 +143,7 @@ router.put('/:id/claim', rejectUnauthenticated, (req, res) => {
 
 // delete a plant by id
 router.delete("/:id", rejectUnauthenticated, (req, res) => {
-  const queryText = `DELETE FROM "plants" WHERE "id"=$1`;
+  const queryText = `DELETE FROM "plants" WHERE "id" = $1`;
   const queryParams = [req.params.id];
   // log id for bugs
   console.log(`IN req.params:' ${req.params.id}', 'queryParams:'`, queryParams)

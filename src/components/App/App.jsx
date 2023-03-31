@@ -23,11 +23,12 @@ import Search from '../Search/Search';
 import SearchList from '../SearchList/SearchList';
 import SearchDetails from '../SearchDetails/SearchDetails';
 import PlantForm from '../PlantForm/PlantForm';
+import Profile from '../Profile';
 import PlantDetails from '../PlantDetails/PlantDetails';
 import EditDetailsForm from '../PlantDetails/EditDetailsForm';
-import OfferGallery from '../OfferGallery/OfferGallery';
+import OfferGallery from '../OfferViews/OfferGallery';
 import BottomNav from '../Nav/BottomNav';
-
+import SearchAppBar from '../Nav/SearchAppBar';
 import './App.css';
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
       <div>
       {/* <div style={{ height: 'calc(100% - 300px)' }}> */}
         <Nav />
+       
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
@@ -124,8 +126,9 @@ function App() {
             exact
             path="/add-plant"
           >
+            {/* <SearchAppBar /> */}
             <Search />
-          </ProtectedRoute>
+          </ProtectedRoute> 
 
           <ProtectedRoute
             exact
@@ -150,6 +153,13 @@ function App() {
 
           <ProtectedRoute
             exact
+            path="/profile"
+          >
+            <Profile />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
             path="/details/:id"
           >
             <PlantDetails />
@@ -168,7 +178,7 @@ function App() {
           >
             <OfferGallery/>
           </Route>
-
+          
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>

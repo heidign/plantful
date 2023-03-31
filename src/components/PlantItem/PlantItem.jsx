@@ -15,13 +15,14 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { FavoriteOutlined } from "@mui/icons-material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Icon from "@mdi/react";
+import { mdiWateringCanOutline } from "@mdi/js";
 import PlantDetails from "../PlantDetails/PlantDetails";
 import moment from "moment";
 
 // * plant item from db
-function PlantItem({ item }) {
+function PlantItem({ item, daysOverdue }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const detailsFromAPI = useSelector(
@@ -51,7 +52,7 @@ function PlantItem({ item }) {
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
-    // history.push(`/details/${item.id}`);
+    history.push(`/details/${item.id}`);
   };
 
   // * icon indication based on user's dates
@@ -77,64 +78,77 @@ function PlantItem({ item }) {
   const isWaterDayInThePast = getIsWaterDayInThePast(nextWaterDate);
   return (
     <>
+      {/* <div> */}
+      <Box
+        sx={{
+          // border: "2px solid black",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <Card
+          onClick={goToDetailsPage}
+          sx={{
+            ml: "10px",
+            mr: "10px",
+            mt: "5px",
+            mb: "20px",
+            width: "300px"
+          }}
+        >
+          <CardHeader title={item.nickname} />
+          <CardMedia
+            sx={{
+              height: 240,
+              width: "100%",
+            }}
+            component="img"
+            src={item.image_url}
+          />
+          <CardContent>
+            <Typography size="h4" style={{ fontWeight: "bold" }}>
+              {/* {detailsFromAPI.scientific_name} */}
+              {/* <p>{moment(detailsFromDb.dateWatered).format("LL")}</p> */}
+              <Icon
+                path={mdiWateringCanOutline}
+                size={1}
+                rotate={30}
+                // color="red"
+              />{" "}
+              Water
+            </Typography>
+            {/* <Typography size="h4" style={{ fontWeight: "bold", color: "#dc445c" }}></Typography> */}
+            <Typography variant="subtitle2" gutterBottom style={{ fontWeight: "medium", color: "#dc445c" }}>
+              {isWaterDayInThePast
+                ? `Overdue by ${daysOverdue} days `
+                : nextWaterDate}
+            </Typography>
+          </CardContent>
 
-        <div>
-          <Box>
-            <Card
-              onClick={goToDetailsPage}
-              sx={{
-                ml: "10px",
-                mr: "10px",
-                mt: "5px",
-                mb: "20px",
-              }}
-            >
-              <CardHeader title={item.nickname} />
-              <CardMedia
-                sx={{
-                  height: 240,
-                  width: '100%',
-                }}
-                component="img"
-                src={item.image_url}
-              />
-              <CardContent>
-                <Typography size="h4" style={{ fontWeight: "bold" }}>
-                  {/* {detailsFromAPI.scientific_name} */}
-                  {/* <p>{moment(detailsFromDb.dateWatered).format("LL")}</p> */}
-                 Water your plant:
-                </Typography>
-                <Typography variant="subtitle2" gutterBottom>
-                  {isWaterDayInThePast ? `Today` : nextWaterDate} 
-                </Typography>
-              </CardContent>
-
-              <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteBorderIcon />
-                </IconButton>
-
-                <ExpandMore
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <FavoriteBorderIcon />
+            </IconButton>
+            {/* <ExpandMore
                   expand={expanded}
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
                   aria-label="show more"
                 >
                   <ExpandMoreIcon />
-                </ExpandMore>
-              </CardActions>
-              <Collapse
-                onClick={handleExpandClick}
-                in={expanded}
-                timeout="auto"
-                unmountOnExit
-              >
-                <PlantDetails item={item} />
-                {/* <p><i>{detailsFromAPI}</i></p> */}
-              </Collapse>
-            </Card>
-          </Box>
-        </div>
+                </ExpandMore> */}
+          </CardActions>
+          <Collapse
+            onClick={handleExpandClick}
+            in={expanded}
+            timeout="auto"
+            unmountOnExit
+          >
+            <PlantDetails item={item} />
+          </Collapse>
+        </Card>
+      </Box>
+      {/* </div> */}
     </>
   );
 }

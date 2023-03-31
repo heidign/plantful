@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import SearchList from "../SearchList/SearchList";
+import SearchAppBar from "../Nav/SearchAppBar";
 // material ui
-import { Box, Paper, InputBase } from '@mui/material/';
+import { Box, Paper, Typography, InputBase } from '@mui/material/';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
@@ -28,9 +29,18 @@ function Search() {
   };
 
   return (
+    <>
     <Box align="center" sx={{ mb: "50px", mt: "20px" }} >
-      <h3>First, find your plant:</h3>
-
+      {/* <h3 style={{ fontFamily: "Oleo-Script", color: "#327c36", fontSize: 35 }}>find your plant</h3> */}
+      <Typography
+            variant="h4"
+            alignItems="center"
+            style={{
+              fontFamily: "Oleo-Script", color: "#327c36",
+              fontSize: 35,
+              padding: "2vh",
+            }}
+          > find your plant </Typography>
         <form onSubmit={(e) => {e.preventDefault(); handleSearch()}}>
         <Paper className="search-form"
     sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 300 }}
@@ -39,8 +49,8 @@ function Search() {
         value={newSearch}
         onChange={handleSearchChange}
         sx={{ ml: 1, flex: 1 }}
-        placeholder="Search plants"
-        inputProps={{ 'aria-label': 'search for a plant' }}
+        placeholder="Search our collection of plants"
+        inputProps={{ 'aria-label': 'search our list of plants' }}
       />
         <IconButton onClick={handleSearch} type="button" sx={{ p: '10px' }} aria-label="search">
         <SearchIcon />
@@ -51,7 +61,7 @@ function Search() {
       
       <SearchList />
     </Box>
-
+    </>
   );
 }
 

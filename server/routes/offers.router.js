@@ -5,11 +5,12 @@ const { rejectUnauthenticated } = require("../modules/authentication-middleware"
 
 
 /**
- * GET route, getting all offers === true
+ * GET route, getting all offers === true, username, by id
  **/
 router.get("/", rejectUnauthenticated, (req, res) => {
     console.log('getting all plants')
-    const query = `SELECT * FROM "plants"
+  const query = `SELECT "p".*, u."username" FROM "plants" p
+    JOIN "user" u ON p."user_id" = u."id"
     WHERE "isOffered" = true
     AND "user_id" != $1
     ORDER BY id ASC
