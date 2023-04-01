@@ -24,7 +24,7 @@ function* deletePlant(action) {
     let sweetResult = yield swal.fire({
       title: "Are you sure you want to delete this plant?",
       confirmButtonText: "Delete",
-      confirmButtonColor: "#a50104",
+      confirmButtonColor: "#dc445c",
       cancelButtonColor: "#327c36",
       icon: "question",
       showConfirmButton: true,
@@ -34,6 +34,8 @@ function* deletePlant(action) {
       let response = yield axios.delete(`/api/plants/${action.payload}`);
       console.log("IN delete saga:", action.payload.id);
       yield put({ type: "FETCH_PLANTS" });
+      // calling callback function bringing user back to profile upon delete
+      yield action.cb();
     }
   } catch (err) {
     console.error("Error deleting plant", err);

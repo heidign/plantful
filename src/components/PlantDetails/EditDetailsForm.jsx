@@ -56,11 +56,13 @@ function EditDetailsForm() {
 
   //  dispatch to saga to fire action, send id
   const dispatchDelete = () => {
-    dispatch({ type: "DELETE_PLANT", payload: Number(id) });
-    // bring user back to profile after delete
-    history.push("/profile");
-  };
-
+    dispatch({
+      type: "DELETE_PLANT",
+      payload: Number(id),
+      // bring user back to profile after delete
+      cb: () => { history.push("/profile") }
+    });
+};
   return (
     <>
       {/* <Grid padding={0.6} paddingTop={4} paddingBottom={4}>
