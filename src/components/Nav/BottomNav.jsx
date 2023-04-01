@@ -58,7 +58,7 @@ function BottomNav() {
             icon={<FavoriteBorderIcon style={{ color: "23422a" }}/>}
           />
 
-          <StyledFab
+          {/* <StyledFab
             color="success"
             color= "#23422a"
             aria-label="add plant"
@@ -67,7 +67,7 @@ function BottomNav() {
           >
             <AddIcon />
           </StyledFab >
-          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1 }} /> */}
 
           <BottomNavigationAction
             component={Link}

@@ -91,7 +91,7 @@ function OfferGallery() {
                     sx={{
                       maxWidth: 400,
                       ml: "5px",
-                      mr: "10px",
+                      mr: "5px",
                       mt: "5px",
                       mb: "5px",
                     }}
@@ -116,64 +116,55 @@ function OfferGallery() {
                           alignItems: "center",
                           flexDirection: "row",
                         }}
-                        // loading="lazy"
                         style={{
-                          // borderRadius: "10px",
                           display: "block",
                           height: 240,
                           width: "100%",
                         }}
                         component="img"
                         src={offer?.image_url}
-                        alt="plant image from user"
-                      />
-
-                      {/* common name */}
-                      <CardContent>
-                        <Typography size="h4" style={{ fontWeight: "bold" }}>
-                          {offer?.common_name}
-                        </Typography>
-                      </CardContent>
+                        alt="plant-img"
+                        />
                       <Box>
                         {/* notes */}
-                        <CardContent>
-                          <Typography size="h4" style={{ padding: 0 }}>
-                            <strong> Notes:</strong> {offer?.notes}
+                        <CardContent align="center" style={{ padding: 5 }}>
+                          <Typography variant="subtitle2" style={{ padding: 5 }}>
+                            <strong> Notes:</strong> {offer?.notes} 
                           </Typography>
-                          {/* <ListItem>{offer?.notes}</ListItem> */}
-                        </CardContent>
+                          </CardContent>
+                          
                         {/* watering */}
-                        <CardContent>
-                          <Typography size="h4" style={{ fontWeight: "bold" }}>
-                            Last watering:{" "}
-                            {moment(offer?.dateWatered).format("ll")}
+                        <CardContent  style={{ padding: 5, marginBottom: 0 }}>
+                          <Typography variant="subtitle2" style={{ paddingLeft: 5, marginBottom: 0  }}>
+                              <ListItem><strong>Last watering: {" "} </strong>
+                            {moment(offer?.dateWatered).format("ll")}</ListItem>
                           </Typography>
                         </CardContent>
 
                         {/* fertilized */}
-                        <CardContent>
-                          <Typography size="h4" style={{ fontWeight: "bold" }}>
-                            Fertilized:{" "}
-                            {moment(offer?.dateFertilized).format("ll")}
+                        <CardContent align="center" style={{ padding: 5, marginBottom: 0 }}>
+                          <Typography variant="subtitle2" style={{ paddingLeft: 5, marginBottom: 0  }}>
+                          <ListItem><strong>Fertilized:</strong>{" "}
+                            {moment(offer?.dateFertilized).format("ll")}</ListItem>
                           </Typography>
                         </CardContent>
 
                         {/* re-pot */}
-                        <CardContent>
-                          <Typography size="h4" style={{ fontWeight: "bold" }}>
-                            Last Re-potting:{" "}
+                        <CardContent align="center" style={{ padding: 5, marginBottom: 0 }}>
+                          <Typography variant="subtitle2" style={{ padding: 5,  marginBottom: 0 }}>
+                            <strong>Last Repot:</strong>{" "}
                             {moment(offer?.dateRepotted).format("ll")}
                           </Typography>
                         </CardContent>
                       </Box>
-                      <Box align="right">
+                      <Box align="center">
                         <Button
                           variant="contained"
                           size="small"
                           color="success"
                           sx={{
-                            mx: 2,
-                            my: 3,
+                            // mx: 5,
+                            marginBottom: 5,
                             borderRadius: 15,
                             align: 'center',
                           }}

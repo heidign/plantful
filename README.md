@@ -124,7 +124,7 @@ ___
 <img align="left" alt="Visual Studio Code" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" style="padding-right:10px;" />
 
 <!-- Links & Icons -->
-[perenual-shield]: https://img.shields.io/badge/perenual-api-green?style=for-the-badge&
+[perenual-shield]: https://img.shields.io/badge/perenual-api-2cbc9e?style=for-the-badge&
 [perenual-url]: https://perenual.com/api/
 [linkedin-shield2]: https://img.shields.io/badge/-LinkedIn-black.svg?logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/heidign
@@ -143,7 +143,7 @@ ___
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [mui-shield]:
-https://img.shields.io/badge/material-ui-blue?style=for-the-badge&
+https://img.shields.io/badge/material-ui-007FFF?style=for-the-badge&logo=mui
 [mul-url]:
 (https://mui.com/)
 [Net]: https://img.shields.io/badge/%2ENET-20232A?style=for-the-badge&logo=dotnet&logoColor=61DAFB

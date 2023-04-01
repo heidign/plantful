@@ -321,9 +321,9 @@ function PlantDetails() {
               </ul>
             </CardContent>
 
-            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+            <Divider component="div" sx={{ p: 0, m: 0.5 }} orientation="horizontal" />
 
-            <CardContent sx={{ p: 0, m: 1 }}>
+            <CardContent>
               <Typography size="h4" style={{ fontWeight: "bold" }}>
                 Growth rate:{" "}
               </Typography>
@@ -336,7 +336,12 @@ function PlantDetails() {
               <Typography size="h4" style={{ fontWeight: "bold" }}>
                 Soil type:{" "}
               </Typography>
-              <ListItem>{plantDetails?.soil}</ListItem>
+              <ul>
+                {/* mapping over soil array to display item at each index */}
+                {plantDetails?.soil.map((soil, id) => (
+                  <li>{soil}</li>
+                ))}
+              </ul>
             </CardContent>
 
             <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
