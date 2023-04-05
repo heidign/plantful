@@ -96,15 +96,6 @@ function PlantDetails() {
   const isWaterDayInThePast = getIsWaterDayInThePast(nextWaterDate);
   const daysOverdue = today.diff(nextWaterDate, "days");
 
-  const handleChangeDisplay = (e) => {
-    const checkedValue = e.target.checked;
-    setIsOffered(!isOffered);
-  };
-
-  // const [autoFillNotes, setAutoFillNotes] = useState('');
-  // const handleAutoFillNotes = () => {
-  //   setAutoFillNotes('dkfhsdlcl');
-  // };
 
   return (
     <>
@@ -117,7 +108,6 @@ function PlantDetails() {
       >
         <Box
           sx={{
-            // border: "1px solid black",
             display: "flex",
             alignItems: "left",
             flexDirection: "column",
@@ -127,7 +117,6 @@ function PlantDetails() {
           <Box
             direction="row"
             sx={{
-              // border: "1px solid black",
               display: "flex",
               alignItems: "left",
               flexDirection: "row",
@@ -151,7 +140,6 @@ function PlantDetails() {
                   position="static"
                   color="text.secondary"
                   component="div"
-                  // sx={{ flexWrap: "nowrap"}}
                 >
                   {plantDetails?.scientific_name}
                 </Typography>
@@ -175,7 +163,6 @@ function PlantDetails() {
                 >
                   {
                     dataFromUser?.isOffered ? "Offered" : "Not Offered"
-                    // TODO: margins
                     // <FormControlLabel
                     //   value="start"
                     //   control={
@@ -227,16 +214,15 @@ function PlantDetails() {
                 <Typography size="h4" style={{ padding: 0 }}>
                   <strong> Notes:</strong> {dataFromUser?.notes}
                 </Typography>
-                {/* <ListItem>{dataFromUser?.notes}</ListItem> */}
               </CardContent>
             </Box>
 
-            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+            {/* <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" /> */}
 
             {/* watering */}
             <CardContent>
               <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Date of last watering:
+                Last watering:
               </Typography>
 
               <ListItem>
@@ -255,7 +241,7 @@ function PlantDetails() {
                   />
                   {isWaterDayInThePast
                     ? ` Overdue by ${daysOverdue} days `
-                    : nextWaterDate}
+                    : ` Water on ${nextWaterDate}`}
                 </ListItem>
               </Typography>
             </CardContent>
@@ -263,7 +249,7 @@ function PlantDetails() {
             {/* fertilized */}
             <CardContent>
               <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Date last fertilized:
+                Last fertilized:
               </Typography>
               <ListItem>
                 {moment(dataFromUser?.dateFertilized).format("ll")}
@@ -273,7 +259,7 @@ function PlantDetails() {
             {/* re-pot */}
             <CardContent>
               <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Date of last re-pot:
+                Last re-pot:
               </Typography>
               <ListItem>
                 {moment(dataFromUser?.dateRepotted).format("ll")}
@@ -293,7 +279,7 @@ function PlantDetails() {
           >
             <CardContent>
               <Typography size="h4" style={{ fontWeight: "bold", padding: 0 }}>
-                Care{" "}
+                Care:{" "}
               </Typography>
               <ListItem>{plantDetails?.care_level}</ListItem>
             </CardContent>
