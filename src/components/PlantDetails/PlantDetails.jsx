@@ -163,23 +163,6 @@ function PlantDetails() {
                 >
                   {
                     dataFromUser?.isOffered ? "Offered" : "Not Offered"
-                    // <FormControlLabel
-                    //   value="start"
-                    //   control={
-                    //     <Checkbox
-                    //       disabled
-                    //       checked={dataFromUser?.isOffered}
-                    //       onChange={(e) => handleChangeDisplay(e.target.checked)}
-                    //       value={dataFromUser.isOffered}
-                    //       name="isOffered"
-                    //       inputProps={{
-                    //         "aria-label": "Offer Checkbox",
-                    //       }}
-                    //     />
-                    //   }
-                    //   label="Not Offered"
-                    //   labelPlacement="start"
-                    //   />
                   }{" "}
                 </Typography>
               </CardContent>
@@ -206,7 +189,7 @@ function PlantDetails() {
               alt="plant image from user"
             />
 
-            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+            {/* <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" /> */}
 
             {/* notes */}
             <Box>
@@ -232,6 +215,7 @@ function PlantDetails() {
                 size="h4"
                 style={{ fontWeight: "bold", color: "#dc445c" }}
               >
+              {daysOverdue <= -5 ? `Up to Date` : '' }
                 <ListItem>
                   <Icon
                     path={mdiWateringCanOutline}
@@ -239,9 +223,19 @@ function PlantDetails() {
                     rotate={30}
                     color="#23422a"
                   />
-                  {isWaterDayInThePast
-                    ? ` Overdue by ${daysOverdue} days `
-                    : ` Water on ${nextWaterDate}`}
+                  {/* {isWaterDayInThePast */}
+                    {/* // ? ` Overdue by ${daysOverdue} days `
+                    // : ` Water on ${nextWaterDate}` */}
+                    {isWaterDayInThePast ?
+                      daysOverdue == 0 ?
+                      `Water today` 
+                    : daysOverdue == 1 ?
+                      `Overdue by ${daysOverdue} day `
+                    : `Overdue by ${daysOverdue} days `
+                    :  daysOverdue == 0 ? 
+                      ` Water tomorrow` :
+                      `Water on ${nextWaterDate}`}
+                   {/* } */}
                 </ListItem>
               </Typography>
             </CardContent>

@@ -5,6 +5,7 @@ import axios from "axios";
 import moment from "moment";
 import {
   Box,
+  Grid,
   Typography,
   Card,
   CardHeader,
@@ -45,7 +46,7 @@ function OfferGallery() {
         // sx={{ align: "center", width: 500 }}
       >
         <ImageListItem key="Subheader" cols={2}>
-          <ListSubheader component="div" sx={{ mb: 0 }} style={{ fontFamily: "Oleo-Script", fontSize: 20, marginLeft: "1vh" }}>
+          <ListSubheader component="div" sx={{ mb: 0 }} style={{ fontFamily: "Oleo-Script", fontSize: 20, marginLeft: "0vh" }}>
             available plants
           </ListSubheader>
         </ImageListItem>
@@ -125,45 +126,51 @@ function OfferGallery() {
                         src={offer?.image_url}
                         alt="plant-img"
                         />
-                      <Box>
+                      <Grid sx={{ m: '1rem' }}>
                         {/* notes */}
-                        <CardContent align="center" style={{ padding: 5 }}>
-                          <Typography variant="subtitle2" style={{ padding: 5 }}>
-                            <strong> Notes:</strong> {offer?.notes} 
+                        <CardContent align="center" style={{ padding: 0 }}>
+                          <Typography variant="subtitle2" style={{ padding: -4, marginTop: 4, marginBottom: -4 }}>
+                             <strong><i>Notes: </i></strong>
+                              {offer?.notes}
                           </Typography>
-                          </CardContent>
+                        </CardContent>
                           
                         {/* watering */}
-                        <CardContent  style={{ padding: 5, marginBottom: 0 }}>
-                          <Typography variant="subtitle2" style={{ paddingLeft: 5, marginBottom: 0  }}>
-                              <ListItem><strong>Last watering: {" "} </strong>
-                            {moment(offer?.dateWatered).format("ll")}</ListItem>
+                        <CardContent align="left" style={{ padding: 5, marginBottom: 0 }}>
+                          <Typography variant="subtitle2" style={{ padding: 0, marginBottom: 0 }}>
+                              <ListItem>
+                                <strong>Last watering: </strong>
+                                {moment(offer?.dateWatered).format("ll")}
+                              </ListItem>
                           </Typography>
                         </CardContent>
 
                         {/* fertilized */}
-                        <CardContent align="center" style={{ padding: 5, marginBottom: 0 }}>
-                          <Typography variant="subtitle2" style={{ paddingLeft: 5, marginBottom: 0  }}>
-                          <ListItem><strong>Fertilized:</strong>{" "}
-                            {moment(offer?.dateFertilized).format("ll")}</ListItem>
+                        <CardContent align="left" style={{ padding: 5, marginBottom: 0 }}>
+                          <Typography variant="subtitle2" style={{ padding: 0, marginBottom: 0 }}>
+                                <ListItem>
+                                  <strong>Fertilized: </strong>
+                                {moment(offer?.dateFertilized).format("ll")}
+                                </ListItem>
                           </Typography>
                         </CardContent>
 
                         {/* re-pot */}
-                        <CardContent align="center" style={{ padding: 5, marginBottom: 0 }}>
-                          <Typography variant="subtitle2" style={{ padding: 5,  marginBottom: 0 }}>
-                            <strong>Last Repot:</strong>{" "}
-                            {moment(offer?.dateRepotted).format("ll")}
+                        <CardContent align="left" style={{ padding: 5, marginBottom: 0 }}>
+                          <Typography variant="subtitle2" style={{ padding: 0 }}>
+                              <ListItem>
+                                <strong>Last Repot: </strong>{" "}
+                                  {moment(offer?.dateRepotted).format("ll")}
+                                </ListItem>
                           </Typography>
                         </CardContent>
-                      </Box>
+                      </Grid>
                       <Box align="center">
                         <Button
                           variant="contained"
                           size="small"
                           color="success"
                           sx={{
-                            // mx: 5,
                             marginBottom: 5,
                             borderRadius: 15,
                             align: 'center',
