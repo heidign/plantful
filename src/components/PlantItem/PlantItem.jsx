@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
-  Grid,
   Box,
   Typography,
   Card,
@@ -59,14 +58,13 @@ function PlantItem({ item, daysOverdue }) {
   const getDaysSinceLastWater = (lastWaterTimestamp) => {
     const lastWaterMoment = moment(lastWaterTimestamp);
     const today = moment();
-
     return today.diff(lastWaterMoment, "days");
   };
 
   const getNextWaterDate = (daysSinceLastWater) => {
     const waterDaysInterval = 7;
     const daysTilNextWater = waterDaysInterval - daysSinceLastWater;
-    return moment().add(daysTilNextWater, "day").format("LL");
+    return moment().add(daysTilNextWater, "day").format("ll");
   };
 
   const getIsWaterDayInThePast = (nextWaterDate) => {
@@ -76,12 +74,12 @@ function PlantItem({ item, daysOverdue }) {
   const daysSinceLastWater = getDaysSinceLastWater(item.dateWatered);
   const nextWaterDate = getNextWaterDate(daysSinceLastWater);
   const isWaterDayInThePast = getIsWaterDayInThePast(nextWaterDate);
+
   return (
     <>
       {/* <div> */}
       <Box
         sx={{
-          // border: "2px solid black",
           display: "flex",
           flexDirection: "row",
         }}
@@ -93,7 +91,7 @@ function PlantItem({ item, daysOverdue }) {
             mr: "10px",
             mt: "5px",
             mb: "20px",
-            width: "300px"
+            width: "300px",
           }}
         >
           <CardHeader title={item.nickname} />
@@ -107,21 +105,21 @@ function PlantItem({ item, daysOverdue }) {
           />
           <CardContent>
             <Typography size="h4" style={{ fontWeight: "bold" }}>
-              {/* {detailsFromAPI.scientific_name} */}
-              {/* <p>{moment(detailsFromDb.dateWatered).format("LL")}</p> */}
-              <Icon
-                path={mdiWateringCanOutline}
-                size={1}
-                rotate={30}
-                // color="red"
-              />{" "}
-              Water
+              <Icon path={mdiWateringCanOutline} size={1} rotate={30} /> Water
             </Typography>
-            {/* <Typography size="h4" style={{ fontWeight: "bold", color: "#dc445c" }}></Typography> */}
-            <Typography variant="subtitle2" gutterBottom style={{ fontWeight: "medium", color: "#dc445c" }}>
-              {isWaterDayInThePast
-                ? `Overdue by ${daysOverdue} days `
-                : nextWaterDate}
+            <Typography
+              variant="subtitle2"
+              style={{ fontWeight: "medium", color: "#dc445c" }}
+            >
+              {isWaterDayInThePast ?
+                  daysOverdue == 0 ?
+                  `Water today` 
+                : daysOverdue == 1 ?
+                  `Overdue by ${daysOverdue} day `
+                : `Overdue by ${daysOverdue} days `
+                :  daysOverdue == 0 ? 
+                  ` Water tomorrow` :
+                  `Water on ${nextWaterDate}`}
             </Typography>
           </CardContent>
 

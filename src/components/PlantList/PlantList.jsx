@@ -16,7 +16,6 @@ function PlantList({ item }) {
   useEffect(() => {
     dispatch({
       type: "FETCH_PLANTS",
-      // payload: item?.default_image?.regular_url?.image_url
     });
   }, []);
 
@@ -31,7 +30,7 @@ function PlantList({ item }) {
   const getNextWaterDate = (daysSinceLastWater) => {
     const waterDaysInterval = 7;
     const daysTilNextWater = waterDaysInterval - daysSinceLastWater;
-    return moment().add(daysTilNextWater, "day").format("LL");
+    return moment().add(daysTilNextWater, "day").format("ll");
   };
 
   const getIsWaterDayInThePast = (nextWaterDate) => {
@@ -60,7 +59,6 @@ function PlantList({ item }) {
                 backgroundColor: "#f8f1e4",
                 padding: "7vh",
                 margin: "1vh",
-                // boxShadow: "5px 5px 5px #aaaaaa",
               }}
             >
               Upcoming
@@ -74,10 +72,9 @@ function PlantList({ item }) {
                 borderRadius: ".5em .5em .5em .5em",
                 backgroundColor: "#375379",
                 padding: "2vh",
-                // boxShadow: "5px 5px 5px #aaaaaa",
               }}
             >
-              {" "}
+              {/* Today */}
               today
               <div
                 style={{
@@ -96,14 +93,14 @@ function PlantList({ item }) {
                       <PlantItem
                         key={item?.id}
                         item={item}
-                        daysOverdue={daysOverdue}
+                        daysOverdue={`${daysOverdue}`}
                       />
                     );
                   }
                 })}
               </div>
             </h4>
-            {/* in 3 days */}
+            {/* In 3 days */}
             <h4
               alignItems="center"
               style={{
@@ -113,7 +110,6 @@ function PlantList({ item }) {
                 borderRadius: ".5em .5em .5em .5em",
                 backgroundColor: "#375379",
                 padding: "2vh",
-                // boxShadow: "3px 3px 7px #aaaaaa",
               }}
             >
                in 3 days
@@ -128,7 +124,7 @@ function PlantList({ item }) {
                   let daysSinceWater = getDaysSinceLastWater(item.dateWatered);
                   let next = getNextWaterDate(daysSinceWater);
                   let daysOverdue = today.diff(next, "days");
-                  if (daysOverdue <= -3 && daysOverdue < 0) {
+                  if (daysOverdue >= -3 && daysOverdue < 0) {
                     return (
                       <PlantItem
                         key={item?.id}
@@ -140,18 +136,16 @@ function PlantList({ item }) {
                 })}
               </div>
             </h4>
-            {/* in 7 days */}
+            {/* In 7 days */}
             <h4
               alignItems="center"
               style={{
-                // fontFamily: "Oleo-Script",
                 fontFamily: "Dangwa",
                 fontSize: 35,
                 color: "#d1dde5",
                 borderRadius: ".5em .5em .5em .5em",
                 backgroundColor: "#375379",
                 padding: "2vh",
-                // boxShadow: "5px 5px 5px #aaaaaa",
               }}
             >
               in one week
@@ -166,7 +160,7 @@ function PlantList({ item }) {
                   let daysSinceWater = getDaysSinceLastWater(item.dateWatered);
                   let next = getNextWaterDate(daysSinceWater);
                   let daysOverdue = today.diff(next, "days");
-                  if (daysOverdue <= -7) {
+                  if (daysOverdue < -3) {
                     return (
                       <PlantItem
                         key={item?.id}
