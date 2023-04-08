@@ -21,11 +21,11 @@ Plantful is a full stack app for all things plants -- primarily for care-trackin
 ![profile-view-mobile](https://user-images.githubusercontent.com/98715838/229975814-4f4eacf8-229c-4b13-aa0e-5b80f0599e3d.png)
 | |
 | Add a Plant |
-| Search thousands of plants to start learning about your specific plant. Select the plant, give it a nickname, enter care details and add to your collection. |
+| Search thousands of plants to start learning about your plant. Select the plant, give it a nickname, enter care details and add to your collection. |
 |![Mobile Search View](https://user-images.githubusercontent.com/98715838/229014964-4b487f8d-3e5f-41b0-966f-ab7e251cf415.png)|
 | |
 | View More Details |
-| Now the user can view the collection. Tap on your plant to view more details, tap the `Add Care or Offer` button to update the task schedule, notes, name or offer the plant up to the community. |
+| Tap on your plant to view more details, tap the `Add Care or Offer` button to update the task schedule, notes, name or offer the plant up to the community. |
 |![details-view-mobile](https://user-images.githubusercontent.com/98715838/229991974-69746855-1198-4ccb-966a-d984693e02eb.png)|
 |![api-details](https://user-images.githubusercontent.com/98715838/229018886-10c0ed71-c274-4ab6-8936-4e1e05e40a3a.png)|
 | |
