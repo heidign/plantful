@@ -17,7 +17,6 @@ import {
   CardActions,
   Collapse,
   IconButton,
-  Stack,
   List,
   ListItem,
   Divider,
@@ -130,7 +129,7 @@ function PlantDetails() {
                 justifyItems: "center",
               }}
             >
-              <CardContent sx={{ flex: "1 0 auto" }}>
+              <CardContent style={{ paddingBottom: 0 }} sx={{ flex: "1 0 auto" }}>
                 <Typography component="div" variant="h5">
                   {dataFromUser.nickname}
                 </Typography>
@@ -175,6 +174,7 @@ function PlantDetails() {
                 display: "flex",
                 align: "right",
                 flexDirection: "row",
+                flexWrap: "wrap",
               }}
               // loading="lazy"
               style={{
@@ -189,54 +189,42 @@ function PlantDetails() {
               alt="plant image from user"
             />
 
-            {/* <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" /> */}
-
             {/* notes */}
             <Box>
-              <CardContent>
-                <Typography size="h4" style={{ padding: 0 }}>
+              <CardContent style={{ paddingTop: 0, paddingBottom: 0, width: "100%"}}>
+                <Typography size="h4" style={{ p: 0 }}>
                   <strong> Notes:</strong> {dataFromUser?.notes}
                 </Typography>
               </CardContent>
             </Box>
 
-            {/* <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" /> */}
-
             {/* watering */}
             <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Last watering:
-              </Typography>
-
-              <ListItem>
-                {moment(dataFromUser?.dateWatered).format("ll")}
-              </ListItem>
+              <Typography size="h4"> 
+                <b>Last watered:</b> {moment(dataFromUser?.dateWatered).format("MMMM D")}</Typography>   
               <Typography
                 size="h4"
-                style={{ fontWeight: "bold", color: "#dc445c" }}
+                style={{ fontWeight: "bold"}}
               >
-              {daysOverdue <= -5 ? `Up to Date` : '' }
-                <ListItem>
+              {daysOverdue <= -5 ? "Up to Date" : ''}
+                <Typography style={{ fontWeight: "bold", color: "#dc445c" }}>
                   <Icon
                     path={mdiWateringCanOutline}
                     size={1}
                     rotate={30}
                     color="#23422a"
                   />
-                  {/* {isWaterDayInThePast */}
-                    {/* // ? ` Overdue by ${daysOverdue} days `
-                    // : ` Water on ${nextWaterDate}` */}
                     {isWaterDayInThePast ?
                       daysOverdue == 0 ?
                       `Water today` 
                     : daysOverdue == 1 ?
-                      `Overdue by ${daysOverdue} day `
-                    : `Overdue by ${daysOverdue} days `
+                      `Overdue by ${daysOverdue} day, water today `
+                    : `Overdue by ${daysOverdue} days, water today`
                     :  daysOverdue == 0 ? 
                       ` Water tomorrow` :
-                      `Water on ${nextWaterDate}`}
-                   {/* } */}
-                </ListItem>
+                      `Water on ${nextWaterDate}`
+                  }
+                </Typography>
               </Typography>
             </CardContent>
 
@@ -246,7 +234,7 @@ function PlantDetails() {
                 Last fertilized:
               </Typography>
               <ListItem>
-                {moment(dataFromUser?.dateFertilized).format("ll")}
+                {moment(dataFromUser?.dateFertilized).format("MMMM D")}
               </ListItem>
             </CardContent>
 
@@ -256,11 +244,10 @@ function PlantDetails() {
                 Last re-pot:
               </Typography>
               <ListItem>
-                {moment(dataFromUser?.dateRepotted).format("ll")}
+                {moment(dataFromUser?.dateRepotted).format("MMMM D")}
               </ListItem>
             </CardContent>
           </Box>
-          {/* </Stack> */}
           <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
           {/***** Additional details ******/}
           <Box

@@ -74,7 +74,7 @@ function PlantList({ item }) {
                 padding: "2vh",
               }}
             >
-              {" "}
+              {/* Today */}
               today
               <div
                 style={{
@@ -100,7 +100,7 @@ function PlantList({ item }) {
                 })}
               </div>
             </h4>
-            {/* in 3 days */}
+            {/* In 3 days */}
             <h4
               alignItems="center"
               style={{
@@ -136,7 +136,7 @@ function PlantList({ item }) {
                 })}
               </div>
             </h4>
-            {/* in 7 days */}
+            {/* In 7 days */}
             <h4
               alignItems="center"
               style={{

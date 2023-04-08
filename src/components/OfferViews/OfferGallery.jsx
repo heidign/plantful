@@ -138,30 +138,30 @@ function OfferGallery() {
                         {/* watering */}
                         <CardContent align="left" style={{ padding: 5, marginBottom: 0 }}>
                           <Typography variant="subtitle2" style={{ padding: 0, marginBottom: 0 }}>
-                              <ListItem>
+                              {/* <ListItem> */}
                                 <strong>Last watering: </strong>
                                 {moment(offer?.dateWatered).format("ll")}
-                              </ListItem>
+                              {/* </ListItem> */}
                           </Typography>
                         </CardContent>
 
                         {/* fertilized */}
                         <CardContent align="left" style={{ padding: 5, marginBottom: 0 }}>
                           <Typography variant="subtitle2" style={{ padding: 0, marginBottom: 0 }}>
-                                <ListItem>
+                                {/* <ListItem> */}
                                   <strong>Fertilized: </strong>
                                 {moment(offer?.dateFertilized).format("ll")}
-                                </ListItem>
+                                {/* </ListItem> */}
                           </Typography>
                         </CardContent>
 
                         {/* re-pot */}
                         <CardContent align="left" style={{ padding: 5, marginBottom: 0 }}>
                           <Typography variant="subtitle2" style={{ padding: 0 }}>
-                              <ListItem>
+                              {/* <ListItem> */}
                                 <strong>Last Repot: </strong>{" "}
                                   {moment(offer?.dateRepotted).format("ll")}
-                                </ListItem>
+                                {/* </ListItem> */}
                           </Typography>
                         </CardContent>
                       </Grid>
@@ -171,7 +171,8 @@ function OfferGallery() {
                           size="small"
                           color="success"
                           sx={{
-                            marginBottom: 5,
+                            marginBottom: 3,
+                            marginTop: 0,
                             borderRadius: 15,
                             align: 'center',
                           }}
