@@ -4,21 +4,40 @@
 
 --- 
 # Plantful
+
 ## Description
 _Duration: 2 Week Sprint_
 
 
-Plantful is a full stack application for all things plants -- primarily for care-tracking and learning about species-specific care, while also facilitating the exchange of plants among users. 
-
-To see the fully functional app, please visit: [DEPLOYED VERSION OF APP](https://fathomless-waters-19516.herokuapp.com/)
+Plantful is a full stack app for all things plants -- primarily for care-tracking and for learning about species-specific details, while also being a tool to facilitate the exchange of plants among the community (like circularity for houseplants!) Never overwater a plant or have an abundance of propagations again. 
 
 ---
-## Screen Shots
-![Mobile View Profile](https://user-images.githubusercontent.com/98715838/229013006-b54568e5-700f-483c-96c0-c5baa3359f24.png)
-![Mobile Search View](https://user-images.githubusercontent.com/98715838/229014964-4b487f8d-3e5f-41b0-966f-ab7e251cf415.png)
-![details-view](https://user-images.githubusercontent.com/98715838/229015944-67a4c34e-789e-4f71-97c5-6fca4e46b1fa.png)
-![api-details](https://user-images.githubusercontent.com/98715838/229018886-10c0ed71-c274-4ab6-8936-4e1e05e40a3a.png)
-![delete-view](https://user-images.githubusercontent.com/98715838/229020507-c7048998-3f07-44c5-8c22-edccbde4d439.png)
+
+| Plantful |
+|:---:|
+| |
+| Plant Collection |
+| The user can see a view of their plant profile with tasks for today, and in three and seven days. |
+![profile-view-mobile](https://user-images.githubusercontent.com/98715838/229975814-4f4eacf8-229c-4b13-aa0e-5b80f0599e3d.png)
+| |
+| Add a Plant |
+| Search thousands of plants to start learning about your plant. Select the plant, give it a nickname, enter care details and add to your collection. |
+|![Mobile Search View](https://user-images.githubusercontent.com/98715838/229014964-4b487f8d-3e5f-41b0-966f-ab7e251cf415.png)|
+| |
+| View More Details |
+| Tap on your plant to view more details, tap the `Add Care or Offer` button to update the task schedule, notes, name or offer the plant up to the community. |
+|![details-view-mobile](https://user-images.githubusercontent.com/98715838/229991974-69746855-1198-4ccb-966a-d984693e02eb.png)|
+|![api-details](https://user-images.githubusercontent.com/98715838/229018886-10c0ed71-c274-4ab6-8936-4e1e05e40a3a.png)|
+| |
+| Delete a Plant |
+| Tap `Delete` to permanently delete from collection (RIP sad plant). |
+|![delete-view](https://user-images.githubusercontent.com/98715838/229020507-c7048998-3f07-44c5-8c22-edccbde4d439.png)|
+| Offer Gallery |
+| Check out the gallery of plants offered, view its details and perhaps some helpful notes. Claim the plant now, coordinate the rest later! |
+|![Offer-Gallery-View](https://user-images.githubusercontent.com/98715838/229994006-f331a38f-dcd8-4b4d-80eb-6bd52f5e1d8a.png)|
+|![Offer-Details-View](https://user-images.githubusercontent.com/98715838/229994238-57e9f656-e881-4945-99e3-83757cef2414.png)|
+
+
 ---
 ## **Table of Contents:**
 1. [Prerequisites](#prerequisites)
