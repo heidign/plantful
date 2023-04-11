@@ -77,7 +77,6 @@ function PlantItem({ item, daysOverdue }) {
 
   return (
     <>
-      {/* <div> */}
       <Box
         sx={{
           display: "flex",
@@ -111,15 +110,15 @@ function PlantItem({ item, daysOverdue }) {
               variant="subtitle2"
               style={{ fontWeight: "medium", color: "#dc445c" }}
             >
-              {isWaterDayInThePast ?
-                  daysOverdue == 0 ?
-                  `Water today` 
-                : daysOverdue == 1 ?
-                  `Overdue by ${daysOverdue} day `
-                : `Overdue by ${daysOverdue} days `
-                :  daysOverdue == 0 ? 
-                  ` Water tomorrow` :
-                  `Water on ${nextWaterDate}`}
+              {isWaterDayInThePast
+                ? daysOverdue == 0
+                  ? `Water today`
+                  : daysOverdue == 1
+                  ? `Overdue by ${daysOverdue} day `
+                  : `Overdue by ${daysOverdue} days `
+                : daysOverdue == 0
+                ? ` Water tomorrow`
+                : `Water on ${nextWaterDate}`}
             </Typography>
           </CardContent>
 
@@ -146,7 +145,6 @@ function PlantItem({ item, daysOverdue }) {
           </Collapse>
         </Card>
       </Box>
-      {/* </div> */}
     </>
   );
 }

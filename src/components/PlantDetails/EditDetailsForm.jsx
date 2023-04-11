@@ -216,7 +216,7 @@ function EditDetailsForm() {
               />
             </Grid>
             {/* buttons */}
-            <Grid marginLeft={1} marginBottom={2}>
+            <Grid marginLeft={1} marginBottom={1} >
               <Button
                 onClick={goBackToDetails}
                 color="success"

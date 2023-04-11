@@ -43,26 +43,23 @@ function SearchList() {
 
   return (
     <>
-      <section className="search-result-cards" background-color="#F9F9F9" alignItems="center">
+      <section
+        className="search-result-cards"
+        background-color="#F9F9F9"
+        alignItems="center"
+      >
         <List sx={{ width: "100%", maxWidth: 360 }}>
           {searchItems.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => handleViewingDetails(item.id)}
-            >
+            <div key={item.id} onClick={() => handleViewingDetails(item.id)}>
               <>
                 <ListItem
                   alignItems="flex-start"
                   style={{ listStyleType: "none", paddingLeft: 0 }}
-                >
-                </ListItem>
-                {/* <li>style={{ display: 'inline' fontWeight: "bold", fontStyle: "italic" }}>{item.scientific_name}</li> */}
-                {/* <ul style={{ listStyleType: "none", paddingLeft: 0 }}> */}
+                ></ListItem>
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar
-                      // src={item?.default_image?.original_url} // * perenual api
-                      src={item?.default_image?.medium_url}
+                      src={item?.default_image?.medium_url} // * perenual api
                       // src={item.images.flower.image_url} // * trefle.io
                       // loading="lazy"
                       style={{
@@ -70,7 +67,7 @@ function SearchList() {
                         display: "block",
                         width: 70,
                         height: 70,
-                        margin: '0 1rem',
+                        margin: "0 1rem",
                       }}
                       alt={item.common_name}
                     />
@@ -92,7 +89,12 @@ function SearchList() {
                     }
                   />
                 </ListItem>
-                <Divider variant="inset" component="li" sx={{ height: 10, m: 0.3 }} orientation="horizontal"/>
+                <Divider
+                  variant="inset"
+                  component="li"
+                  sx={{ height: 10, m: 0.3 }}
+                  orientation="horizontal"
+                />
               </>
               <></>
               {item.id === viewingPlantId ? (
@@ -105,9 +107,8 @@ function SearchList() {
               )}
             </div>
           ))}
-          </List>
-        </section>
-
+        </List>
+      </section>
     </>
   );
 }

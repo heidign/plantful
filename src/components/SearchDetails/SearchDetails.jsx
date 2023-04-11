@@ -35,8 +35,7 @@ function SearchDetails({ item }) {
         <Button onClick={goBack} color="success" variant="outlined" size="small">Back</Button>
         <Button onClick={addToCollection} color="success" variant="contained" size="small">Add Plant</Button>
         <Divider component="div" alignSelf="center" sx={{ m: 0.5, p: 0.5}} orientation="horizontal" />
-
-      </Box>
+     </Box>
     );
 };
 

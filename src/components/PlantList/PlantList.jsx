@@ -46,6 +46,7 @@ function PlantList({ item }) {
               display: "flex",
               flexWrap: "wrap",
               flexDirection: "column",
+              maxWidth: "125vh",
             }}
           >
             <h2
@@ -55,16 +56,18 @@ function PlantList({ item }) {
                 // color: "#23422a",
                 color: "#dc445c",
                 borderRadius: "0 1em 0 1em",
-                // backgroundColor: "#d1dde5", 
+                // backgroundColor: "#d1dde5",
                 backgroundColor: "#f8f1e4",
-                padding: "7vh",
-                margin: "1vh",
+                padding: "4vh",
+                margin: "2vh",
               }}
             >
               Upcoming
             </h2>
-            <h4
+            {/* Today */}
+            <Grid
               alignItems="center"
+              textAlign="left"
               style={{
                 fontFamily: "Dangwa",
                 fontSize: 35,
@@ -72,9 +75,9 @@ function PlantList({ item }) {
                 borderRadius: ".5em .5em .5em .5em",
                 backgroundColor: "#375379",
                 padding: "2vh",
+                // paddingBottom: 2,
               }}
             >
-              {/* Today */}
               today
               <div
                 style={{
@@ -99,7 +102,7 @@ function PlantList({ item }) {
                   }
                 })}
               </div>
-            </h4>
+            </Grid>
             {/* In 3 days */}
             <h4
               alignItems="center"
@@ -112,12 +115,13 @@ function PlantList({ item }) {
                 padding: "2vh",
               }}
             >
-               in 3 days
+              in 3 days
               <div
                 style={{
                   display: "flex",
                   flexDirection: "row",
                   flexWrap: "wrap",
+                  align: "center",
                 }}
               >
                 {plantGallery.map((item) => {
@@ -137,7 +141,7 @@ function PlantList({ item }) {
               </div>
             </h4>
             {/* In 7 days */}
-            <h4
+            <Grid
               alignItems="center"
               style={{
                 fontFamily: "Dangwa",
@@ -154,6 +158,7 @@ function PlantList({ item }) {
                   display: "flex",
                   flexDirection: "row",
                   flexWrap: "wrap",
+                  align: "center",
                 }}
               >
                 {plantGallery.map((item) => {
@@ -171,7 +176,7 @@ function PlantList({ item }) {
                   }
                 })}
               </div>
-            </h4>
+            </Grid>
           </div>
         </Box>
       </section>
