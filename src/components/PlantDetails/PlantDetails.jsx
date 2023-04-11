@@ -5,6 +5,7 @@ import { ClipLoader } from "react-spinners";
 import moment from "moment";
 import PropTypes from "prop-types";
 import {
+  Paper,
   FormControlLabel,
   Button,
   Grid,
@@ -22,7 +23,8 @@ import {
   Divider,
 } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
-
+import { styled } from "@mui/material/styles";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Icon from "@mdi/react";
 import { mdiWateringCanOutline } from "@mdi/js";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -38,9 +40,9 @@ function PlantDetails() {
   const dataFromUser = useSelector(
     (store) => store.plantDetails.data.dataFromUser
   );
-
   const isLoading = useSelector((store) => store.plantDetails.loading);
   const [isOffered, setIsOffered] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   // fetching all details on page load
   useEffect(() => {
@@ -73,10 +75,24 @@ function PlantDetails() {
     return <ClipLoader />;
   }
 
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.longest,
+    }),
+  }));
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   // * notifications based on user's dates
   const getDaysSinceLastWater = (lastWaterTimestamp) => {
     const lastWaterMoment = moment(lastWaterTimestamp);
-
     return today.diff(lastWaterMoment, "days");
   };
 
@@ -95,21 +111,21 @@ function PlantDetails() {
   const isWaterDayInThePast = getIsWaterDayInThePast(nextWaterDate);
   const daysOverdue = today.diff(nextWaterDate, "days");
 
-
   return (
     <>
       <Card
         sx={{
           display: "flex",
-          // flexDirection: "row",
+          px: "5px",
           justifyItems: "center",
+          maxWidth: "100%",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            alignItems: "left",
             flexDirection: "column",
+            width: "100vw",
           }}
         >
           {/***** User details ****/}
@@ -129,7 +145,10 @@ function PlantDetails() {
                 justifyItems: "center",
               }}
             >
-              <CardContent style={{ paddingBottom: 0 }} sx={{ flex: "1 0 auto" }}>
+              <CardContent
+                style={{ paddingBottom: 0 }}
+                sx={{ flex: "1 0 auto" }}
+              >
                 <Typography component="div" variant="h5">
                   {dataFromUser.nickname}
                 </Typography>
@@ -160,9 +179,7 @@ function PlantDetails() {
                   color="text.secondary"
                   component="div"
                 >
-                  {
-                    dataFromUser?.isOffered ? "Offered" : "Not Offered"
-                  }{" "}
+                  {dataFromUser?.isOffered ? "Offered" : "Not Offered"}{" "}
                 </Typography>
               </CardContent>
             </Box>
@@ -191,7 +208,7 @@ function PlantDetails() {
 
             {/* notes */}
             <Box>
-              <CardContent style={{ paddingTop: 0, paddingBottom: 0, width: "100%"}}>
+              <CardContent style={{ paddingBottom: 0, width: "100%" }}>
                 <Typography size="h4" style={{ p: 0 }}>
                   <strong> Notes:</strong> {dataFromUser?.notes}
                 </Typography>
@@ -200,13 +217,12 @@ function PlantDetails() {
 
             {/* watering */}
             <CardContent>
-              <Typography size="h4"> 
-                <b>Last watered:</b> {moment(dataFromUser?.dateWatered).format("MMMM D")}</Typography>   
-              <Typography
-                size="h4"
-                style={{ fontWeight: "bold"}}
-              >
-              {daysOverdue <= -5 ? "Up to Date" : ''}
+              <Typography size="h4">
+                <b>Last watered:</b>{" "}
+                {moment(dataFromUser?.dateWatered).format("MMMM D")}
+              </Typography>
+              <Typography size="h4" style={{ fontWeight: "bold" }}>
+                {daysOverdue <= -5 ? "Up to Date" : ""}
                 <Typography style={{ fontWeight: "bold", color: "#dc445c" }}>
                   <Icon
                     path={mdiWateringCanOutline}
@@ -214,16 +230,15 @@ function PlantDetails() {
                     rotate={30}
                     color="#23422a"
                   />
-                    {isWaterDayInThePast ?
-                      daysOverdue == 0 ?
-                      `Water today` 
-                    : daysOverdue == 1 ?
-                      `Overdue by ${daysOverdue} day, water today `
-                    : `Overdue by ${daysOverdue} days, water today`
-                    :  daysOverdue == 0 ? 
-                      ` Water tomorrow` :
-                      `Water on ${nextWaterDate}`
-                  }
+                  {isWaterDayInThePast
+                    ? daysOverdue == 0
+                      ? `Water today`
+                      : daysOverdue == 1
+                      ? `Overdue by ${daysOverdue} day, water today `
+                      : `Overdue by ${daysOverdue} days, water today`
+                    : daysOverdue == 0
+                    ? ` Water tomorrow`
+                    : `Water on ${nextWaterDate}`}
                 </Typography>
               </Typography>
             </CardContent>
@@ -248,79 +263,127 @@ function PlantDetails() {
               </ListItem>
             </CardContent>
           </Box>
-          <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
-          {/***** Additional details ******/}
-          <Box
-            sx={{
-              display: "flex",
-              // alignItems: "left",
-              flexDirection: "column",
-              justifyContent: "left",
-            }}
+          <Divider component="div" sx={{ m: 0.2 }} orientation="horizontal" />
+
+          {/* Expand Icon */}
+          <CardActions disableSpacing sx={{ padding: 0 }}>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              {" "}
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse
+            onClick={handleExpandClick}
+            in={expanded}
+            timeout="auto"
+            unmountOnExit
           >
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold", padding: 0 }}>
-                Care:{" "}
-              </Typography>
-              <ListItem>{plantDetails?.care_level}</ListItem>
-            </CardContent>
+            {/***** Additional details ******/}
+            <Box
+              sx={{
+                display: "flex",
+                // alignItems: "left",
+                flexDirection: "column",
+                justifyContent: "left",
+              }}
+            >
+              <CardContent>
+                <Typography
+                  size="h4"
+                  style={{ fontWeight: "bold", padding: 0 }}
+                >
+                  Care:{" "}
+                </Typography>
+                <ListItem>{plantDetails?.care_level}</ListItem>
+              </CardContent>
 
-            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+              <Divider
+                component="div"
+                sx={{ m: 0.5 }}
+                orientation="horizontal"
+              />
 
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold", padding: 0 }}>
-                Watering:{" "}
-              </Typography>
-              <ListItem>{plantDetails?.watering}</ListItem>
-            </CardContent>
+              <CardContent>
+                <Typography
+                  size="h4"
+                  style={{ fontWeight: "bold", padding: 0 }}
+                >
+                  Watering:{" "}
+                </Typography>
+                <ListItem>{plantDetails?.watering}</ListItem>
+              </CardContent>
 
-            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+              <Divider
+                component="div"
+                sx={{ m: 0.5 }}
+                orientation="horizontal"
+              />
 
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold", padding: 0 }}>
-                Sunlight:
-              </Typography>
-              <ul>
-                {/* mapping over sunlight array to display item at each index */}
-                {plantDetails?.sunlight.map((sunlight, id) => (
-                  <li>{sunlight}</li>
-                ))}
-              </ul>
-            </CardContent>
+              <CardContent>
+                <Typography
+                  size="h4"
+                  style={{ fontWeight: "bold", padding: 0 }}
+                >
+                  Sunlight:
+                </Typography>
+                <ul>
+                  {/* mapping over sunlight array to display item at each index */}
+                  {plantDetails?.sunlight.map((sunlight, id) => (
+                    <li>{sunlight}</li>
+                  ))}
+                </ul>
+              </CardContent>
 
-            <Divider component="div" sx={{ p: 0, m: 0.5 }} orientation="horizontal" />
+              <Divider
+                component="div"
+                sx={{ p: 0, m: 0.5 }}
+                orientation="horizontal"
+              />
 
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Growth rate:{" "}
-              </Typography>
-              <ListItem>{plantDetails?.growth_rate}</ListItem>
-            </CardContent>
+              <CardContent>
+                <Typography size="h4" style={{ fontWeight: "bold" }}>
+                  Growth rate:{" "}
+                </Typography>
+                <ListItem>{plantDetails?.growth_rate}</ListItem>
+              </CardContent>
 
-            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+              <Divider
+                component="div"
+                sx={{ m: 0.5 }}
+                orientation="horizontal"
+              />
 
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Soil type:{" "}
-              </Typography>
-              <ul>
-                {/* mapping over soil array to display item at each index */}
-                {plantDetails?.soil.map((soil, id) => (
-                  <li>{soil}</li>
-                ))}
-              </ul>
-            </CardContent>
+              <CardContent>
+                <Typography size="h4" style={{ fontWeight: "bold" }}>
+                  Soil type:{" "}
+                </Typography>
+                <ul>
+                  {/* mapping over soil array to display item at each index */}
+                  {plantDetails?.soil.map((soil, id) => (
+                    <li>{soil}</li>
+                  ))}
+                </ul>
+              </CardContent>
 
-            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+              <Divider
+                component="div"
+                sx={{ m: 0.5 }}
+                orientation="horizontal"
+              />
 
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Maintenance level:{" "}
-              </Typography>
-              <ListItem>{plantDetails?.maintenance}</ListItem>
-            </CardContent>
-          </Box>
-          {/* <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" /> */}
+              <CardContent>
+                <Typography size="h4" style={{ fontWeight: "bold" }}>
+                  Maintenance level:{" "}
+                </Typography>
+                <ListItem>{plantDetails?.maintenance}</ListItem>
+              </CardContent>
+            </Box>
+          </Collapse>
 
           {/*  Back and Edit buttons */}
           <Box

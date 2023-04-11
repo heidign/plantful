@@ -40,7 +40,8 @@ function PlantList({ item }) {
   return (
     <>
       <section className="plants" padding="20">
-        <Box sx={{ alignContent: "center" }}>
+        <Box sx={{ alignContent: "right" }}>
+          {/* Upcoming */}
           <div
             style={{
               display: "flex",

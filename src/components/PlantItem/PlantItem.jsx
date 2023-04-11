@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import moment from "moment";
 import {
   Box,
   Typography,
@@ -12,13 +13,9 @@ import {
   Collapse,
   IconButton,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Icon from "@mdi/react";
 import { mdiWateringCanOutline } from "@mdi/js";
-import PlantDetails from "../PlantDetails/PlantDetails";
-import moment from "moment";
 
 // * plant item from db
 function PlantItem({ item, daysOverdue }) {
@@ -28,31 +25,18 @@ function PlantItem({ item, daysOverdue }) {
     (store) => store.plantDetails.data.details
   );
 
+  // sending user to details page on card click 
   const handleClick = () => {
     goToDetailsPage();
   };
-
   const goToDetailsPage = () => {
     history.push(`/details/${item.id}`);
   };
 
-  const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-  })(({ theme, expand }) => ({
-    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  }));
-
-  const [expanded, setExpanded] = useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-    history.push(`/details/${item.id}`);
-  };
+  // sending user to favorites page on IconButton click
+  // const goToFavorites = () => {
+  //   history.push(`/favorites/${item.id}`);
+  // };
 
   // * icon indication based on user's dates
   const getDaysSinceLastWater = (lastWaterTimestamp) => {
@@ -84,7 +68,7 @@ function PlantItem({ item, daysOverdue }) {
         }}
       >
         <Card
-          onClick={goToDetailsPage}
+          onClick={handleClick}
           sx={{
             ml: "10px",
             mr: "10px",
@@ -123,26 +107,12 @@ function PlantItem({ item, daysOverdue }) {
           </CardContent>
 
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
+            <IconButton aria-label="add to favorites"
+            // onClick={goToFavorites}
+            >
               <FavoriteBorderIcon />
             </IconButton>
-            {/* <ExpandMore
-                  expand={expanded}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
-                  aria-label="show more"
-                >
-                  <ExpandMoreIcon />
-                </ExpandMore> */}
           </CardActions>
-          <Collapse
-            onClick={handleExpandClick}
-            in={expanded}
-            timeout="auto"
-            unmountOnExit
-          >
-            <PlantDetails item={item} />
-          </Collapse>
         </Card>
       </Box>
     </>
