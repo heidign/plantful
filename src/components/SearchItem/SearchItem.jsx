@@ -1,11 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 function SearchItem({ item }) {
-
   return (
-      <>
-          <h3>Search Item </h3>
+    <>
+      <h3>Search Item </h3>
       <div
         style={{
           marginBottom: "1rem",
@@ -16,18 +13,16 @@ function SearchItem({ item }) {
       >
         <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
           <li style={{ fontWeight: "bold", fontStyle: "italic" }}>
-            {item.scientific_name}
+            {item?.scientific_name}
           </li>
           <li>
             <img
-              // src={item.default_image.original_url} // * perenual api
-              src={item.default_image.medium_url}
+              src={item?.default_image?.medium_url}
               style={{
-                // borderRadius: "15px",
                 display: "block",
                 width: 100,
               }}
-              alt={item.common_name}
+              alt={item?.common_name}
             />
           </li>
         </ul>
