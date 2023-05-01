@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import moment from "moment";
+import CommentThread from "../Comments/CommentThread/CommentThread";
 import PropTypes from "prop-types";
 import {
   Paper,
@@ -51,6 +52,16 @@ function PlantDetails() {
       payload: { id },
     });
   }, []);
+
+  useEffect(() => {
+    if (plant.id) {
+      // fetch all base comments on page load
+      dispatch({
+        type: "FETCH_BASE_COMMENTS",
+        payload: { id },
+      });
+    }
+  }, [plantDetails]);
 
   const goBack = () => {
     history.goBack("/");
