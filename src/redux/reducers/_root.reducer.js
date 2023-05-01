@@ -7,6 +7,7 @@ import currentPlant from './currentPlant.reducer';
 import plantDetails from './details.reducer';
 import editPlant from './edit.reducer';
 import offers from './offers.reducer';
+import comments from './commentThread.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   plantDetails,
   editPlant,
   offers,
+  comments,
 });
 
 export default rootReducer;
