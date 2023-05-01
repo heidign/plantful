@@ -6,8 +6,6 @@ import moment from "moment";
 import CommentThread from "../Comments/CommentThread/CommentThread";
 import PropTypes from "prop-types";
 import {
-  Paper,
-  FormControlLabel,
   Button,
   Grid,
   Box,
@@ -19,11 +17,9 @@ import {
   CardActions,
   Collapse,
   IconButton,
-  List,
   ListItem,
-  Divider,
+  Divider
 } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
 import { styled } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Icon from "@mdi/react";
@@ -38,9 +34,7 @@ function PlantDetails() {
   let { id } = useParams();
 
   const plantDetails = useSelector((store) => store.plantDetails.data.details);
-  const dataFromUser = useSelector(
-    (store) => store.plantDetails.data.dataFromUser
-  );
+  const dataFromUser = useSelector((store) => store.plantDetails.data.dataFromUser);
   const isLoading = useSelector((store) => store.plantDetails.loading);
   const [isOffered, setIsOffered] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -54,7 +48,7 @@ function PlantDetails() {
   }, []);
 
   useEffect(() => {
-    if (plant.id) {
+    if (id) {
       // fetch all base comments on page load
       dispatch({
         type: "FETCH_BASE_COMMENTS",
@@ -428,6 +422,7 @@ function PlantDetails() {
           </Box>
         </Box>
       </Card>
+      <CommentThread />
     </>
   );
 }
