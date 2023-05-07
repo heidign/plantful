@@ -48,14 +48,14 @@ function PlantDetails() {
   }, []);
 
   useEffect(() => {
-    if (id) {
+    if (dataFromUser?.id) {
       // fetch all base comments on page load
       dispatch({
         type: "FETCH_BASE_COMMENTS",
-        payload: { id },
+        payload: { id: dataFromUser.id }
       });
     }
-  }, [plantDetails]);
+  }, [dataFromUser]);
 
   const goBack = () => {
     history.goBack("/");

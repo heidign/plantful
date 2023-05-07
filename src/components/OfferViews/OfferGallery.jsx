@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
+import CommentThread from "../Comments/CommentThread/CommentThread";
 import {
   Box,
   Grid,
@@ -26,6 +27,9 @@ function OfferGallery() {
   const dispatch = useDispatch();
   const history = useHistory();
   const offers = useSelector((store) => store.offers);
+  const dataFromUser = useSelector(
+    (store) => store.plantDetails.data.dataFromUser
+  );
   const [detailsId, setDetailsId] = useState(0);
 
   useEffect(() => {
@@ -33,6 +37,16 @@ function OfferGallery() {
       type: "FETCH_OFFERS",
     });
   }, []);
+
+  useEffect(() => {
+    if (dataFromUser?.id) {
+      // fetch all base comments on page load
+      dispatch({
+        type: "FETCH_BASE_COMMENTS",
+        payload: { id: dataFromUser.id },
+      });
+    }
+  }, [dataFromUser]);
 
   const goBack = () => {
     history.push("/browse");
@@ -184,6 +198,7 @@ function OfferGallery() {
                         </Button>
                       </Box>
                     </Card>
+                      <CommentThread plant_id={dataFromUser.id} />
                   </ImageListItem>
                 )}
               </>

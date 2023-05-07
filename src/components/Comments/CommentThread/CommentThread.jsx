@@ -5,6 +5,7 @@ import {
   Box,
   Divider,
   Button,
+  IconButton,
   Typography,
   List,
   ListItem,
@@ -20,7 +21,9 @@ function CommentThread({ plant_id }) {
   const commentList = useSelector((store) => store.comments);
   const user = useSelector((store) => store.user);
   const plant = useSelector((store) => store.plantDetails.data.details);
-  const userDetails = useSelector((store) => store.plantDetails.data.dataFromUser);
+  const userDetails = useSelector(
+    (store) => store.plantDetails.data.dataFromUser
+  );
   const [viewFeedback, setViewFeedback] = useState(false);
   const [addThread, setAddThread] = useState(false);
   const [expand, setExpand] = useState([]);
@@ -35,9 +38,10 @@ function CommentThread({ plant_id }) {
       <div align="center">
         {/** COMMENT BUTTON **/}
         {/* if viewing own plant card view comments, else leave comment*/}
-        {user.id == plant.user_id ? (
+        {user?.id == userDetails?.user_id ? (
           <Button
             variant="contained"
+            color="success"
             onClick={() => setViewFeedback(!viewFeedback)}
             sx={{ my: 1 }}
           >
@@ -46,6 +50,7 @@ function CommentThread({ plant_id }) {
         ) : (
           <Button
             variant="contained"
+            color="success"
             onClick={() => {
               setViewFeedback(!viewFeedback);
               handleAddThreadClick();
@@ -108,7 +113,7 @@ function CommentThread({ plant_id }) {
                           }}
                         >
                           {comment.has_children ? (
-                            <Button
+                            <IconButton
                               onClick={() => {
                                 if (expand.includes(comment.id)) {
                                   setExpand(
@@ -145,7 +150,7 @@ function CommentThread({ plant_id }) {
                                   color="#23422a"
                                 />
                               )}{" "}
-                            </Button>
+                            </IconButton>
                           ) : (
                             ""
                           )}
@@ -178,7 +183,7 @@ function CommentThread({ plant_id }) {
                                   }}
                                   component="span"
                                   variant="body2"
-                                  color="primary.main"
+                                  color="success"
                                 >
                                   {moment(comment.created_at).format(
                                     "MMM D h:mmA"
@@ -204,6 +209,7 @@ function CommentThread({ plant_id }) {
                                 ) : (
                                   <Button
                                     onClick={() => setReplyId(comment.id)}
+                                    color="success"
                                   >
                                     <Icon
                                       path={mdiReply}
