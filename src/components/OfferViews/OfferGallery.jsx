@@ -28,7 +28,7 @@ function OfferGallery() {
   const history = useHistory();
   const offers = useSelector((store) => store.offers);
   const dataFromUser = useSelector(
-    (store) => store.plantDetails.data.dataFromUser
+    (store) => store.plantDetails.apiDetailsReducer
   );
   const [detailsId, setDetailsId] = useState(0);
 
@@ -60,7 +60,15 @@ function OfferGallery() {
         // sx={{ align: "center", width: 500 }}
       >
         <ImageListItem key="Subheader" cols={2}>
-          <ListSubheader component="div" sx={{ mb: 0 }} style={{ fontFamily: "Oleo-Script", fontSize: 20, marginLeft: "0vh" }}>
+          <ListSubheader
+            component="div"
+            sx={{ mb: 0 }}
+            style={{
+              fontFamily: "Oleo-Script",
+              fontSize: 20,
+              marginLeft: "0vh",
+            }}
+          >
             available plants
           </ListSubheader>
         </ImageListItem>
@@ -100,9 +108,10 @@ function OfferGallery() {
             ) : (
               <>
                 {offer.id == detailsId && (
-                  <ImageListItem onClick={goBack}
-                      key={offer.id}
-                      cols={2}
+                  <ImageListItem
+                    onClick={goBack}
+                    key={offer.id}
+                    cols={2}
                     sx={{
                       maxWidth: 400,
                       ml: "5px",
@@ -113,14 +122,12 @@ function OfferGallery() {
                   >
                     <Card
                       onClick={() => setDetailsId(0)}
-                      sx={
-                        {
-                          ml: "10px",
-                          mr: "10px",
-                          mt: "5px",
-                          mb: "10px",
-                        }
-                      }
+                      sx={{
+                        ml: "10px",
+                        mr: "10px",
+                        mt: "5px",
+                        mb: "10px",
+                      }}
                     >
                       {/* nickname header */}
                       <CardHeader title={offer?.nickname} />
@@ -139,43 +146,70 @@ function OfferGallery() {
                         component="img"
                         src={offer?.image_url}
                         alt="plant-img"
-                        />
-                      <Grid sx={{ m: '1rem' }}>
+                      />
+                      <Grid sx={{ m: "1rem" }}>
                         {/* notes */}
                         <CardContent align="center" style={{ padding: 0 }}>
-                          <Typography variant="subtitle2" style={{ padding: -4, marginTop: 4, marginBottom: -4 }}>
-                             <strong><i>Notes: </i></strong>
-                              {offer?.notes}
+                          <Typography
+                            variant="subtitle2"
+                            style={{
+                              padding: -4,
+                              marginTop: 4,
+                              marginBottom: -4,
+                            }}
+                          >
+                            <strong>
+                              <i>Notes: </i>
+                            </strong>
+                            {offer?.notes}
                           </Typography>
                         </CardContent>
-                          
+
                         {/* watering */}
-                        <CardContent align="left" style={{ padding: 5, marginBottom: 0 }}>
-                          <Typography variant="subtitle2" style={{ padding: 0, marginBottom: 0 }}>
-                              {/* <ListItem> */}
-                                <strong>Last watering: </strong>
-                                {moment(offer?.dateWatered).format("ll")}
-                              {/* </ListItem> */}
+                        <CardContent
+                          align="left"
+                          style={{ padding: 5, marginBottom: 0 }}
+                        >
+                          <Typography
+                            variant="subtitle2"
+                            style={{ padding: 0, marginBottom: 0 }}
+                          >
+                            {/* <ListItem> */}
+                            <strong>Last watering: </strong>
+                            {moment(offer?.dateWatered).format("ll")}
+                            {/* </ListItem> */}
                           </Typography>
                         </CardContent>
 
                         {/* fertilized */}
-                        <CardContent align="left" style={{ padding: 5, marginBottom: 0 }}>
-                          <Typography variant="subtitle2" style={{ padding: 0, marginBottom: 0 }}>
-                                {/* <ListItem> */}
-                                  <strong>Fertilized: </strong>
-                                {moment(offer?.dateFertilized).format("ll")}
-                                {/* </ListItem> */}
+                        <CardContent
+                          align="left"
+                          style={{ padding: 5, marginBottom: 0 }}
+                        >
+                          <Typography
+                            variant="subtitle2"
+                            style={{ padding: 0, marginBottom: 0 }}
+                          >
+                            {/* <ListItem> */}
+                            <strong>Fertilized: </strong>
+                            {moment(offer?.dateFertilized).format("ll")}
+                            {/* </ListItem> */}
                           </Typography>
                         </CardContent>
 
                         {/* re-pot */}
-                        <CardContent align="left" style={{ padding: 5, marginBottom: 0 }}>
-                          <Typography variant="subtitle2" style={{ padding: 0 }}>
-                              {/* <ListItem> */}
-                                <strong>Last Repot: </strong>{" "}
-                                  {moment(offer?.dateRepotted).format("ll")}
-                                {/* </ListItem> */}
+                        <CardContent
+                          align="left"
+                          style={{ padding: 5, marginBottom: 0 }}
+                        >
+                          <Typography
+                            variant="subtitle2"
+                            style={{ padding: 0 }}
+                          >
+                            {/* <ListItem> */}
+                            <strong>Last Repot: </strong>{" "}
+                            {moment(offer?.dateRepotted).format("ll")}
+                            {/* </ListItem> */}
                           </Typography>
                         </CardContent>
                       </Grid>
@@ -188,7 +222,7 @@ function OfferGallery() {
                             marginBottom: 3,
                             marginTop: 0,
                             borderRadius: 15,
-                            align: 'center',
+                            align: "center",
                           }}
                           onClick={() =>
                             axios.put(`/api/plants/claim/${offer.id}`)
@@ -198,7 +232,7 @@ function OfferGallery() {
                         </Button>
                       </Box>
                     </Card>
-                      <CommentThread plant_id={dataFromUser.id} />
+                    <CommentThread plant_id={offer.id} />
                   </ImageListItem>
                 )}
               </>

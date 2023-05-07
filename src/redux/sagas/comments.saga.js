@@ -31,6 +31,7 @@ const userSelector = (state) => state.user;
 // * Post a comment: fires on `POST_COMMENT`
 function* postComment(action) {
   try {
+    console.log(action.payload)
     const response = yield axios.post(`/api/comments`, action.payload);
     const user = yield select(userSelector)
     response.data.username = user.username;

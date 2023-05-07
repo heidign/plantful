@@ -20,9 +20,9 @@ function CommentThread({ plant_id }) {
   const dispatch = useDispatch();
   const commentList = useSelector((store) => store.comments);
   const user = useSelector((store) => store.user);
-  const plant = useSelector((store) => store.plantDetails.data.details);
+  const plant = useSelector((store) => store.plantDetails.plantDetailsReducer);
   const userDetails = useSelector(
-    (store) => store.plantDetails.data.dataFromUser
+    (store) => store.plantDetails.apiDetailsReducer
   );
   const [viewFeedback, setViewFeedback] = useState(false);
   const [addThread, setAddThread] = useState(false);

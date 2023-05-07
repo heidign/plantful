@@ -33,29 +33,30 @@ function PlantDetails() {
   // getting id key from path params
   let { id } = useParams();
 
-  const plantDetails = useSelector((store) => store.plantDetails.data.details);
-  const dataFromUser = useSelector((store) => store.plantDetails.data.dataFromUser);
+  // const apiDetails = useSelector((store) => store.plantDetails.data.details);
+  const apiDetails = useSelector((store) => store.plantDetails.apiDetailsReducer);
+  // const plantDetails = useSelector((store) => store.plantDetails.data.plantDetails);
+  const plantDetails = useSelector((store) => store.plantDetails.plantDetailsReducer);
   const isLoading = useSelector((store) => store.plantDetails.loading);
-  const [isOffered, setIsOffered] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
   // fetching all details on page load
   useEffect(() => {
     dispatch({
-      type: "FETCH_DETAILS",
+      type: "FETCH_PLANT_DETAILS",
       payload: { id },
     });
   }, []);
 
   useEffect(() => {
-    if (dataFromUser?.id) {
+    if (plantDetails?.id) {
       // fetch all base comments on page load
       dispatch({
         type: "FETCH_BASE_COMMENTS",
-        payload: { id: dataFromUser.id }
+        payload: { id: plantDetails.id }
       });
     }
-  }, [dataFromUser]);
+  }, [plantDetails]);
 
   const goBack = () => {
     history.goBack("/");
@@ -65,12 +66,12 @@ function PlantDetails() {
     dispatch({
       type: "SET_PLANT_EDIT",
       payload: {
-        ...dataFromUser,
-        dateWatered: moment(dataFromUser.dateWatered).format("YYYY-MM-DD"),
-        dateFertilized: moment(dataFromUser.dateFertilized).format(
+        ...plantDetails,
+        dateWatered: moment(plantDetails.dateWatered).format("YYYY-MM-DD"),
+        dateFertilized: moment(plantDetails.dateFertilized).format(
           "YYYY-MM-DD"
         ),
-        dateRepotted: moment(dataFromUser.dateRepotted).format("YYYY-MM-DD"),
+        dateRepotted: moment(plantDetails.dateRepotted).format("YYYY-MM-DD"),
       },
     });
     history.push(`/edit/${id}`);
@@ -111,7 +112,7 @@ function PlantDetails() {
     return moment(nextWaterDate).isBefore();
   };
 
-  const daysSinceLastWater = getDaysSinceLastWater(dataFromUser.dateWatered);
+  const daysSinceLastWater = getDaysSinceLastWater(plantDetails.dateWatered);
   const nextWaterDate = getNextWaterDate(daysSinceLastWater);
   const isWaterDayInThePast = getIsWaterDayInThePast(nextWaterDate);
   const daysOverdue = today.diff(nextWaterDate, "days");
@@ -155,7 +156,7 @@ function PlantDetails() {
                 sx={{ flex: "1 0 auto" }}
               >
                 <Typography component="div" variant="h5">
-                  {dataFromUser.nickname}
+                  {plantDetails.nickname}
                 </Typography>
                 <Typography
                   variant="subtitle1"
@@ -164,7 +165,7 @@ function PlantDetails() {
                   color="text.secondary"
                   component="div"
                 >
-                  {plantDetails?.scientific_name}
+                  {apiDetails?.scientific_name}
                 </Typography>
 
                 {/* pet toxicity */}
@@ -173,7 +174,7 @@ function PlantDetails() {
                   color="text.secondary"
                   component="div"
                 >
-                  {plantDetails?.poisonous_to_pets == 0
+                  {apiDetails?.poisonous_to_pets == 0
                     ? "Non-toxic to Pets"
                     : "Toxic to Pets"}
                 </Typography>
@@ -184,7 +185,7 @@ function PlantDetails() {
                   color="text.secondary"
                   component="div"
                 >
-                  {dataFromUser?.isOffered ? "Offered" : "Not Offered"}{" "}
+                  {plantDetails?.isOffered ? "Offered" : "Not Offered"}{" "}
                 </Typography>
               </CardContent>
             </Box>
@@ -207,7 +208,7 @@ function PlantDetails() {
                 margin: "1rem",
               }}
               component="img"
-              src={dataFromUser?.image_url}
+              src={plantDetails?.image_url}
               alt="plant image from user"
             />
 
@@ -215,7 +216,7 @@ function PlantDetails() {
             <Box>
               <CardContent style={{ paddingBottom: 0, width: "100%" }}>
                 <Typography size="h4" style={{ p: 0 }}>
-                  <strong> Notes:</strong> {dataFromUser?.notes}
+                  <strong> Notes:</strong> {plantDetails?.notes}
                 </Typography>
               </CardContent>
             </Box>
@@ -224,7 +225,7 @@ function PlantDetails() {
             <CardContent>
               <Typography size="h4">
                 <b>Last watered:</b>{" "}
-                {moment(dataFromUser?.dateWatered).format("MMMM D")}
+                {moment(plantDetails?.dateWatered).format("MMMM D")}
               </Typography>
               <Typography size="h4" style={{ fontWeight: "bold" }}>
                 {daysOverdue <= -5 ? "Up to Date" : ""}
@@ -254,7 +255,7 @@ function PlantDetails() {
                 Last fertilized:
               </Typography>
               <ListItem>
-                {moment(dataFromUser?.dateFertilized).format("MMMM D")}
+                {moment(plantDetails?.dateFertilized).format("MMMM D")}
               </ListItem>
             </CardContent>
 
@@ -264,7 +265,7 @@ function PlantDetails() {
                 Last re-pot:
               </Typography>
               <ListItem>
-                {moment(dataFromUser?.dateRepotted).format("MMMM D")}
+                {moment(plantDetails?.dateRepotted).format("MMMM D")}
               </ListItem>
             </CardContent>
           </Box>
@@ -304,7 +305,7 @@ function PlantDetails() {
                 >
                   Care:{" "}
                 </Typography>
-                <ListItem>{plantDetails?.care_level}</ListItem>
+                <ListItem>{apiDetails?.care_level}</ListItem>
               </CardContent>
 
               <Divider
@@ -320,7 +321,7 @@ function PlantDetails() {
                 >
                   Watering:{" "}
                 </Typography>
-                <ListItem>{plantDetails?.watering}</ListItem>
+                <ListItem>{apiDetails?.watering}</ListItem>
               </CardContent>
 
               <Divider
@@ -338,7 +339,7 @@ function PlantDetails() {
                 </Typography>
                 <ul>
                   {/* mapping over sunlight array to display item at each index */}
-                  {plantDetails?.sunlight.map((sunlight, id) => (
+                  {apiDetails?.sunlight?.map((sunlight, id) => (
                     <li>{sunlight}</li>
                   ))}
                 </ul>
@@ -354,7 +355,7 @@ function PlantDetails() {
                 <Typography size="h4" style={{ fontWeight: "bold" }}>
                   Growth rate:{" "}
                 </Typography>
-                <ListItem>{plantDetails?.growth_rate}</ListItem>
+                <ListItem>{apiDetails?.growth_rate}</ListItem>
               </CardContent>
 
               <Divider
@@ -369,7 +370,7 @@ function PlantDetails() {
                 </Typography>
                 <ul>
                   {/* mapping over soil array to display item at each index */}
-                  {plantDetails?.soil.map((soil, id) => (
+                  {apiDetails?.soil?.map((soil, id) => (
                     <li>{soil}</li>
                   ))}
                 </ul>
@@ -385,7 +386,7 @@ function PlantDetails() {
                 <Typography size="h4" style={{ fontWeight: "bold" }}>
                   Maintenance level:{" "}
                 </Typography>
-                <ListItem>{plantDetails?.maintenance}</ListItem>
+                <ListItem>{apiDetails?.maintenance}</ListItem>
               </CardContent>
             </Box>
           </Collapse>
@@ -422,7 +423,7 @@ function PlantDetails() {
           </Box>
         </Box>
       </Card>
-      <CommentThread />
+      <CommentThread plant_id={plantDetails.id} />
     </>
   );
 }

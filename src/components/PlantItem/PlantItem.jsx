@@ -22,7 +22,7 @@ function PlantItem({ item, daysOverdue }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const detailsFromAPI = useSelector(
-    (store) => store.plantDetails.data.details
+    (store) => store.plantDetails.apiDetailsReducer
   );
 
   // sending user to details page on card click 

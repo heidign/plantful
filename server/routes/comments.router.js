@@ -97,7 +97,8 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
   } catch (err) {
     await connection.query("ROLLBACK");
     console.log(`Transaction Error - Rolling back transfer`, err);
-    res.sendStatus(500).json({ message: "Error occurring with comments." });
+    res.sendStatus(500)
+      // .json({ message: "Error occurring with comments." });
   } finally {
     connection.release();
     res.end();
