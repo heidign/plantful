@@ -1,21 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
-import moment from "moment";
-import CommentThread from "../Comments/CommentThread/CommentThread";
-import {
-  Box,
-  Grid,
-  Typography,
-  Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  ListItem,
-  IconButton,
-  Button,
-} from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
@@ -23,9 +8,10 @@ import ListSubheader from "@mui/material/ListSubheader";
 import InfoIcon from "@mui/icons-material/Info";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
+import OfferItem from "./OfferItem";
+
 function OfferGallery() {
   const dispatch = useDispatch();
-  const history = useHistory();
   const offers = useSelector((store) => store.offers);
   const dataFromUser = useSelector(
     (store) => store.plantDetails.apiDetailsReducer
@@ -47,10 +33,6 @@ function OfferGallery() {
       });
     }
   }, [dataFromUser]);
-
-  const goBack = () => {
-    history.push("/browse");
-  };
 
   return (
     <>
@@ -76,12 +58,13 @@ function OfferGallery() {
         {offers.map((offer) => (
           <>
             {detailsId == 0 ? (
-              <div onClick={() => setDetailsId(offer.id)}>
-                <ImageListItem
-                  // onClick={goBack}
-                  key={offer.id}
-                  // sx={{ maxWidth: 240, ml: "10px", mr: "10px", mt: "5px", mb: "5px" }}
-                >
+              <div
+                onClick={() => {
+                  setDetailsId(offer.id);
+                  console.log(offer.id);
+                }}
+              >
+                <ImageListItem key={offer.id}>
                   <img
                     sx={{
                       height: 240,
@@ -108,132 +91,9 @@ function OfferGallery() {
             ) : (
               <>
                 {offer.id == detailsId && (
-                  <ImageListItem
-                    onClick={goBack}
-                    key={offer.id}
-                    cols={2}
-                    sx={{
-                      maxWidth: 400,
-                      ml: "5px",
-                      mr: "5px",
-                      mt: "5px",
-                      mb: "5px",
-                    }}
-                  >
-                    <Card
-                      onClick={() => setDetailsId(0)}
-                      sx={{
-                        ml: "10px",
-                        mr: "10px",
-                        mt: "5px",
-                        mb: "10px",
-                      }}
-                    >
-                      {/* nickname header */}
-                      <CardHeader title={offer?.nickname} />
-                      {/* plant image */}
-                      <CardMedia
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          flexDirection: "row",
-                        }}
-                        style={{
-                          display: "block",
-                          height: 240,
-                          width: "100%",
-                        }}
-                        component="img"
-                        src={offer?.image_url}
-                        alt="plant-img"
-                      />
-                      <Grid sx={{ m: "1rem" }}>
-                        {/* notes */}
-                        <CardContent align="center" style={{ padding: 0 }}>
-                          <Typography
-                            variant="subtitle2"
-                            style={{
-                              padding: -4,
-                              marginTop: 4,
-                              marginBottom: -4,
-                            }}
-                          >
-                            <strong>
-                              <i>Notes: </i>
-                            </strong>
-                            {offer?.notes}
-                          </Typography>
-                        </CardContent>
-
-                        {/* watering */}
-                        <CardContent
-                          align="left"
-                          style={{ padding: 5, marginBottom: 0 }}
-                        >
-                          <Typography
-                            variant="subtitle2"
-                            style={{ padding: 0, marginBottom: 0 }}
-                          >
-                            {/* <ListItem> */}
-                            <strong>Last watering: </strong>
-                            {moment(offer?.dateWatered).format("ll")}
-                            {/* </ListItem> */}
-                          </Typography>
-                        </CardContent>
-
-                        {/* fertilized */}
-                        <CardContent
-                          align="left"
-                          style={{ padding: 5, marginBottom: 0 }}
-                        >
-                          <Typography
-                            variant="subtitle2"
-                            style={{ padding: 0, marginBottom: 0 }}
-                          >
-                            {/* <ListItem> */}
-                            <strong>Fertilized: </strong>
-                            {moment(offer?.dateFertilized).format("ll")}
-                            {/* </ListItem> */}
-                          </Typography>
-                        </CardContent>
-
-                        {/* re-pot */}
-                        <CardContent
-                          align="left"
-                          style={{ padding: 5, marginBottom: 0 }}
-                        >
-                          <Typography
-                            variant="subtitle2"
-                            style={{ padding: 0 }}
-                          >
-                            {/* <ListItem> */}
-                            <strong>Last Repot: </strong>{" "}
-                            {moment(offer?.dateRepotted).format("ll")}
-                            {/* </ListItem> */}
-                          </Typography>
-                        </CardContent>
-                      </Grid>
-                      <Box align="center">
-                        <Button
-                          variant="contained"
-                          size="small"
-                          color="success"
-                          sx={{
-                            marginBottom: 3,
-                            marginTop: 0,
-                            borderRadius: 15,
-                            align: "center",
-                          }}
-                          onClick={() =>
-                            axios.put(`/api/plants/claim/${offer.id}`)
-                          }
-                        >
-                          Claim
-                        </Button>
-                      </Box>
-                    </Card>
-                    <CommentThread plant_id={offer.id} />
-                  </ImageListItem>
+                  <>
+                    <OfferItem offer={offer} />
+                  </>
                 )}
               </>
             )}

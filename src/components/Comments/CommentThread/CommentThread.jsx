@@ -24,7 +24,7 @@ function CommentThread({ plant_id }) {
   const userDetails = useSelector(
     (store) => store.plantDetails.apiDetailsReducer
   );
-  const [viewFeedback, setViewFeedback] = useState(false);
+  const [viewComments, setViewComments] = useState(false);
   const [addThread, setAddThread] = useState(false);
   const [expand, setExpand] = useState([]);
   const [replyId, setReplyId] = useState(-1);
@@ -42,26 +42,26 @@ function CommentThread({ plant_id }) {
           <Button
             variant="contained"
             color="success"
-            onClick={() => setViewFeedback(!viewFeedback)}
+            onClick={() => setViewComments(!viewComments)}
             sx={{ my: 1 }}
           >
-            {!viewFeedback ? " View Comments" : " Cancel"}
+            {!viewComments ? " View Comments" : " Cancel"}
           </Button>
         ) : (
           <Button
             variant="contained"
             color="success"
             onClick={() => {
-              setViewFeedback(!viewFeedback);
+              setViewComments(!viewComments);
               handleAddThreadClick();
             }}
             sx={{ my: 1 }}
           >
             {/* <FontAwesomeIcon icon={faPlus} size="sm" /> */}
-            {!viewFeedback ? " Leave a Comment" : " Cancel"}
+            {!viewComments ? " View Comments" : " Cancel"}
           </Button>
         )}
-        {viewFeedback ? (
+        {viewComments ? (
           <>
             {/** BEGIN THREAD LIST **/}
             <div className="thread-container">
