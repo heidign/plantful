@@ -40,6 +40,32 @@ function PlantList({ item }) {
   return (
     <>
       <main>
+        {plantGallery?.length == 0 ? (
+          <div
+            style={{
+              fontFamily: "Dangwa",
+              fontSize: 40,
+              color: "#dc445c",
+              borderRadius: "1em 0 1em 0",
+              backgroundColor: "#f8f1e4",
+              padding: "7vh",
+              // margin: "1vh"
+            }}
+          >
+            <h4
+              style={{
+                fontFamily: "Roboto",
+                color: "#375379",
+                fontSize: 22,
+                marginLeft: 1,
+              }}
+            >
+              add a new plant to your collection
+            </h4>
+          </div>
+        ) : (
+          ""
+        )}
         <section className="plants" padding="20">
           <Box sx={{ alignContent: "right" }}>
             {/* Upcoming */}
