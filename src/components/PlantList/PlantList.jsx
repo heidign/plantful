@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import moment from "moment";
 // file imports
 import PlantItem from "../PlantItem/PlantItem";
 // mui
-import { styled } from "@mui/material/styles";
-import Fab from "@mui/material/Fab";
-import { IconButton } from "@mui/material";
+import { Grid, Box, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { Grid, Box } from "@mui/material";
 
 // * Plant Collection component
 function PlantList({ item }) {
