@@ -1,7 +1,7 @@
 import React from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Divider, Paper, Box } from "@mui/material";
+import { Button, Divider, Box } from "@mui/material";
 
 // * displays more details 
 function SearchDetails({ item }) {
@@ -13,7 +13,6 @@ function SearchDetails({ item }) {
   const addToCollection = () => {
     dispatch({
       type: 'SET_SEARCH_PLANT',
-      // payload: { trefleId: item.id, image_url: item?.image_url }
       payload: { api_id: item.id, image_url: item?.default_image?.medium_url }
     });
     history.push("/plant-form");
@@ -35,8 +34,7 @@ function SearchDetails({ item }) {
         <Button onClick={goBack} color="success" variant="outlined" size="small">Back</Button>
         <Button onClick={addToCollection} color="success" variant="contained" size="small">Add Plant</Button>
         <Divider component="div" alignSelf="center" sx={{ m: 0.5, p: 0.5}} orientation="horizontal" />
-
-      </Box>
+     </Box>
     );
 };
 

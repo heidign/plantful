@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import moment from "moment";
+// file imports
 import PlantItem from "../PlantItem/PlantItem";
-import { Grid, Box } from "@mui/material";
+// mui
+import { Grid, Box, IconButton } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 // * Plant Collection component
 function PlantList({ item }) {
@@ -39,142 +43,188 @@ function PlantList({ item }) {
 
   return (
     <>
-      <section className="plants" padding="20">
-        <Box sx={{ alignContent: "center" }}>
+      <main>
+        {plantGallery?.length == 0 ? (
           <div
             style={{
+              alignItems: "center",
               display: "flex",
-              flexWrap: "wrap",
-              flexDirection: "column",
+              flexDirection: "row",
+              fontFamily: "Dangwa",
+              fontSize: 35,
+              color: "#dc445c",
+              borderRadius: "1em 0 1em 0",
+              backgroundColor: "#f8f1e4",
+              padding: "1rem",
             }}
           >
-            <h2
-              style={{
-                fontFamily: "Dangwa",
-                fontSize: 40,
-                // color: "#23422a",
-                color: "#dc445c",
-                borderRadius: "0 1em 0 1em",
-                // backgroundColor: "#d1dde5", 
-                backgroundColor: "#f8f1e4",
-                padding: "7vh",
-                margin: "1vh",
-              }}
+            <IconButton
+              sx={{ mx: '1rem', background: "#aaaaaa", width: 50, height: 50, borderRadius: "50%" }}
+              size="large"
+              aria-label="add plant"
+              component={Link}
+              to="/add-plant"
             >
-              Upcoming
-            </h2>
+              <AddIcon fontSize="large" />
+            </IconButton>
             <h4
-              alignItems="center"
               style={{
-                fontFamily: "Dangwa",
-                fontSize: 35,
-                color: "#d1dde5",
-                borderRadius: ".5em .5em .5em .5em",
-                backgroundColor: "#375379",
-                padding: "2vh",
+                fontFamily: "Roboto",
+                color: "#375379",
+                fontSize: 22,
+                marginLeft: 1,
               }}
             >
-              {/* Today */}
-              today
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  align: "center",
-                }}
-              >
-                {plantGallery.map((item) => {
-                  let daysSinceWater = getDaysSinceLastWater(item.dateWatered);
-                  let next = getNextWaterDate(daysSinceWater);
-                  let daysOverdue = today.diff(next, "days");
-                  if (daysOverdue >= 0) {
-                    return (
-                      <PlantItem
-                        key={item?.id}
-                        item={item}
-                        daysOverdue={`${daysOverdue}`}
-                      />
-                    );
-                  }
-                })}
-              </div>
-            </h4>
-            {/* In 3 days */}
-            <h4
-              alignItems="center"
-              style={{
-                fontFamily: "Dangwa",
-                fontSize: 35,
-                color: "#d1dde5",
-                borderRadius: ".5em .5em .5em .5em",
-                backgroundColor: "#375379",
-                padding: "2vh",
-              }}
-            >
-               in 3 days
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                }}
-              >
-                {plantGallery.map((item) => {
-                  let daysSinceWater = getDaysSinceLastWater(item.dateWatered);
-                  let next = getNextWaterDate(daysSinceWater);
-                  let daysOverdue = today.diff(next, "days");
-                  if (daysOverdue >= -3 && daysOverdue < 0) {
-                    return (
-                      <PlantItem
-                        key={item?.id}
-                        item={item}
-                        daysOverdue={daysOverdue}
-                      />
-                    );
-                  }
-                })}
-              </div>
-            </h4>
-            {/* In 7 days */}
-            <h4
-              alignItems="center"
-              style={{
-                fontFamily: "Dangwa",
-                fontSize: 35,
-                color: "#d1dde5",
-                borderRadius: ".5em .5em .5em .5em",
-                backgroundColor: "#375379",
-                padding: "2vh",
-              }}
-            >
-              in one week
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                }}
-              >
-                {plantGallery.map((item) => {
-                  let daysSinceWater = getDaysSinceLastWater(item.dateWatered);
-                  let next = getNextWaterDate(daysSinceWater);
-                  let daysOverdue = today.diff(next, "days");
-                  if (daysOverdue < -3) {
-                    return (
-                      <PlantItem
-                        key={item?.id}
-                        item={item}
-                        daysOverdue={daysOverdue}
-                      />
-                    );
-                  }
-                })}
-              </div>
+              add a new plant to your collection
             </h4>
           </div>
-        </Box>
-      </section>
+        ) : (
+        <section className="plants" padding="20">
+          <Box sx={{ alignContent: "right" }}>
+            {/* Upcoming */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                flexDirection: "column",
+                maxWidth: "125vh",
+              }}
+            >
+              <h2
+                style={{
+                  fontFamily: "Dangwa",
+                  fontSize: 40,
+                  color: "#dc445c",
+                  borderRadius: "0 1em 0 1em",
+                  backgroundColor: "#f8f1e4",
+                  padding: "4vh",
+                }}
+              >
+                Upcoming
+              </h2>
+              {/* Today */}
+              <Grid
+                alignItems="center"
+                textAlign="left"
+                style={{
+                  fontFamily: "Dangwa",
+                  fontSize: 35,
+                  color: "#d1dde5",
+                  borderRadius: ".5em .5em .5em .5em",
+                  backgroundColor: "#375379",
+                  padding: "2vh",
+                }}
+              >
+                today
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    align: "center",
+                  }}
+                >
+                  {plantGallery.map((item) => {
+                    let daysSinceWater = getDaysSinceLastWater(
+                      item.dateWatered
+                    );
+                    let next = getNextWaterDate(daysSinceWater);
+                    let daysOverdue = today.diff(next, "days");
+                    if (daysOverdue >= 0) {
+                      return (
+                        <PlantItem
+                          key={item?.id}
+                          item={item}
+                          daysOverdue={`${daysOverdue}`}
+                        />
+                      );
+                    }
+                  })}
+                </div>
+              </Grid>
+              {/* In 3 days */}
+              <h4
+                alignItems="center"
+                style={{
+                  fontFamily: "Dangwa",
+                  fontSize: 35,
+                  color: "#d1dde5",
+                  borderRadius: ".5em .5em .5em .5em",
+                  backgroundColor: "#375379",
+                  padding: "2vh",
+                }}
+              >
+                in 3 days
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    align: "center",
+                  }}
+                >
+                  {plantGallery.map((item) => {
+                    let daysSinceWater = getDaysSinceLastWater(
+                      item.dateWatered
+                    );
+                    let next = getNextWaterDate(daysSinceWater);
+                    let daysOverdue = today.diff(next, "days");
+                    if (daysOverdue >= -3 && daysOverdue < 0) {
+                      return (
+                        <PlantItem
+                          key={item?.id}
+                          item={item}
+                          daysOverdue={daysOverdue}
+                        />
+                      );
+                    }
+                  })}
+                </div>
+              </h4>
+              {/* In 7 days */}
+              <Grid
+                alignItems="center"
+                style={{
+                  fontFamily: "Dangwa",
+                  fontSize: 35,
+                  color: "#d1dde5",
+                  borderRadius: ".5em .5em .5em .5em",
+                  backgroundColor: "#375379",
+                  padding: "2vh",
+                }}
+              >
+                in one week
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    align: "center",
+                  }}
+                >
+                  {plantGallery.map((item) => {
+                    let daysSinceWater = getDaysSinceLastWater(
+                      item.dateWatered
+                    );
+                    let next = getNextWaterDate(daysSinceWater);
+                    let daysOverdue = today.diff(next, "days");
+                    if (daysOverdue < -3) {
+                      return (
+                        <PlantItem
+                          key={item?.id}
+                          item={item}
+                          daysOverdue={daysOverdue}
+                        />
+                      );
+                    }
+                  })}
+                </div>
+              </Grid>
+            </div>
+          </Box>
+        </section>
+        )}
+      </main>
     </>
   );
 }

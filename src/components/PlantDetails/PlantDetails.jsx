@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import moment from "moment";
+import CommentThread from "../Comments/CommentThread/CommentThread";
 import PropTypes from "prop-types";
 import {
-  FormControlLabel,
   Button,
   Grid,
   Box,
@@ -17,12 +17,11 @@ import {
   CardActions,
   Collapse,
   IconButton,
-  List,
   ListItem,
-  Divider,
+  Divider
 } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-
+import { styled } from "@mui/material/styles";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Icon from "@mdi/react";
 import { mdiWateringCanOutline } from "@mdi/js";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -34,21 +33,30 @@ function PlantDetails() {
   // getting id key from path params
   let { id } = useParams();
 
-  const plantDetails = useSelector((store) => store.plantDetails.data.details);
-  const dataFromUser = useSelector(
-    (store) => store.plantDetails.data.dataFromUser
-  );
-
+  // const apiDetails = useSelector((store) => store.plantDetails.data.details);
+  const apiDetails = useSelector((store) => store.plantDetails.apiDetailsReducer);
+  // const plantDetails = useSelector((store) => store.plantDetails.data.plantDetails);
+  const plantDetails = useSelector((store) => store.plantDetails.plantDetailsReducer);
   const isLoading = useSelector((store) => store.plantDetails.loading);
-  const [isOffered, setIsOffered] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   // fetching all details on page load
   useEffect(() => {
     dispatch({
-      type: "FETCH_DETAILS",
+      type: "FETCH_PLANT_DETAILS",
       payload: { id },
     });
   }, []);
+
+  useEffect(() => {
+    if (plantDetails?.id) {
+      // fetch all base comments on page load
+      dispatch({
+        type: "FETCH_BASE_COMMENTS",
+        payload: { id: plantDetails.id }
+      });
+    }
+  }, [plantDetails]);
 
   const goBack = () => {
     history.goBack("/");
@@ -58,12 +66,12 @@ function PlantDetails() {
     dispatch({
       type: "SET_PLANT_EDIT",
       payload: {
-        ...dataFromUser,
-        dateWatered: moment(dataFromUser.dateWatered).format("YYYY-MM-DD"),
-        dateFertilized: moment(dataFromUser.dateFertilized).format(
+        ...plantDetails,
+        dateWatered: moment(plantDetails.dateWatered).format("YYYY-MM-DD"),
+        dateFertilized: moment(plantDetails.dateFertilized).format(
           "YYYY-MM-DD"
         ),
-        dateRepotted: moment(dataFromUser.dateRepotted).format("YYYY-MM-DD"),
+        dateRepotted: moment(plantDetails.dateRepotted).format("YYYY-MM-DD"),
       },
     });
     history.push(`/edit/${id}`);
@@ -73,10 +81,24 @@ function PlantDetails() {
     return <ClipLoader />;
   }
 
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.longest,
+    }),
+  }));
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   // * notifications based on user's dates
   const getDaysSinceLastWater = (lastWaterTimestamp) => {
     const lastWaterMoment = moment(lastWaterTimestamp);
-
     return today.diff(lastWaterMoment, "days");
   };
 
@@ -90,26 +112,26 @@ function PlantDetails() {
     return moment(nextWaterDate).isBefore();
   };
 
-  const daysSinceLastWater = getDaysSinceLastWater(dataFromUser.dateWatered);
+  const daysSinceLastWater = getDaysSinceLastWater(plantDetails.dateWatered);
   const nextWaterDate = getNextWaterDate(daysSinceLastWater);
   const isWaterDayInThePast = getIsWaterDayInThePast(nextWaterDate);
   const daysOverdue = today.diff(nextWaterDate, "days");
-
 
   return (
     <>
       <Card
         sx={{
           display: "flex",
-          // flexDirection: "row",
+          px: "5px",
           justifyItems: "center",
+          maxWidth: "100%",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            alignItems: "left",
             flexDirection: "column",
+            width: "100vw",
           }}
         >
           {/***** User details ****/}
@@ -129,9 +151,12 @@ function PlantDetails() {
                 justifyItems: "center",
               }}
             >
-              <CardContent style={{ paddingBottom: 0 }} sx={{ flex: "1 0 auto" }}>
+              <CardContent
+                style={{ paddingBottom: 0 }}
+                sx={{ flex: "1 0 auto" }}
+              >
                 <Typography component="div" variant="h5">
-                  {dataFromUser.nickname}
+                  {plantDetails.nickname}
                 </Typography>
                 <Typography
                   variant="subtitle1"
@@ -140,7 +165,7 @@ function PlantDetails() {
                   color="text.secondary"
                   component="div"
                 >
-                  {plantDetails?.scientific_name}
+                  {apiDetails?.scientific_name}
                 </Typography>
 
                 {/* pet toxicity */}
@@ -149,7 +174,7 @@ function PlantDetails() {
                   color="text.secondary"
                   component="div"
                 >
-                  {plantDetails?.poisonous_to_pets == 0
+                  {apiDetails?.poisonous_to_pets == 0
                     ? "Non-toxic to Pets"
                     : "Toxic to Pets"}
                 </Typography>
@@ -160,9 +185,7 @@ function PlantDetails() {
                   color="text.secondary"
                   component="div"
                 >
-                  {
-                    dataFromUser?.isOffered ? "Offered" : "Not Offered"
-                  }{" "}
+                  {plantDetails?.isOffered ? "Offered" : "Not Offered"}{" "}
                 </Typography>
               </CardContent>
             </Box>
@@ -185,28 +208,27 @@ function PlantDetails() {
                 margin: "1rem",
               }}
               component="img"
-              src={dataFromUser?.image_url}
+              src={plantDetails?.image_url}
               alt="plant image from user"
             />
 
             {/* notes */}
             <Box>
-              <CardContent style={{ paddingTop: 0, paddingBottom: 0, width: "100%"}}>
+              <CardContent style={{ paddingBottom: 0, width: "100%" }}>
                 <Typography size="h4" style={{ p: 0 }}>
-                  <strong> Notes:</strong> {dataFromUser?.notes}
+                  <strong> Notes:</strong> {plantDetails?.notes}
                 </Typography>
               </CardContent>
             </Box>
 
             {/* watering */}
             <CardContent>
-              <Typography size="h4"> 
-                <b>Last watered:</b> {moment(dataFromUser?.dateWatered).format("MMMM D")}</Typography>   
-              <Typography
-                size="h4"
-                style={{ fontWeight: "bold"}}
-              >
-              {daysOverdue <= -5 ? "Up to Date" : ''}
+              <Typography size="h4">
+                <b>Last watered:</b>{" "}
+                {moment(plantDetails?.dateWatered).format("MMMM D")}
+              </Typography>
+              <Typography size="h4" style={{ fontWeight: "bold" }}>
+                {daysOverdue <= -5 ? "Up to Date" : ""}
                 <Typography style={{ fontWeight: "bold", color: "#dc445c" }}>
                   <Icon
                     path={mdiWateringCanOutline}
@@ -214,16 +236,15 @@ function PlantDetails() {
                     rotate={30}
                     color="#23422a"
                   />
-                    {isWaterDayInThePast ?
-                      daysOverdue == 0 ?
-                      `Water today` 
-                    : daysOverdue == 1 ?
-                      `Overdue by ${daysOverdue} day, water today `
-                    : `Overdue by ${daysOverdue} days, water today`
-                    :  daysOverdue == 0 ? 
-                      ` Water tomorrow` :
-                      `Water on ${nextWaterDate}`
-                  }
+                  {isWaterDayInThePast
+                    ? daysOverdue == 0
+                      ? `Water today`
+                      : daysOverdue == 1
+                      ? `Overdue by ${daysOverdue} day, water today `
+                      : `Overdue by ${daysOverdue} days, water today`
+                    : daysOverdue == 0
+                    ? ` Water tomorrow`
+                    : `Water on ${nextWaterDate}`}
                 </Typography>
               </Typography>
             </CardContent>
@@ -234,7 +255,7 @@ function PlantDetails() {
                 Last fertilized:
               </Typography>
               <ListItem>
-                {moment(dataFromUser?.dateFertilized).format("MMMM D")}
+                {moment(plantDetails?.dateFertilized).format("MMMM D")}
               </ListItem>
             </CardContent>
 
@@ -244,83 +265,131 @@ function PlantDetails() {
                 Last re-pot:
               </Typography>
               <ListItem>
-                {moment(dataFromUser?.dateRepotted).format("MMMM D")}
+                {moment(plantDetails?.dateRepotted).format("MMMM D")}
               </ListItem>
             </CardContent>
           </Box>
-          <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
-          {/***** Additional details ******/}
-          <Box
-            sx={{
-              display: "flex",
-              // alignItems: "left",
-              flexDirection: "column",
-              justifyContent: "left",
-            }}
+          <Divider component="div" sx={{ m: 0.2 }} orientation="horizontal" />
+
+          {/* Expand Icon */}
+          <CardActions disableSpacing sx={{ padding: 0 }}>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              {" "}
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse
+            onClick={handleExpandClick}
+            in={expanded}
+            timeout="auto"
+            unmountOnExit
           >
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold", padding: 0 }}>
-                Care:{" "}
-              </Typography>
-              <ListItem>{plantDetails?.care_level}</ListItem>
-            </CardContent>
+            {/***** Additional details ******/}
+            <Box
+              sx={{
+                display: "flex",
+                // alignItems: "left",
+                flexDirection: "column",
+                justifyContent: "left",
+              }}
+            >
+              <CardContent>
+                <Typography
+                  size="h4"
+                  style={{ fontWeight: "bold", padding: 0 }}
+                >
+                  Care:{" "}
+                </Typography>
+                <ListItem>{apiDetails?.care_level}</ListItem>
+              </CardContent>
 
-            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+              <Divider
+                component="div"
+                sx={{ m: 0.5 }}
+                orientation="horizontal"
+              />
 
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold", padding: 0 }}>
-                Watering:{" "}
-              </Typography>
-              <ListItem>{plantDetails?.watering}</ListItem>
-            </CardContent>
+              <CardContent>
+                <Typography
+                  size="h4"
+                  style={{ fontWeight: "bold", padding: 0 }}
+                >
+                  Watering:{" "}
+                </Typography>
+                <ListItem>{apiDetails?.watering}</ListItem>
+              </CardContent>
 
-            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+              <Divider
+                component="div"
+                sx={{ m: 0.5 }}
+                orientation="horizontal"
+              />
 
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold", padding: 0 }}>
-                Sunlight:
-              </Typography>
-              <ul>
-                {/* mapping over sunlight array to display item at each index */}
-                {plantDetails?.sunlight.map((sunlight, id) => (
-                  <li>{sunlight}</li>
-                ))}
-              </ul>
-            </CardContent>
+              <CardContent>
+                <Typography
+                  size="h4"
+                  style={{ fontWeight: "bold", padding: 0 }}
+                >
+                  Sunlight:
+                </Typography>
+                <ul>
+                  {/* mapping over sunlight array to display item at each index */}
+                  {apiDetails?.sunlight?.map((sunlight, id) => (
+                    <li>{sunlight}</li>
+                  ))}
+                </ul>
+              </CardContent>
 
-            <Divider component="div" sx={{ p: 0, m: 0.5 }} orientation="horizontal" />
+              <Divider
+                component="div"
+                sx={{ p: 0, m: 0.5 }}
+                orientation="horizontal"
+              />
 
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Growth rate:{" "}
-              </Typography>
-              <ListItem>{plantDetails?.growth_rate}</ListItem>
-            </CardContent>
+              <CardContent>
+                <Typography size="h4" style={{ fontWeight: "bold" }}>
+                  Growth rate:{" "}
+                </Typography>
+                <ListItem>{apiDetails?.growth_rate}</ListItem>
+              </CardContent>
 
-            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+              <Divider
+                component="div"
+                sx={{ m: 0.5 }}
+                orientation="horizontal"
+              />
 
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Soil type:{" "}
-              </Typography>
-              <ul>
-                {/* mapping over soil array to display item at each index */}
-                {plantDetails?.soil.map((soil, id) => (
-                  <li>{soil}</li>
-                ))}
-              </ul>
-            </CardContent>
+              <CardContent>
+                <Typography size="h4" style={{ fontWeight: "bold" }}>
+                  Soil type:{" "}
+                </Typography>
+                <ul>
+                  {/* mapping over soil array to display item at each index */}
+                  {apiDetails?.soil?.map((soil, id) => (
+                    <li>{soil}</li>
+                  ))}
+                </ul>
+              </CardContent>
 
-            <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" />
+              <Divider
+                component="div"
+                sx={{ m: 0.5 }}
+                orientation="horizontal"
+              />
 
-            <CardContent>
-              <Typography size="h4" style={{ fontWeight: "bold" }}>
-                Maintenance level:{" "}
-              </Typography>
-              <ListItem>{plantDetails?.maintenance}</ListItem>
-            </CardContent>
-          </Box>
-          {/* <Divider component="div" sx={{ m: 0.5 }} orientation="horizontal" /> */}
+              <CardContent>
+                <Typography size="h4" style={{ fontWeight: "bold" }}>
+                  Maintenance level:{" "}
+                </Typography>
+                <ListItem>{apiDetails?.maintenance}</ListItem>
+              </CardContent>
+            </Box>
+          </Collapse>
 
           {/*  Back and Edit buttons */}
           <Box
@@ -354,6 +423,7 @@ function PlantDetails() {
           </Box>
         </Box>
       </Card>
+      <CommentThread plant_id={plantDetails.id} />
     </>
   );
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import "./Footer.css";
-import { Box } from "@mui/system";
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
 // It doesn't dispatch any redux actions or display any part of redux state
@@ -9,7 +8,7 @@ import { Box } from "@mui/system";
 function Footer() {
   return (
     <footer>
-       &copy;Heidi Ganac Nicholson
+        &copy;Heidi Ganac Nicholson
     </footer>
   );
 }

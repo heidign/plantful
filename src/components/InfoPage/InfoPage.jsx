@@ -1,11 +1,6 @@
 import React from "react";
 import { Typography } from "@mui/material";
 
-// This is one of our simplest components
-// It doesn't have local state
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is
-
 function InfoPage() {
   return (
     <div className="container">
@@ -14,8 +9,7 @@ function InfoPage() {
           fontFamily: "Dangwa",
           fontSize: 40,
           color: "#d1dde5",
-          // color: "#dc445c",
-          borderRadius: "1em 0 1em 0",
+          borderRadius: "1em 0",
           backgroundColor: "#375379",
           padding: "7vh",
           margin: "1vh",
@@ -39,10 +33,8 @@ function InfoPage() {
         style={{
           fontFamily: "Dangwa",
           fontSize: 35,
-          // color: "#23422a",
           color: "#dc445c",
           borderRadius: "1em 0 1em 0",
-          // backgroundColor: "#d1dde5",
           backgroundColor: "#375379",
           padding: "7vh",
           margin: "1vh",
@@ -79,10 +71,8 @@ function InfoPage() {
         style={{
           fontFamily: "Dangwa",
           fontSize: 28,
-          // color: "#23422a",
           color: "#ffecec",
-          borderRadius: "1em 0 1em 0",
-          // backgroundColor: "#d1dde5",
+          borderRadius: "1em 0",
           backgroundColor: "#375379",
           padding: "7vh",
           margin: "1vh",
@@ -98,18 +88,6 @@ function InfoPage() {
             marginTop: 1,
           }}
         >
-          {/* style={{
-                  fontFamily: "Roboto",
-                  color: "#375379",
-                  fontSize: 16,
-                  marginLeft: 1,
-                  color: "#d1dde5",
-                  borderRadius: "1em 0 1em 0",
-                  backgroundColor: "#375379",
-                  // backgroundColor: "#f8f1e4",
-                  padding: "7vh",
-                  margin: "1vh",
-                }} */}
           <img
             alt="GitHub"
             // align="center"

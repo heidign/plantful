@@ -85,10 +85,10 @@ Alert
   box-sizing: border-box;
   padding: 15px 10px;
   margin: 15px 0;
-  border: 2px solid #e01616;
+  border: 2px solid #dc445c;
   background-color: #efefef;
   border-radius: 3px;
-  color: #e01616;
+  color: #dc445c;
   font-size: 0.8rem;
 }
 
@@ -111,6 +111,10 @@ input {
   margin: 5px;
   margin-bottom: 10px;
 }
+
+/* --------------------------------------------------------------------------------
+Fonts
+-------------------------------------------------------------------------------- */
 
 @font-face {
   font-family: 'Dangwa';
@@ -135,4 +139,24 @@ input {
 @font-face {
   font-family: 'Geshina-Shadow';
   src: url(../../fonts/GeshinaShadow-51G6v.ttf);
+}
+
+/* --------------------------------------------------------------------------------
+Main Content
+-------------------------------------------------------------------------------- */
+
+.content-main {
+  margin-left: 5rem;
+  height: 100vh;
+  width: calc(100% - 5rem);
+  position: fixed;
+  overflow: scroll;
+}
+
+@media only screen and (max-width: 600px) {
+  .content-main {
+    margin-left: 0;
+    width: 100%;
+    padding-bottom: 5rem;
+  }
 }

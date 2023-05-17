@@ -10,12 +10,12 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <text
+        <p
           className="nav-title"
           style={{ fontFamily: "Dangwa", fontSize: 38, marginLeft: "1vh" }}
         >
           Plantful
-        </text>
+        </p>
       </Link>
     
       <div  style={{ marginRight: "1vh" }}>
