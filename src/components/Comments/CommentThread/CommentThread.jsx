@@ -183,7 +183,7 @@ function CommentThread({ plant_id }) {
                                   }}
                                   component="span"
                                   variant="body2"
-                                  color="success"
+                                  color="#23422a"
                                 >
                                   {moment(comment.created_at).format(
                                     "MMM D h:mmA"

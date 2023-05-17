@@ -21,7 +21,7 @@ import PlantForm from "../PlantForm/PlantForm";
 import Profile from "../Profile";
 import PlantDetails from "../PlantDetails/PlantDetails";
 import EditDetailsForm from "../PlantDetails/EditDetailsForm";
-import OfferGallery from "../OfferViews/OfferGallery";
+import OfferGallery from "../OfferViews/OfferGallery/OfferGallery";
 // layout components
 import Nav from "../Nav/Nav";
 import BottomNav from "../Nav/BottomNav";
@@ -36,8 +36,8 @@ const themeOptions = {
   palette: {
     mode: "light",
     primary: {
-      main: '#23422a',
-      light: '#fcf5f0',
+      main: "#23422a",
+      light: "#fcf5f0",
       // dark: "#ffda9a",
     },
     secondary: {
@@ -51,11 +51,11 @@ const themeOptions = {
       paper: "#ffffff",
     },
     text: {
-        primary: '#23422a',
-        secondary: '#23422a',
-        disabled: '#23422a',
-        hint: '#327c36',
-      },
+      primary: "#23422a",
+      secondary: "#23422a",
+      disabled: "#23422a",
+      hint: "#327c36",
+    },
   },
   shape: {
     borderRadius: 0,
@@ -187,7 +187,17 @@ function App() {
               <h1 align="center">404</h1>
             </Route>
           </Switch>
-          <Footer />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            <Footer />
+          </div>
           <BottomNav />
         </div>
       </Router>

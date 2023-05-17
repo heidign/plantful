@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
+// file imports
 import PlantItem from "../PlantItem/PlantItem";
+// mui
+import { styled } from "@mui/material/styles";
+import Fab from "@mui/material/Fab";
+import { IconButton } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import { Grid, Box } from "@mui/material";
 
 // * Plant Collection component
@@ -43,15 +50,26 @@ function PlantList({ item }) {
         {plantGallery?.length == 0 ? (
           <div
             style={{
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "row",
               fontFamily: "Dangwa",
-              fontSize: 40,
+              fontSize: 35,
               color: "#dc445c",
               borderRadius: "1em 0 1em 0",
               backgroundColor: "#f8f1e4",
-              padding: "7vh",
-              // margin: "1vh"
+              padding: "1rem",
             }}
           >
+            <IconButton
+              sx={{ mx: '1rem', background: "#aaaaaa", width: 50, height: 50, borderRadius: "50%" }}
+              size="large"
+              aria-label="add plant"
+              component={Link}
+              to="/add-plant"
+            >
+              <AddIcon fontSize="large" />
+            </IconButton>
             <h4
               style={{
                 fontFamily: "Roboto",
@@ -64,8 +82,6 @@ function PlantList({ item }) {
             </h4>
           </div>
         ) : (
-          ""
-        )}
         <section className="plants" padding="20">
           <Box sx={{ alignContent: "right" }}>
             {/* Upcoming */}
@@ -210,6 +226,7 @@ function PlantList({ item }) {
             </div>
           </Box>
         </section>
+        )}
       </main>
     </>
   );
