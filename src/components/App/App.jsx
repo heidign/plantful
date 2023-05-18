@@ -14,13 +14,13 @@ import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import Search from "../Search/Search";
-import SearchList from "../SearchList/SearchList";
-import SearchDetails from "../SearchDetails/SearchDetails";
+import Search from "../SearchViews/Search/Search";
+import SearchList from "../SearchViews/SearchList/SearchList";
+import SearchDetails from "../SearchViews//SearchDetails/SearchDetails";
 import PlantForm from "../PlantViews/PlantForm/PlantForm";
 import Profile from "../UserProfile/UserProfile";
-import PlantDetails from "../PlantDetails/PlantDetails";
-import EditDetailsForm from "../PlantDetails/EditDetailsForm";
+import PlantDetails from "../PlantViews/PlantDetails/PlantDetails";
+import EditDetailsForm from "../PlantViews/PlantDetails/EditDetails/EditDetailsForm";
 import OfferGallery from "../OfferViews/OfferGallery/OfferGallery";
 // layout components
 import Nav from "../Nav/Nav";
