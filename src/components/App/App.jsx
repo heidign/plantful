@@ -178,10 +178,6 @@ function App() {
               <EditDetailsForm />
             </ProtectedRoute>
 
-            <ProtectedRoute>
-              <BottomNav />
-            </ProtectedRoute>
-
             <Route exact path="/browse">
               <OfferGallery />
             </Route>
@@ -202,6 +198,7 @@ function App() {
           >
             <Footer />
           </div>
+          <BottomNav />
         </div>
       </Router>
     </ThemeProvider>
