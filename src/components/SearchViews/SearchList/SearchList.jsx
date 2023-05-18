@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import SearchAppBar from "../Nav/SearchAppBar";
+import SearchAppBar from "../../Nav/SearchAppBar";
 import SearchItem from "../SearchItem/SearchItem";
 import SearchDetails from "../SearchDetails/SearchDetails";
 // material ui
@@ -33,13 +33,6 @@ function SearchList() {
     setViewingDetails(!viewingDetails);
     setViewingPlantId(id);
   };
-
-  // const SelectedListItem = () {
-  //   const [selectedIndex, setSelectedIndex] = React.useState(1);
-
-  //   const handleListItemClick = (event, index) => {
-  //     setSelectedIndex(index);
-  //   };
 
   return (
     <>
