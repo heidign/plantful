@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import SearchList from "../SearchList/SearchList";
-import SearchAppBar from "../Nav/SearchAppBar";
 // material ui
 import { Box, Paper, Typography, InputBase } from "@mui/material/";
 import Divider from "@mui/material/Divider";
@@ -77,7 +75,6 @@ function Search() {
             </IconButton>
           </Paper>
         </form>
-
         <SearchList />
       </Box>
     </>

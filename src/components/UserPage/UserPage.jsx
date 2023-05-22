@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 // mui
 import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-// file imports
-import Search from "../Search/Search";
 
 function UserPage() {
   const user = useSelector((store) => store.user);

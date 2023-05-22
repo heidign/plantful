@@ -9,7 +9,7 @@ function Nav() {
 
   return (
     <div className="nav">
-      <Link to="/home">
+      <Link to="/profile">
         <p
           className="nav-title"
           style={{ fontFamily: "Dangwa", fontSize: 38, marginLeft: "1vh" }}
@@ -31,7 +31,7 @@ function Nav() {
         {user.id && (
           <>
             <Link className="navLink" to="/add-plant">
-              Add Plant
+              +Plant
             </Link>
 
             {/* <Link className="navLink" to="/user">

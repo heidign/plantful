@@ -14,13 +14,13 @@ import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import Search from "../Search/Search";
-import SearchList from "../SearchList/SearchList";
-import SearchDetails from "../SearchDetails/SearchDetails";
-import PlantForm from "../PlantForm/PlantForm";
-import Profile from "../Profile";
-import PlantDetails from "../PlantDetails/PlantDetails";
-import EditDetailsForm from "../PlantDetails/EditDetailsForm";
+import Search from "../SearchViews/Search/Search";
+import SearchList from "../SearchViews/SearchList/SearchList";
+import SearchDetails from "../SearchViews//SearchDetails/SearchDetails";
+import PlantForm from "../PlantViews/PlantForm/PlantForm";
+import Profile from "../UserProfile/UserProfile";
+import PlantDetails from "../PlantViews/PlantDetails/PlantDetails";
+import EditDetailsForm from "../PlantViews/PlantDetails/EditDetails/EditDetailsForm";
 import OfferGallery from "../OfferViews/OfferGallery/OfferGallery";
 // layout components
 import Nav from "../Nav/Nav";
@@ -138,7 +138,7 @@ function App() {
               {user.id ? (
                 // If the user is already logged in,
                 // redirect them to the /user page
-                <Redirect to="/user" />
+                <Redirect to="/profile" />
               ) : (
                 // Otherwise, show the Landing page
                 <LandingPage />
@@ -152,14 +152,17 @@ function App() {
             >
               {/* <SearchAppBar /> */}
               <Search />
+              <BottomNav />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/search-list">
               <SearchList />
+              <BottomNav />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/search-details">
               <SearchDetails />
+              <BottomNav />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/plant-form">
@@ -168,19 +171,22 @@ function App() {
 
             <ProtectedRoute exact path="/profile">
               <Profile />
+              <BottomNav />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/details/:id">
               <PlantDetails />
+              <BottomNav />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/edit/:id">
               <EditDetailsForm />
             </ProtectedRoute>
 
-            <Route exact path="/browse">
+            <ProtectedRoute exact path="/browse">
               <OfferGallery />
-            </Route>
+              <BottomNav />
+            </ProtectedRoute>
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>
@@ -198,7 +204,6 @@ function App() {
           >
             <Footer />
           </div>
-          <BottomNav />
         </div>
       </Router>
     </ThemeProvider>

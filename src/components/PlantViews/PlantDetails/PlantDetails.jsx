@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import moment from "moment";
-import CommentThread from "../Comments/CommentThread/CommentThread";
+import CommentThread from "../../Comments/CommentThread/CommentThread";
 import PropTypes from "prop-types";
 import {
   Button,
@@ -11,7 +11,6 @@ import {
   Box,
   Typography,
   Card,
-  CardHeader,
   CardMedia,
   CardContent,
   CardActions,
@@ -33,9 +32,7 @@ function PlantDetails() {
   // getting id key from path params
   let { id } = useParams();
 
-  // const apiDetails = useSelector((store) => store.plantDetails.data.details);
   const apiDetails = useSelector((store) => store.plantDetails.apiDetailsReducer);
-  // const plantDetails = useSelector((store) => store.plantDetails.data.plantDetails);
   const plantDetails = useSelector((store) => store.plantDetails.plantDetailsReducer);
   const isLoading = useSelector((store) => store.plantDetails.loading);
   const [expanded, setExpanded] = useState(false);
@@ -134,7 +131,7 @@ function PlantDetails() {
             width: "100vw",
           }}
         >
-          {/***** User details ****/}
+          {/**** User details ****/}
           <Box
             direction="row"
             sx={{

@@ -90,15 +90,15 @@ function InfoPage() {
         >
           <img
             alt="GitHub"
-            // align="center"
             width="14px"
+            // dark icon
             src="https://user-images.githubusercontent.com/3369400/139447912-e0f43f33-6d9f-45f8-be46-2df5bbc91289.png"
             // src="https://user-images.githubusercontent.com/3369400/139448065-39a229ba-4b06-434b-bc67-616e2ed80c8f.png"
             style={{ paddingRight: 4 }}
           />
           <img
-            // align="center"
             width="14px"
+            // dark icon
             // src="https://user-images.githubusercontent.com/98715838/228615593-7949201a-b7e8-49b6-a6a2-7412839631a6.png"
             src="https://user-images.githubusercontent.com/98715838/228616815-4f12afdf-77ab-404f-9878-12f379e8f4ca.png"
             style={{ paddingRight: 5 }}
@@ -106,7 +106,6 @@ function InfoPage() {
           heidign
         </Typography>
       </div>
-      <footer>&copy;Heidi Ganac Nicholson</footer>
     </div>
   );
 }

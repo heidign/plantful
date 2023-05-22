@@ -6,36 +6,17 @@ import {
   Backdrop,
   Grid,
   Typography,
-  Box,
   TextField,
   InputLabel,
   Input,
-  CheckBox,
   Button,
 } from "@mui/material";
-// import { createTheme } from '@mui/material/styles';
 import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
 import "./PlantForm.css";
-
-// const useTheme = createTheme((theme) => ({
-//   form: {
-//     width: "100%",
-//     marginTop: theme.spacing(1),
-//   },
-//   submit: {
-//     margin: theme.spacing(3, 0, 2),
-//   },
-//   backdrop: {
-//     zIndex: theme.zIndex.drawer + 1,
-//     color: "#fff",
-//   },
-// }));
 
 function PlantForm() {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const classes = useTheme();
   const selectedPlant = useSelector((store) => store.currentPlant.image_url);
   const [nicknameLabel, setNicknameLabel] = useState("this plant");
   const [loading, setLoading] = useState(false);
@@ -134,91 +115,83 @@ function PlantForm() {
                   value={input.nickname}
                 />
               </div>
-              </Grid>
-            {/* notes */}
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-evenly">
-                <InputLabel>Any specific notes about your plant?</InputLabel>
-                <TextField
-                  variant="outlined"
-                  color="success"
-                  placeholder=""
-                  onChange={(e) => handleChange(e, "notes")}
-                  value={input.notes}
-                  margin="normal"
-                  label="Notes"
-                  sx={{ width: 195 }}
-                  // size="small"
-                  maxRows={4}
-                  cols="55"
-                />
-             
-            {/* watering */}
-
-                <InputLabel htmlFor="dateWatered">
-                  When was {nicknameLabel} last watered?
-                </InputLabel>
-                <Input
-                  onChange={(e) => handleChange(e, "dateWatered")}
-                  value={input.dateWatered}
-                  color="success"
-                  size="small"
-                  label="date"
-                  name="dateWatered"
-                  type="date"
-                  placeholder="Date last watered"
-                />
-           {/* fertilized */}
-                <InputLabel htmlFor="dateFertilized">
-                  When was {nicknameLabel} last fertilized?
-                </InputLabel>
-                <Input
-                  onChange={(e) => handleChange(e, "dateFertilized")}
-                  value={input.dateFertilized}
-                  color="success"
-                  name="dateFertilized"
-                  type="date"
-                  placeholder="Date last fertilized"
-                />
-          
-              {/* repot */}
-    
-                <InputLabel htmlFor="dateRepotted">
-                  When was {nicknameLabel} last repotted?
-                </InputLabel>
-                <Input
-                  onChange={(e) => handleChange(e, "dateRepotted")}
-                  value={input.dateRepotted}
-                  color="success"
-                  name="dateRepotted"
-                  type="date"
-                  placeholder="Date of last re-pot"
-                />
-    
             </Grid>
-            
-              {/* image */}
-            <Grid container direction="row" justifyContent="left" sx={{m: 1}} >
-              
-                <InputLabel htmlFor="imageInput" align="left">
-                  Replace image:
-                </InputLabel>
-                <Input
-                  align="right"
-                  onChange={(e) => handleChange(e, "image_url")}
-                  value={input.image_url}
-                  color="success"
-                  name="imageInput"
-                  type="text"
-                  placeholder=" Image URL"
-                  sx={{
-                    width: "85%",
-                  }}
-                  />
-                  </Grid>
-           
+            {/* notes */}
+            <Grid container direction="row" justifyContent="space-evenly">
+              <InputLabel>Any specific notes about your plant?</InputLabel>
+              <TextField
+                variant="outlined"
+                color="success"
+                placeholder=""
+                onChange={(e) => handleChange(e, "notes")}
+                value={input.notes}
+                margin="normal"
+                label="Notes"
+                sx={{ width: 195 }}
+                maxRows={4}
+                cols="55"
+              />
+
+              {/* watering */}
+              <InputLabel htmlFor="dateWatered">
+                When was {nicknameLabel} last watered?
+              </InputLabel>
+              <Input
+                onChange={(e) => handleChange(e, "dateWatered")}
+                value={input.dateWatered}
+                color="success"
+                size="small"
+                label="date"
+                name="dateWatered"
+                type="date"
+                placeholder="Date last watered"
+              />
+              {/* fertilized */}
+              <InputLabel htmlFor="dateFertilized">
+                When was {nicknameLabel} last fertilized?
+              </InputLabel>
+              <Input
+                onChange={(e) => handleChange(e, "dateFertilized")}
+                value={input.dateFertilized}
+                color="success"
+                name="dateFertilized"
+                type="date"
+                placeholder="Date last fertilized"
+              />
+
+              {/* repot */}
+              <InputLabel htmlFor="dateRepotted">
+                When was {nicknameLabel} last repotted?
+              </InputLabel>
+              <Input
+                onChange={(e) => handleChange(e, "dateRepotted")}
+                value={input.dateRepotted}
+                color="success"
+                name="dateRepotted"
+                type="date"
+                placeholder="Date of last re-pot"
+              />
+            </Grid>
+
+            {/* image */}
+            <Grid container direction="row" justifyContent="left" sx={{ m: 1 }}>
+              <InputLabel htmlFor="imageInput" align="left">
+                Replace image:
+              </InputLabel>
+              <Input
+                align="right"
+                onChange={(e) => handleChange(e, "image_url")}
+                value={input.image_url}
+                color="success"
+                name="imageInput"
+                type="text"
+                placeholder=" Image URL"
+                sx={{
+                  width: "85%",
+                }}
+              />
+            </Grid>
+
             {/* buttons */}
             <Grid
               marginLeft={7.5}

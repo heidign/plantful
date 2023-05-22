@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {useSelector} from 'react-redux';
-import PlantList from './PlantList/PlantList';
+import PlantList from '../PlantViews/PlantList/PlantList';
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
