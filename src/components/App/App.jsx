@@ -152,14 +152,17 @@ function App() {
             >
               {/* <SearchAppBar /> */}
               <Search />
+              <BottomNav />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/search-list">
               <SearchList />
+              <BottomNav />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/search-details">
               <SearchDetails />
+              <BottomNav />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/plant-form">
@@ -168,10 +171,12 @@ function App() {
 
             <ProtectedRoute exact path="/profile">
               <Profile />
+              <BottomNav />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/details/:id">
               <PlantDetails />
+              <BottomNav />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/edit/:id">
@@ -198,7 +203,7 @@ function App() {
           >
             <Footer />
           </div>
-          <BottomNav />
+          {/* <BottomNav /> */}
         </div>
       </Router>
     </ThemeProvider>
