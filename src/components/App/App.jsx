@@ -138,7 +138,7 @@ function App() {
               {user.id ? (
                 // If the user is already logged in,
                 // redirect them to the /user page
-                <Redirect to="/user" />
+                <Redirect to="/profile" />
               ) : (
                 // Otherwise, show the Landing page
                 <LandingPage />
@@ -183,9 +183,10 @@ function App() {
               <EditDetailsForm />
             </ProtectedRoute>
 
-            <Route exact path="/browse">
+            <ProtectedRoute exact path="/browse">
               <OfferGallery />
-            </Route>
+              <BottomNav />
+            </ProtectedRoute>
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>
@@ -203,7 +204,6 @@ function App() {
           >
             <Footer />
           </div>
-          {/* <BottomNav /> */}
         </div>
       </Router>
     </ThemeProvider>
